@@ -88,6 +88,7 @@ function homeScreen({ navigation }) {
             borderWidth: 3,
           },
         ]}
+        onPress={() => navigation.navigate("AddItem")}
       >
         <Text style={[styles.text, { color: "#6C6C6C" }]}>Add Item</Text>
         <Image
