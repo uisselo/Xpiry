@@ -4,6 +4,10 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 function homeScreen({ navigation }) {
   return (
     <View style={[styles.container]}>
+      <View style={[styles.welcome]}>
+        <Text style={{ fontSize: 20 }}>Welcome</Text>
+        <Text style={{ fontSize: 30 }}>Nunito Sans</Text>
+      </View>
       <TouchableOpacity // all items
         style={[
           styles.box,
@@ -123,6 +127,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     position: "absolute",
     top: 0,
+  },
+  welcome: {
+    width: 350,
+    paddingBottom: 15,
   },
   icon: {
     width: 70,
