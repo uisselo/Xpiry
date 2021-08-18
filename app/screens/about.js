@@ -18,7 +18,7 @@ function about(props) {
           color="#D90026"
           title=" Terms of Use"
           onPress={() =>
-            Alert.prompt("My Title", "My Message", text => console.log(text))
+            Alert.prompt(" Terms of Use", " Terms of Use", text => console.log(text))
           }
         />
 
@@ -26,7 +26,7 @@ function about(props) {
           color="#D90026"
           title=" Privacy Policy"
           onPress={() =>
-            Alert.prompt("My Title", "My Message", text => console.log(text))
+            Alert.prompt(" Privacy Policy", " Privacy Policy", text => console.log(text))
           }
         />
       </View>

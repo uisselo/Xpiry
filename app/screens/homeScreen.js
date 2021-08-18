@@ -8,6 +8,7 @@ function homeScreen({ navigation }) {
         <Text style={{ fontSize: 20 }}>Welcome</Text>
         <Text style={{ fontSize: 30 }}>Nunito Sans</Text>
       </View>
+      
       <TouchableOpacity // all items
         style={[
           styles.box,
