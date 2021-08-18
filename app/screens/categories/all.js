@@ -10,11 +10,7 @@ function all(props) {
 }
 
  // input items to search
-<SearchBar
-  placeholder="Search here"
-  onPress={() => alert("onPress")}
-  onChangeText={(text) => console.log(text)}
-/>
+
 
 const styles = StyleSheet.create({
   container: {
