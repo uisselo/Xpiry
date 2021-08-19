@@ -14,21 +14,18 @@ function about(props) {
 
 
       <View style={styles.fixToText}>
-        <Button
-          color="#D90026"
-          title=" Terms of Use"
-          onPress={() =>
-            Alert.prompt(" Terms of Use", " Terms of Use", text => console.log(text))
-          }
-        />
+         <TouchableOpacity
+        onPress={() => console.log("All")}>
+          <Text style={[styles.txt]}>Terms of Use</Text>
+        </TouchableOpacity>
 
-        <Button
-          color="#D90026"
-          title=" Privacy Policy"
-          onPress={() =>
-            Alert.prompt(" Privacy Policy", " Privacy Policy", text => console.log(text))
-          }
-        />
+
+        <TouchableOpacity
+        onPress={() => console.log("All")}>
+          <Text style={[styles.txt]}>Privacy Policy</Text>
+        </TouchableOpacity>
+
+      
       </View>
 
     </View>
@@ -59,9 +56,13 @@ const styles = StyleSheet.create({
     padding: 50
   },
   fixToText: {
-    //position: 'absolute',
+    padding: 20,
     bottom: 0,
     left: 0
+  },
+  txt:{
+   color:"#D90026",
+    fontSize: 18,
   }
 });
 
