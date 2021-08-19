@@ -13,6 +13,9 @@ function journal(props) {
         onPress={() => console.log("All")}
         style={[
           styles.box,
+          {
+             backgroundColor: "#ffb6b9"
+          },
         ]}
       >
          <Text style={[styles.text]}>Tips on Medicine Intake</Text>
@@ -22,6 +25,9 @@ function journal(props) {
         onPress={() => console.log("All")}
         style={[
           styles.box,
+           {
+             backgroundColor: "#ffd2a5"
+          },
         ]}
       >
          <Text style={[styles.text]}>Tips on Medicine Intake</Text>
@@ -31,6 +37,9 @@ function journal(props) {
         onPress={() => console.log("All")}
         style={[
           styles.box,
+          {
+             backgroundColor: "#8AC6D1"
+          },
         ]}
       >
          <Text style={[styles.text]}>Tips on Medicine Intake</Text>
@@ -55,19 +64,18 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
   box: {
-    width: 220,
+    width: 300,
     height: 170,
     margin: 5,
     borderRadius: 20,
-    justifyContent: "center"
+    justifyContent: "center",
+  //  backgroundColor: "#ffb6b9"
   },
   text: {
     padding: 30,
     color: "black",
     fontWeight: "bold",
    // position: "absolute",
-  
-    backgroundColor: "pink"
   }
 });
 
