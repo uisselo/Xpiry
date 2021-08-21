@@ -3,12 +3,12 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 
 function homeScreen({ navigation }) {
   return (
-    <View style={[styles.container]}>
-      <View style={[styles.welcome]}>
+    <View style={styles.container}>
+      <View style={styles.header}>
         <Text style={{ fontSize: 20 }}>Welcome</Text>
         <Text style={{ fontSize: 30 }}>Nunito Sans</Text>
       </View>
-      
+
       <TouchableOpacity // all items
         style={[
           styles.box,
@@ -18,7 +18,7 @@ function homeScreen({ navigation }) {
         ]}
         onPress={() => navigation.navigate("All")}
       >
-        <Text style={[styles.text]}>All Items</Text>
+        <Text style={styles.text}>All Items</Text>
         <Image
           source={{ uri: "https://i.imgur.com/L3JFbmd.png" }}
           style={styles.icon}
@@ -33,7 +33,7 @@ function homeScreen({ navigation }) {
         ]}
         onPress={() => navigation.navigate("Expired")}
       >
-        <Text style={[styles.text]}>Expired Items</Text>
+        <Text style={styles.text}>Expired Items</Text>
         <Image
           source={{ uri: "https://i.imgur.com/YjKWeo4.png" }}
           style={styles.icon}
@@ -48,7 +48,7 @@ function homeScreen({ navigation }) {
         ]}
         onPress={() => navigation.navigate("Food")}
       >
-        <Text style={[styles.text]}>Food</Text>
+        <Text style={styles.text}>Food</Text>
         <Image
           source={{ uri: "https://i.imgur.com/tCeuzKA.png" }}
           style={styles.icon}
@@ -63,7 +63,7 @@ function homeScreen({ navigation }) {
         ]}
         onPress={() => navigation.navigate("Cosmetics")}
       >
-        <Text style={[styles.text]}>Cosmetics</Text>
+        <Text style={styles.text}>Cosmetics</Text>
         <Image
           source={{ uri: "https://i.imgur.com/ogwnOqn.png" }}
           style={styles.icon}
@@ -78,7 +78,7 @@ function homeScreen({ navigation }) {
         ]}
         onPress={() => navigation.navigate("Medicine")}
       >
-        <Text style={[styles.text]}>Medicine</Text>
+        <Text style={styles.text}>Medicine</Text>
         <Image
           source={{ uri: "https://i.imgur.com/3kq4QjT.png" }}
           style={styles.icon}
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
   },
-  welcome: {
+  header: {
     width: 350,
     paddingBottom: 15,
   },
