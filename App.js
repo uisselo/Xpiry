@@ -16,8 +16,12 @@ import food from "./app/screens/categories/food";
 import cosmetics from "./app/screens/categories/cosmetics";
 import medicine from "./app/screens/categories/medicine";
 import addItem from "./app/screens/addItem";
+import page1 from "./app/screens/journal pages/page1";
+import page2 from "./app/screens/journal pages/page2";
+import page3 from "./app/screens/journal pages/page3";
 
 const HomeStack = createStackNavigator();
+const JournalStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 // home screen
@@ -35,6 +39,18 @@ const HomeStackScreen = () => {
   );
 };
 
+// journal screen
+const JournalStackScreen = () => {
+  return (
+    <JournalStack.Navigator screenOptions={{ headerShown: false }}>
+      <JournalStack.Screen name="Journal" component={journal} />
+      <JournalStack.Screen name="Page1" component={page1} />
+      <JournalStack.Screen name="Page2" component={page2} />
+      <JournalStack.Screen name="Page3" component={page3} />
+    </JournalStack.Navigator>
+  );
+};
+
 // bottom tab navigation
 export default () => {
   return (
@@ -42,7 +58,7 @@ export default () => {
       <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen name="Home" component={HomeStackScreen} />
         <Tab.Screen name="Dashboard" component={dashboard} />
-        <Tab.Screen name="Journal" component={journal} />
+        <Tab.Screen name="Journal" component={JournalStackScreen} />
         <Tab.Screen name="About" component={about} />
       </Tab.Navigator>
     </NavigationContainer>
