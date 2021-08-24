@@ -9,6 +9,9 @@ import {
 } from "react-native";
 import SelectCategory from "react-native-picker-select";
 import DatePicker from "@react-native-community/datetimepicker";
+import NumericInput from 'react-native-numeric-input'
+import react from "react";
+
 
 function addItem(props) {
   const [itemName, onChangeItemName] = useState(null);
@@ -65,14 +68,30 @@ function addItem(props) {
           ]}
         />
         <Text style={styles.label}>Expiration Date</Text>
+        
         <DatePicker
           testID="dateTimePicker"
           value={date}
           mode="date"
           is24Hour={true}
-          display="spinner"
+          display="spinner"c
           onChange={onChange}
         />
+        <Text style={styles.label}>Quantity</Text>
+        <NumericInput 
+            value={React.value} 
+            onChange={value => React.useState({value})} 
+            onLimitReached={(isMax,msg) => console.log(isMax,msg)}
+            totalWidth={240} 
+            totalHeight={50} 
+            iconSize={25}
+            step={1}
+            valueType='real'
+            rounded 
+            textColor='#B0228C' 
+            iconStyle={{ color: 'white' }} 
+            rightButtonBackgroundColor='#EA3788' 
+            leftButtonBackgroundColor='#E56B70'/>
         <Text style={styles.label}>Barcode Number</Text>
         <TextInput
           style={styles.input}
@@ -80,6 +99,7 @@ function addItem(props) {
           value={barcodeNum}
           placeholder="Enter barcode number"
         ></TextInput>
+      
         <View style={styles.buttons}>
           <TouchableOpacity style={styles.btnScan}>
             <Text style={{ fontSize: 20, color: "#EA4C4C" }}>Scan Barcode</Text>
