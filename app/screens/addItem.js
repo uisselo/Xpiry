@@ -6,12 +6,12 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import SelectCategory from "react-native-picker-select";
 import DatePicker from "@react-native-community/datetimepicker";
-import NumericInput from 'react-native-numeric-input'
+import NumericInput from "react-native-numeric-input";
 import react from "react";
-
 
 function addItem(props) {
   const [itemName, onChangeItemName] = useState(null);
@@ -46,70 +46,99 @@ function addItem(props) {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.form}>
-        <Text style={{ fontSize: 30 }}>Add new Item</Text>
-        <Text style={styles.label}>Item Name</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeItemName}
-          value={itemName}
-          placeholder="Enter product name"
-        ></TextInput>
-        <Text style={styles.label}>Item Category</Text>
-        <SelectCategory
-          onValueChange={(value) => console.log(value)}
-          style={pickerStyle}
-          placeholder={placeholder}
-          items={[
-            { label: "Food", value: "Food" },
-            { label: "Cosmetics", value: "Cosmetics" },
-            { label: "Medicine", value: "Medicine" },
-          ]}
-        />
-        <Text style={styles.label}>Expiration Date</Text>
-        
-        <DatePicker
-          testID="dateTimePicker"
-          value={date}
-          mode="date"
-          is24Hour={true}
-          display="spinner"c
-          onChange={onChange}
-        />
-        <Text style={styles.label}>Quantity</Text>
-        <NumericInput 
-            value={React.value} 
-            onChange={value => React.useState({value})} 
-            onLimitReached={(isMax,msg) => console.log(isMax,msg)}
-            totalWidth={240} 
-            totalHeight={50} 
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.form}>
+          <Text style={{ fontSize: 30 }}>Add new Item</Text>
+          
+          <Text style={styles.label}>Item Name</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeItemName}
+            value={itemName}
+            placeholder="Enter product name"
+          ></TextInput>
+
+          <Text style={styles.label}>Item Category</Text>
+          <SelectCategory
+            onValueChange={(value) => console.log(value)}
+            style={pickerStyle}
+            placeholder={placeholder}
+            items={[
+              { label: "Food", value: "Food" },
+              { label: "Cosmetics", value: "Cosmetics" },
+              { label: "Medicine", value: "Medicine" },
+            ]}
+          />
+
+          <Text style={styles.label}>Expiration Date</Text>
+          <DatePicker
+            testID="dateTimePicker"
+            value={date}
+            mode="date"
+            is24Hour={true}
+            display="spinner"
+            onChange={onChange}
+          />
+
+          <Text style={styles.label}>Quantity</Text>
+          <NumericInput
+            value={React.value}
+            onChange={(value) => React.useState({ value })}
+            onLimitReached={(isMax, msg) => console.log(isMax, msg)}
+            totalWidth={240}
+            totalHeight={40}
             iconSize={25}
             step={1}
-            valueType='real'
-            rounded 
-            textColor='#B0228C' 
-            iconStyle={{ color: 'white' }} 
-            rightButtonBackgroundColor='#EA3788' 
-            leftButtonBackgroundColor='#E56B70'/>
-        <Text style={styles.label}>Barcode Number</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeBarcodeNum}
-          value={barcodeNum}
-          placeholder="Enter barcode number"
-        ></TextInput>
-      
-        <View style={styles.buttons}>
-          <TouchableOpacity style={styles.btnScan}>
-            <Text style={{ fontSize: 20, color: "#EA4C4C" }}>Scan Barcode</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.btnSave}>
-            <Text style={{ fontSize: 20, color: "#fff" }}>Save</Text>
-          </TouchableOpacity>
+            valueType="real"
+            rounded
+            textColor="#000"
+            borderColor="#fff"
+            inputStyle={{
+              backgroundColor: "#fff",
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 10,
+                height: 20,
+              },
+              shadowRadius: 20,
+              shadowOpacity: 0.05,
+            }}
+            iconStyle={{
+              color: "#fff",
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 10,
+                height: 20,
+              },
+              shadowRadius: 20,
+              shadowOpacity: 0.05,
+            }}
+            rightButtonBackgroundColor="#EA4C4C"
+            leftButtonBackgroundColor="#EA4C4C"
+          />
+
+          <Text style={styles.label}>Barcode Number</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeBarcodeNum}
+            value={barcodeNum}
+            placeholder="Enter barcode number"
+          ></TextInput>
+
+          <View style={styles.buttons}>
+            <TouchableOpacity style={styles.btnScan}>
+              <Text style={{ fontSize: 20, color: "#EA4C4C" }}>
+                Scan Barcode
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.btnSave}>
+              <Text style={{ fontSize: 20, color: "#fff" }}>Save</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -120,7 +149,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     flexWrap: "wrap",
-    paddingTop: 50,
+    paddingVertical: 50,
   },
   form: {
     width: 350,
