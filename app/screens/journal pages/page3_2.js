@@ -1,20 +1,18 @@
-// Reducing Food Wastes
-
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Linking  } from "react-native";
 
-function page3({ navigation }) {
+function page3_2({ navigation }) {
   
   return (
     <View style={[styles.container]}>
       <View style={[styles.vtitle]}>
-        <Text style={[styles.title ]}> Reducing Food Wastes</Text>
+        <Text style={[styles.title ]}>Reducing Food Wastes</Text>
         
         
       </View>
       <View style={[styles.fixToText]}>
       <TouchableOpacity
-        onPress={() => navigation.navigate("Page3_2")}
+        onPress={() => navigation.navigate("Page3_3")}
         style={[
           styles.box,
         ]}
@@ -66,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default page3;
+export default page3_2;

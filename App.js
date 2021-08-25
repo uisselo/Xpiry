@@ -19,6 +19,12 @@ import addItem from "./app/screens/addItem";
 import page1 from "./app/screens/journal pages/page1";
 import page2 from "./app/screens/journal pages/page2";
 import page3 from "./app/screens/journal pages/page3";
+import page1_2 from "./app/screens/journal pages/page1_2";
+import page1_3 from "./app/screens/journal pages/page1_3";
+import page2_2 from "./app/screens/journal pages/page2_2";
+import page2_3 from "./app/screens/journal pages/page2_3";
+import page3_2 from "./app/screens/journal pages/page3_2";
+import page3_3 from "./app/screens/journal pages/page3_3";
 
 const HomeStack = createStackNavigator();
 const JournalStack = createStackNavigator();
@@ -45,8 +51,15 @@ const JournalStackScreen = () => {
     <JournalStack.Navigator screenOptions={{ headerShown: false }}>
       <JournalStack.Screen name="Journal" component={journal} />
       <JournalStack.Screen name="Page1" component={page1} />
+      <JournalStack.Screen name="Page1_2" component={page1_2} />
+      <JournalStack.Screen name="Page1_3" component={page1_3} />
       <JournalStack.Screen name="Page2" component={page2} />
+      <JournalStack.Screen name="Page2_2" component={page2_2} />
+      <JournalStack.Screen name="Page2_3" component={page2_3} />
       <JournalStack.Screen name="Page3" component={page3} />
+      <JournalStack.Screen name="Page3_2" component={page3_2} />
+      <JournalStack.Screen name="Page3_3" component={page3_3} />
+      
     </JournalStack.Navigator>
   );
 };

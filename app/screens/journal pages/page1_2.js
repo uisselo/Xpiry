@@ -1,20 +1,16 @@
-// Reducing Food Wastes
-
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Linking  } from "react-native";
 
-function page3({ navigation }) {
+function page1_2({ navigation }) {
   
   return (
     <View style={[styles.container]}>
       <View style={[styles.vtitle]}>
-        <Text style={[styles.title ]}> Reducing Food Wastes</Text>
-        
         
       </View>
       <View style={[styles.fixToText]}>
       <TouchableOpacity
-        onPress={() => navigation.navigate("Page3_2")}
+        onPress={() => navigation.navigate("Page1_3")}
         style={[
           styles.box,
         ]}
@@ -40,7 +36,12 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     
   },
-  
+  title:{
+    color: "#fff",
+    fontSize: 30,
+    borderRadius: 30,    
+    backgroundColor: "pink"
+  },
   box: {
     width: 200,
     height: 50,
@@ -50,12 +51,28 @@ const styles = StyleSheet.create({
    
    
   },
-   
+   content: {
+     fontFamily: "Cochin",
+    fontSize: 20,
+    textShadowRadius: 1,
+    margin: 10,
+    textAlign: "justify",
+    padding: 10,
+  },
   fixToText: {
     bottom: 0,
     left: 0,
   },
-  
+  link: {
+     fontSize: 20,
+    textShadowRadius: 1,
+    margin: 10,
+    fontWeight: "bold",
+    textAlign: "justify",
+    padding: 10,
+    color: "#AEC6CF"
+
+  },
   text: {
     padding: 20,
     fontSize: 14,
@@ -66,4 +83,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default page3;
+export default page1_2;
