@@ -1,24 +1,14 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Linking  } from "react-native";
 
-function page1({ navigation }) {
+function page1(props) {
   
   return (
     <View style={[styles.container]}>
       <View style={[styles.vtitle]}>
+        <Text> Tips on Medicine Intake</Text>
         
-
       </View>
-      <View style={[styles.fixToText]}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Page1_2")}
-        style={[
-          styles.box,
-        ]}
-      >
-        <Text style={[styles.text]}>Next</Text>
-      </TouchableOpacity>
-        </View>
     </View>
   );
 }
@@ -32,56 +22,15 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     paddingTop: 50,
   },
-  vtitle: {
+  title: {
     width: 350,
     paddingBottom: 15,
     
   },
-  title:{
-    color: "#fff",
-    fontSize: 30,
-    borderRadius: 30,    
-    backgroundColor: "pink"
-  },
-  box: {
-    width: 200,
-    height: 50,
-    margin: 5,
-    borderRadius: 20,    
-    backgroundColor: "#EA4C4C",
-   
-   
-  },
-   content: {
-     fontFamily: "Cochin",
-    fontSize: 20,
-    textShadowRadius: 1,
-    margin: 10,
-    textAlign: "justify",
-    padding: 10,
-  },
-  fixToText: {
-    bottom: 0,
-    left: 0,
-  },
-  link: {
-     fontSize: 20,
-    textShadowRadius: 1,
-    margin: 10,
-    fontWeight: "bold",
-    textAlign: "justify",
-    padding: 10,
-    color: "#AEC6CF"
-
-  },
-  text: {
-    padding: 20,
-    fontSize: 14,
-    color: "#fff",
-    fontWeight: "bold",
-     textAlign: "center"
-   //position: "absolute",
-  },
+  
+ 
 });
+
+
 
 export default page1;
