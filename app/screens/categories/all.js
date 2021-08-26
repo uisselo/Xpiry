@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -8,7 +8,7 @@ import {
   TextInput,
 } from 'react-native';
 
-const all = () => {
+const App = () => {
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingLeft: 20,
     margin: 5,
-    borderColor: '#009688',
+    borderColor: '##FBFBFB',
     backgroundColor: '#FFFFFF',
   },
 });
