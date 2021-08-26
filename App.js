@@ -1,9 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView, Image } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Icon from "react-native-vector-icons/Feather";
 
 // screens
 import homeScreen from "./app/screens/homeScreen";
@@ -55,11 +55,49 @@ const JournalStackScreen = () => {
 export default () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen name="Home" component={HomeStackScreen} />
-        <Tab.Screen name="Dashboard" component={dashboard} />
-        <Tab.Screen name="Journal" component={JournalStackScreen} />
-        <Tab.Screen name="About" component={about} />
+      <Tab.Navigator
+        screenOptions={{
+          headerShown: false,
+          tabBarActiveTintColor: "#EA4C4C",
+          tabBarInactiveTintColor: "#555",
+        }}
+      >
+        <Tab.Screen
+          name="Home"
+          component={HomeStackScreen}
+          options={{
+            tabBarIcon: ({ size, color }) => (
+              <Icon name="home" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Dashboard"
+          component={dashboard}
+          options={{
+            tabBarIcon: ({ size, color }) => (
+              <Icon name="grid" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Journal"
+          component={JournalStackScreen}
+          options={{
+            tabBarIcon: ({ size, color }) => (
+              <Icon name="file-text" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="About"
+          component={about}
+          options={{
+            tabBarIcon: ({ size, color }) => (
+              <Icon name="help-circle" size={size} color={color} />
+            ),
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
