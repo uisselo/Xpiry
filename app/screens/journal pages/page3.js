@@ -7,10 +7,19 @@ import {
   View,
   TouchableOpacity,
   Linking,
+  ScrollView
 } from "react-native";
 
 function page3(props) {
-  return <Text>Page 3</Text>;
+  return (
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <View style={styles.container}>
+        <View style={{ width: 350 }}>
+          <Text>Page 3</Text>
+        </View>
+      </View>
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({

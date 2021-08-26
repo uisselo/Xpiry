@@ -1,3 +1,5 @@
+// Tips on Medicine Intake
+
 import React from "react";
 import {
   StyleSheet,
@@ -5,10 +7,19 @@ import {
   View,
   TouchableOpacity,
   Linking,
+  ScrollView,
 } from "react-native";
 
 function page1({ navigation }) {
-  return <Text>Page 1</Text>;
+  return (
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <View style={styles.container}>
+        <View style={{ width: 350 }}>
+          <Text>Page 1</Text>
+        </View>
+      </View>
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -19,10 +30,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     paddingTop: 50,
-  },
-  title: {
-    width: 350,
-    paddingBottom: 15,
   },
 });
 

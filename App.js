@@ -43,7 +43,7 @@ const HomeStackScreen = () => {
 const JournalStackScreen = () => {
   return (
     <JournalStack.Navigator screenOptions={{ headerShown: false }}>
-      <JournalStack.Screen name="Journal" component={journal} />
+      <JournalStack.Screen name="JournalScreen" component={journal} />
       <JournalStack.Screen name="Page1" component={page1} />
       <JournalStack.Screen name="Page2" component={page2} />
       <JournalStack.Screen name="Page3" component={page3} />
