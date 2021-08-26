@@ -98,11 +98,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingLeft: 20,
     margin: 5,
-    borderColor: '##FBFBFB',
+    borderColor: '#FBFBFB',
     backgroundColor: '#FFFFFF',
   },
 });
-
 export default all;
 
     
