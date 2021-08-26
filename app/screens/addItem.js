@@ -4,14 +4,12 @@ import {
   Text,
   View,
   TextInput,
-  Button,
   TouchableOpacity,
   ScrollView,
 } from "react-native";
 import SelectCategory from "react-native-picker-select";
 import DatePicker from "@react-native-community/datetimepicker";
 import NumericInput from "react-native-numeric-input";
-import react from "react";
 
 function addItem(props) {
   const [itemName, onChangeItemName] = useState(null);
@@ -20,7 +18,6 @@ function addItem(props) {
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
-    setShow(Platform.OS === "ios");
     setDate(currentDate);
   };
 
@@ -48,9 +45,9 @@ function addItem(props) {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <View style={styles.form}>
+        <View style={{ width: 350 }}>
           <Text style={{ fontSize: 30 }}>Add new Item</Text>
-          
+
           <Text style={styles.label}>Item Name</Text>
           <TextInput
             style={styles.input}
@@ -150,9 +147,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     paddingVertical: 50,
-  },
-  form: {
-    width: 350,
   },
   input: {
     height: 40,

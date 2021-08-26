@@ -3,44 +3,39 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 
 function journal({ navigation }) {
   return (
-    <View style={[styles.container]}>
-      <View style={[styles.welcome]}>
-        <Text style={{ fontSize: 30 }}>Journal</Text>
+    <View style={styles.container}>
+      <View style={{ width: 350 }}>
+        <Text style={{ fontSize: 30, marginBottom: 10 }}>Journal</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Page1")}>
+          <Image
+            source={{
+              uri: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+            }}
+            style={styles.journal}
+          />
+          <Text style={styles.title}>Tips on Medicine Intake</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Page2")}>
+          <Image
+            source={{
+              uri: "https://images.unsplash.com/photo-1593014290067-93bac771f1c4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+            }}
+            style={styles.journal}
+          />
+          <Text style={styles.title}>
+            Why we shouldn't consume expired goods
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Page3")}>
+          <Image
+            source={{
+              uri: "https://images.unsplash.com/photo-1562077981-4d7eafd44932?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80",
+            }}
+            style={styles.journal}
+          />
+          <Text style={styles.title}>Reducing Food Wastes</Text>
+        </TouchableOpacity>
       </View>
-
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Page1")}
-        style={[
-          styles.box,
-          {
-            backgroundColor: "#ffb6b9",
-          },
-        ]}
-      >
-        <Text style={[styles.text]}>Tips on Medicine Intake</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Page2")}
-        style={[
-          styles.box,
-          {
-            backgroundColor: "#ffd2a5",
-          },
-        ]}
-      >
-        <Text style={[styles.text]}>Tips on Medicine Intake</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Page3")}
-        style={[
-          styles.box,
-          {
-            backgroundColor: "#8AC6D1",
-          },
-        ]}
-      >
-        <Text style={[styles.text]}>Tips on Medicine Intake</Text>
-      </TouchableOpacity>
     </View>
   );
 }
@@ -52,25 +47,29 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     flexWrap: "wrap",
-    paddingTop: 50,
+    paddingVertical: 50,
   },
-  welcome: {
-    width: 350,
-    paddingBottom: 15,
+  journal: {
+    height: 130,
+    borderRadius: 10,
+    marginVertical: 5,
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 10,
+      height: 20,
+    },
+    shadowRadius: 20,
+    shadowOpacity: 0.05,
   },
-  box: {
-    width: 300,
-    height: 170,
-    margin: 5,
-    borderRadius: 20,
-    justifyContent: "center",
-    //  backgroundColor: "#ffb6b9"
-  },
-  text: {
-    padding: 30,
-    color: "black",
+  title: {
+    fontSize: 20,
     fontWeight: "bold",
-    // position: "absolute",
+    position: "absolute",
+    color: "#fff",
+    top: 20,
+    left: 20,
+    right: 20,
   },
 });
 

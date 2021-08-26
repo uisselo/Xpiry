@@ -1,27 +1,28 @@
 // Reducing Food Wastes
 
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Linking  } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Linking,
+} from "react-native";
 
 function page3({ navigation }) {
-  
   return (
     <View style={[styles.container]}>
       <View style={[styles.vtitle]}>
-        <Text style={[styles.title ]}> Reducing Food Wastes</Text>
-        
-        
+        <Text style={[styles.title]}> Reducing Food Wastes</Text>
       </View>
       <View style={[styles.fixToText]}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Page3_2")}
-        style={[
-          styles.box,
-        ]}
-      >
-        <Text style={[styles.text]}>Next</Text>
-      </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Page3_2")}
+          style={[styles.box]}
+        >
+          <Text style={[styles.text]}>Next</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -38,31 +39,28 @@ const styles = StyleSheet.create({
   vtitle: {
     width: 350,
     paddingBottom: 15,
-    
   },
-  
+
   box: {
     width: 200,
     height: 50,
     margin: 5,
-    borderRadius: 20,    
+    borderRadius: 20,
     backgroundColor: "#EA4C4C",
-   
-   
   },
-   
+
   fixToText: {
     bottom: 0,
     left: 0,
   },
-  
+
   text: {
     padding: 20,
     fontSize: 14,
     color: "#fff",
     fontWeight: "bold",
-     textAlign: "center"
-   //position: "absolute",
+    textAlign: "center",
+    //position: "absolute",
   },
 });
 
