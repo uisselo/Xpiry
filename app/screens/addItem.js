@@ -54,7 +54,7 @@ function addItem(props) {
             onChangeText={onChangeItemName}
             value={itemName}
             placeholder="Enter product name"
-          ></TextInput>
+          />
 
           <Text style={styles.label}>Item Category</Text>
           <SelectCategory
@@ -121,7 +121,7 @@ function addItem(props) {
             onChangeText={onChangeBarcodeNum}
             value={barcodeNum}
             placeholder="Enter barcode number"
-          ></TextInput>
+          />
 
           <View style={styles.buttons}>
             <TouchableOpacity style={styles.btnScan}>

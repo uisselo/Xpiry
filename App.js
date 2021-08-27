@@ -1,7 +1,10 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/Feather";
 
@@ -19,6 +22,7 @@ import addItem from "./app/screens/addItem";
 import page1 from "./app/screens/journal pages/page1";
 import page2 from "./app/screens/journal pages/page2";
 import page3 from "./app/screens/journal pages/page3";
+import { Text } from "react-native";
 
 const HomeStack = createStackNavigator();
 const JournalStack = createStackNavigator();
@@ -59,7 +63,8 @@ export default () => {
         screenOptions={{
           headerShown: false,
           tabBarActiveTintColor: "#EA4C4C",
-          tabBarInactiveTintColor: "#555",
+          tabBarInactiveTintColor: "#808080",
+          tabBarLabelStyle: { fontSize: 13 },
         }}
       >
         <Tab.Screen
