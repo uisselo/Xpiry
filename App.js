@@ -64,7 +64,7 @@ export default () => {
           headerShown: false,
           tabBarActiveTintColor: "#EA4C4C",
           tabBarInactiveTintColor: "#808080",
-          tabBarLabelStyle: { fontSize: 13 },
+          tabBarLabelStyle: { fontSize: 12 },
         }}
       >
         <Tab.Screen
