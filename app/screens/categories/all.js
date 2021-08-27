@@ -96,5 +96,4 @@ const styles = StyleSheet.create({
     color: "#EA4C4C",
   },
 });
-
 export default all;
