@@ -21,29 +21,13 @@ function addItem(props) {
     setDate(currentDate);
   };
 
-  const pickerStyle = {
-    inputIOS: {
-      height: 40,
-      borderRadius: 10,
-      padding: 10,
-      backgroundColor: "#fff",
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 10,
-        height: 20,
-      },
-      shadowRadius: 20,
-      shadowOpacity: 0.05,
-    },
-  };
-
   const placeholder = {
     label: "Choose category",
     value: null,
   };
 
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <View style={styles.container}>
         <View style={{ width: 350 }}>
           <Text style={{ fontSize: 30 }}>Add new Item</Text>
@@ -57,18 +41,19 @@ function addItem(props) {
           />
 
           <Text style={styles.label}>Item Category</Text>
-          <SelectCategory
-            onValueChange={(value) => console.log(value)}
-            style={pickerStyle}
-            placeholder={placeholder}
-            items={[
-              { label: "Food", value: "Food" },
-              { label: "Cosmetics", value: "Cosmetics" },
-              { label: "Medicine", value: "Medicine" },
-            ]}
-          />
+          <View style={styles.input}>
+            <SelectCategory
+              onValueChange={(value) => console.log(value)}
+              placeholder={placeholder}
+              items={[
+                { label: "Food", value: "Food" },
+                { label: "Cosmetics", value: "Cosmetics" },
+                { label: "Medicine", value: "Medicine" },
+              ]}
+            />
+          </View>
 
-          <Text style={styles.label}>Expiration Date</Text>
+          {/* <Text style={styles.label}>Expiration Date</Text>
           <DatePicker
             testID="dateTimePicker"
             value={date}
@@ -76,12 +61,12 @@ function addItem(props) {
             is24Hour={true}
             display="spinner"
             onChange={onChange}
-          />
+          /> */}
 
-          <Text style={styles.label}>Quantity</Text>
+          {/* <Text style={styles.label}>Quantity</Text>
           <NumericInput
             value={React.value}
-            onChange={(value) => React.useState({ value })}
+            onChange={(value) => useState({ value })}
             onLimitReached={(isMax, msg) => console.log(isMax, msg)}
             totalWidth={240}
             totalHeight={40}
@@ -91,29 +76,16 @@ function addItem(props) {
             rounded
             textColor="#000"
             borderColor="#fff"
+            containerStyle={styles.input}
             inputStyle={{
               backgroundColor: "#fff",
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 10,
-                height: 20,
-              },
-              shadowRadius: 20,
-              shadowOpacity: 0.05,
             }}
             iconStyle={{
               color: "#fff",
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 10,
-                height: 20,
-              },
-              shadowRadius: 20,
-              shadowOpacity: 0.05,
             }}
             rightButtonBackgroundColor="#EA4C4C"
             leftButtonBackgroundColor="#EA4C4C"
-          />
+          /> */}
 
           <Text style={styles.label}>Barcode Number</Text>
           <TextInput
@@ -160,6 +132,8 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 20,
     shadowOpacity: 0.05,
+    elevation: 2,
+    justifyContent: "center",
   },
   label: {
     fontSize: 15,

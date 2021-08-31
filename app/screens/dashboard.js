@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 20,
     shadowOpacity: 0.05,
+    elevation: 2
   },
   dataNum: {
     fontSize: 30,
@@ -103,6 +104,7 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 20,
     shadowOpacity: 0.05,
+    elevation: 2
   },
   itemStatus: {
     color: "#EA4C4C",
