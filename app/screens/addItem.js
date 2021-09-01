@@ -15,6 +15,7 @@ function addItem(props) {
   const [itemName, onChangeItemName] = useState(null);
   const [barcodeNum, onChangeBarcodeNum] = useState(null);
   const [date, setDate] = useState(new Date());
+  const [itemQty, onChangeItemQty] = useState(null);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -63,11 +64,12 @@ function addItem(props) {
             onChange={onChange}
           /> */}
 
-          {/* <Text style={styles.label}>Quantity</Text>
+          <Text style={styles.label}>Quantity</Text>
           <NumericInput
-            value={React.value}
-            onChange={(value) => useState({ value })}
+            value={itemQty}
+            onChange={onChangeItemQty}
             onLimitReached={(isMax, msg) => console.log(isMax, msg)}
+            minValue={0}
             totalWidth={240}
             totalHeight={40}
             iconSize={25}
@@ -85,7 +87,7 @@ function addItem(props) {
             }}
             rightButtonBackgroundColor="#EA4C4C"
             leftButtonBackgroundColor="#EA4C4C"
-          /> */}
+          />
 
           <Text style={styles.label}>Barcode Number</Text>
           <TextInput
