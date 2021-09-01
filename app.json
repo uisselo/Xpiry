@@ -25,8 +25,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.capstone.xpiry",
-      "versionCode": 1,
-      "googleServicesFile": "./google-services.json"
+      "versionCode": 1
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
