@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "575622260197",
+    "firebase_url": "https://xpiry-272d9-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "xpiry-272d9",
+    "storage_bucket": "xpiry-272d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575622260197:android:019510e089a0ff5a2f3b0c",
+        "android_client_info": {
+          "package_name": "com.capstone.xpiry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "575622260197-en1qn8jnait3o6t4768tlcnuttsmlbbq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDC5ZZ5His_o8HqVWRJKq0kp3tjY-e87p8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "575622260197-en1qn8jnait3o6t4768tlcnuttsmlbbq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
