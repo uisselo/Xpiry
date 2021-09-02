@@ -1,43 +1,65 @@
-import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import React, { Component } from "react";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 
-function journal({ navigation }) {
-  return (
-    <View style={styles.container}>
-      <View style={{ width: 350 }}>
-        <Text style={{ fontSize: 30, marginBottom: 10 }}>Journal</Text>
-        <TouchableOpacity onPress={() => navigation.navigate("Page1")}>
-          <Image
-            source={{
-              uri: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-            }}
-            style={styles.journal}
-          />
-          <Text style={styles.title}>Tips on Medicine Intake</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Page2")}>
-          <Image
-            source={{
-              uri: "https://images.unsplash.com/photo-1593014290067-93bac771f1c4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-            }}
-            style={styles.journal}
-          />
-          <Text style={styles.title}>
-            Why we shouldn't consume expired goods
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Page3")}>
-          <Image
-            source={{
-              uri: "https://images.unsplash.com/photo-1562077981-4d7eafd44932?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80",
-            }}
-            style={styles.journal}
-          />
-          <Text style={styles.title}>Reducing Food Wastes</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
+export default class journal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={styles.container}>
+          <View style={{ width: 350 }}>
+            <Text style={{ fontSize: 30, marginBottom: 10 }}>Journal</Text>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("Page1")}
+            >
+              <Image
+                source={{
+                  uri: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+                }}
+                style={styles.journal}
+              />
+              <Text style={styles.title}>Tips on Medicine Intake</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("Page2")}
+            >
+              <Image
+                source={{
+                  uri: "https://images.unsplash.com/photo-1593014290067-93bac771f1c4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+                }}
+                style={styles.journal}
+              />
+              <Text style={styles.title}>
+                Why we shouldn't consume expired goods
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("Page3")}
+            >
+              <Image
+                source={{
+                  uri: "https://images.unsplash.com/photo-1562077981-4d7eafd44932?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80",
+                }}
+                style={styles.journal}
+              />
+              <Text style={styles.title}>Reducing Food Wastes</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -72,5 +94,3 @@ const styles = StyleSheet.create({
     right: 20,
   },
 });
-
-export default journal;

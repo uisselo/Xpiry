@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { Component, useState } from "react";
 import {
-  StyleSheet,
-  Text,
   View,
+  Text,
   TextInput,
+  StyleSheet,
   TouchableOpacity,
   ScrollView,
 } from "react-native";
@@ -11,106 +11,119 @@ import SelectCategory from "react-native-picker-select";
 import DatePicker from "@react-native-community/datetimepicker";
 import NumericInput from "react-native-numeric-input";
 
-function addItem(props) {
-  const [itemName, onChangeItemName] = useState(null);
-  const [barcodeNum, onChangeBarcodeNum] = useState(null);
-  const [date, setDate] = useState(new Date());
-  const [itemQty, onChangeItemQty] = useState(null);
+export default class addItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      itemName: "",
+      itemQty: 0,
+      itemBarcode: "",
+    };
+  }
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setDate(currentDate);
-  };
+  render() {
+    // const [itemName, onChangeItemName] = useState(null);
+    // const [barcodeNum, onChangeBarcodeNum] = useState(null);
+    // const [date, setDate] = useState(new Date());
+    // const [itemQty, onChangeItemQty] = useState(null);
 
-  const placeholder = {
-    label: "Choose category",
-    value: null,
-  };
+    // const onChange = (event, selectedDate) => {
+    //   const currentDate = selectedDate || date;
+    //   setDate(currentDate);
+    // };
 
-  return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <View style={styles.container}>
-        <View style={{ width: 350 }}>
-          <Text style={{ fontSize: 30 }}>Add new Item</Text>
+    const placeholder = {
+      label: "Choose category",
+      value: null,
+    };
 
-          <Text style={styles.label}>Item Name</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={onChangeItemName}
-            value={itemName}
-            placeholder="Enter product name"
-          />
+    return (
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={styles.container}>
+          <View style={{ width: 350 }}>
+            <Text style={{ fontSize: 30 }}>Add new Item</Text>
 
-          <Text style={styles.label}>Item Category</Text>
-          <View style={styles.input}>
-            <SelectCategory
-              onValueChange={(value) => console.log(value)}
-              placeholder={placeholder}
-              items={[
-                { label: "Food", value: "Food" },
-                { label: "Cosmetics", value: "Cosmetics" },
-                { label: "Medicine", value: "Medicine" },
-              ]}
+            <Text style={styles.label}>Item Name</Text>
+            <TextInput
+              style={styles.input}
+              value={this.state.itemName}
+              onChangeText={(itemName) => this.setState({ itemName })}
+              placeholder="Enter product name"
             />
-          </View>
 
-          {/* <Text style={styles.label}>Expiration Date</Text>
-          <DatePicker
-            testID="dateTimePicker"
-            value={date}
-            mode="date"
-            is24Hour={true}
-            display="spinner"
-            onChange={onChange}
-          /> */}
+            <Text style={styles.label}>Item Category</Text>
+            <View style={styles.input}>
+              <SelectCategory
+                style={{ inputAndroid: { color: "black" } }}
+                useNativeAndroidPickerStyle={false}
+                onValueChange={(value) => console.log(value)}
+                placeholder={placeholder}
+                items={[
+                  { label: "Food", value: "Food" },
+                  { label: "Cosmetics", value: "Cosmetics" },
+                  { label: "Medicine", value: "Medicine" },
+                ]}
+              />
+            </View>
 
-          <Text style={styles.label}>Quantity</Text>
-          <NumericInput
-            value={itemQty}
-            onChange={onChangeItemQty}
-            onLimitReached={(isMax, msg) => console.log(isMax, msg)}
-            minValue={0}
-            totalWidth={240}
-            totalHeight={40}
-            iconSize={25}
-            step={1}
-            valueType="real"
-            rounded
-            textColor="#000"
-            borderColor="#fff"
-            containerStyle={styles.input}
-            inputStyle={{
-              backgroundColor: "#fff",
-            }}
-            iconStyle={{
-              color: "#fff",
-            }}
-            rightButtonBackgroundColor="#EA4C4C"
-            leftButtonBackgroundColor="#EA4C4C"
-          />
+            {/* <Text style={styles.label}>Expiration Date</Text>
+            <DatePicker
+              testID="dateTimePicker"
+              value={date}
+              mode="date"
+              is24Hour={true}
+              display="spinner"
+              onChange={onChange}
+            /> */}
 
-          <Text style={styles.label}>Barcode Number</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={onChangeBarcodeNum}
-            value={barcodeNum}
-            placeholder="Enter barcode number"
-          />
+            <Text style={styles.label}>Quantity</Text>
+            <NumericInput
+              value={this.state.itemQty}
+              onChange={(itemQty) => this.setState({ itemQty })}
+              onLimitReached={(isMax, msg) => console.log(isMax, msg)}
+              minValue={0}
+              totalWidth={240}
+              totalHeight={40}
+              iconSize={25}
+              step={1}
+              valueType="real"
+              rounded
+              textColor="#000"
+              borderColor="#fff"
+              containerStyle={styles.input}
+              inputStyle={{
+                backgroundColor: "#fff",
+              }}
+              iconStyle={{
+                color: "#fff",
+              }}
+              rightButtonBackgroundColor="#EA4C4C"
+              leftButtonBackgroundColor="#EA4C4C"
+            />
 
-          <View style={styles.buttons}>
-            <TouchableOpacity style={styles.btnScan}>
-              <Text style={{ fontSize: 20, color: "#EA4C4C" }}>
-                Scan Barcode
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.btnSave}>
-              <Text style={{ fontSize: 20, color: "#fff" }}>Save</Text>
-            </TouchableOpacity>
+            <Text style={styles.label}>Barcode Number</Text>
+            <TextInput
+              style={styles.input}
+              value={this.state.itemBarcode}
+              onChangeText={(itemBarcode) => this.setState({ itemBarcode })}
+              placeholder="Enter barcode number"
+            />
+
+            <View style={styles.buttons}>
+              <TouchableOpacity style={styles.btnScan}>
+                <Text style={{ fontSize: 20, color: "#EA4C4C" }}>
+                  Scan Barcode
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.btnSave}>
+                <Text style={{ fontSize: 20, color: "#fff" }}>Save</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
-    </ScrollView>
-  );
+      </ScrollView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -167,5 +180,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
-export default addItem;

@@ -1,70 +1,77 @@
-import React from "react";
+import React, { Component } from "react";
 import {
-  StyleSheet,
-  Text,
   View,
-  ScrollView,
+  Text,
+  StyleSheet,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 
-function medicine(props) {
-  return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <View style={styles.container}>
-        <View style={{ width: 350 }}>
-          <Text style={{ fontSize: 30, marginBottom: 10 }}>Medicine</Text>
-          <TouchableOpacity style={styles.item}>
-            <Text>Pancit Canton</Text>
-            <Text style={styles.expirationDate}>
-              Expiration on 16 June 2023
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.item}>
-            <Text>Century Tuna</Text>
-            <Text style={styles.expirationDate}>
-              Expiration on 16 June 2023
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.item}>
-            <Text>Chicken Noodles</Text>
-            <Text style={styles.expirationDate}>
-              Expiration on 16 June 2023
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.item}>
-            <Text>Sardines</Text>
-            <Text style={styles.expirationDate}>
-              Expiration on 16 June 2023
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.item}>
-            <Text>Mang Tomas</Text>
-            <Text style={styles.expirationDate}>
-              Expiration on 16 June 2023
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.item}>
-            <Text>Heinz Ketchup</Text>
-            <Text style={styles.expirationDate}>
-              Expiration on 16 June 2023
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.item}>
-            <Text>Bearbrand Sterilized Milk</Text>
-            <Text style={styles.expirationDate}>
-              Expiration on 16 June 2023
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.item}>
-            <Text>Almond Milk</Text>
-            <Text style={styles.expirationDate}>
-              Expiration on 16 June 2023
-            </Text>
-          </TouchableOpacity>
+export default class medicine extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={styles.container}>
+          <View style={{ width: 350 }}>
+            <Text style={{ fontSize: 30, marginBottom: 10 }}>Medicine</Text>
+            <TouchableOpacity style={styles.item}>
+              <Text>Pancit Canton</Text>
+              <Text style={styles.expirationDate}>
+                Expiration on 16 June 2023
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.item}>
+              <Text>Century Tuna</Text>
+              <Text style={styles.expirationDate}>
+                Expiration on 16 June 2023
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.item}>
+              <Text>Chicken Noodles</Text>
+              <Text style={styles.expirationDate}>
+                Expiration on 16 June 2023
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.item}>
+              <Text>Sardines</Text>
+              <Text style={styles.expirationDate}>
+                Expiration on 16 June 2023
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.item}>
+              <Text>Mang Tomas</Text>
+              <Text style={styles.expirationDate}>
+                Expiration on 16 June 2023
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.item}>
+              <Text>Heinz Ketchup</Text>
+              <Text style={styles.expirationDate}>
+                Expiration on 16 June 2023
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.item}>
+              <Text>Bearbrand Sterilized Milk</Text>
+              <Text style={styles.expirationDate}>
+                Expiration on 16 June 2023
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.item}>
+              <Text>Almond Milk</Text>
+              <Text style={styles.expirationDate}>
+                Expiration on 16 June 2023
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </ScrollView>
-  );
+      </ScrollView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -96,5 +103,3 @@ const styles = StyleSheet.create({
     color: "#EA4C4C",
   },
 });
-
-export default medicine;

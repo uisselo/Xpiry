@@ -1,21 +1,30 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { Component } from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 
-function about(props) {
-  return (
-    <View style={styles.container}>
-      <View style={{ width: 350 }}>
-        <Text style={{ fontSize: 30, marginBottom: 15 }}>About</Text>
-        <Text style={{ fontSize: 18 }}>
-          Xpiry is a tracking application for food and drug products’ expiration
-          dates. This application also aims to expand its users’ knowledge on
-          why it’s bad for our health to consume expired goods, and how keeping
-          track of products’ expiration dates can reduce wastes in our
-          respective households.
-        </Text>
-      </View>
-    </View>
-  );
+export default class about extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={styles.container}>
+          <View style={{ width: 350 }}>
+            <Text style={{ fontSize: 30, marginBottom: 15 }}>About</Text>
+            <Text style={{ fontSize: 18 }}>
+              Xpiry is a tracking application for food and drug products’
+              expiration dates. This application also aims to expand its users’
+              knowledge on why it’s bad for our health to consume expired goods,
+              and how keeping track of products’ expiration dates can reduce
+              wastes in our respective households.
+            </Text>
+          </View>
+        </View>
+      </ScrollView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -25,8 +34,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     flexWrap: "wrap",
-    paddingTop: 50,
+    paddingVertical: 50,
   },
 });
-
-export default about;
