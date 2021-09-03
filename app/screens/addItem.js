@@ -10,40 +10,45 @@ import {
 import SelectCategory from "react-native-picker-select";
 import DatePicker from "@react-native-community/datetimepicker";
 import NumericInput from "react-native-numeric-input";
+import firebase from "firebase/app";
+import "firebase/firestore";
 import { db } from "../db/config";
+
+// initialize firebase
+db();
 
 export default class addItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
       itemName: "",
+      itemCategory: "",
       itemQty: 0,
       itemBarcode: "",
     };
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  async onSubmit() {
-    const { itemName, itemQty, itemBarcode } = this.state;
-    console.log(itemName, itemQty, itemBarcode);
+  onSubmit() {
+    const { itemName, itemCategory, itemQty, itemBarcode } = this.state;
+    const db = firebase.firestore().collection("Items");
+    const item = {
+      name: itemName,
+      category: itemCategory,
+      quantity: itemQty,
+      barcode: itemBarcode,
+    };
+
+    db.add(item)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   render() {
-    // const [itemName, onChangeItemName] = useState(null);
-    // const [barcodeNum, onChangeBarcodeNum] = useState(null);
-    // const [date, setDate] = useState(new Date());
-    // const [itemQty, onChangeItemQty] = useState(null);
-
-    // const onChange = (event, selectedDate) => {
-    //   const currentDate = selectedDate || date;
-    //   setDate(currentDate);
-    // };
-
-    const placeholder = {
-      label: "Choose category",
-      value: null,
-    };
-
     return (
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
@@ -63,8 +68,11 @@ export default class addItem extends Component {
               <SelectCategory
                 style={{ inputAndroid: { color: "black" } }}
                 useNativeAndroidPickerStyle={false}
-                onValueChange={(value) => console.log(value)}
-                placeholder={placeholder}
+                value={this.state.itemCategory}
+                onValueChange={(itemCategory) =>
+                  this.setState({ itemCategory })
+                }
+                placeholder={{ label: "Choose Category", value: null }}
                 items={[
                   { label: "Food", value: "Food" },
                   { label: "Cosmetics", value: "Cosmetics" },
@@ -72,16 +80,6 @@ export default class addItem extends Component {
                 ]}
               />
             </View>
-
-            {/* <Text style={styles.label}>Expiration Date</Text>
-            <DatePicker
-              testID="dateTimePicker"
-              value={date}
-              mode="date"
-              is24Hour={true}
-              display="spinner"
-              onChange={onChange}
-            /> */}
 
             <Text style={styles.label}>Quantity</Text>
             <NumericInput
