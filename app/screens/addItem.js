@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Alert,
 } from "react-native";
 import SelectCategory from "react-native-picker-select";
 import DatePicker from "@react-native-community/datetimepicker";
@@ -42,6 +43,9 @@ export default class addItem extends Component {
     db.add(item)
       .then((res) => {
         console.log(res.data);
+        Alert.alert("Success", "Item has been added to database.", [
+          { text: "OK", onPress: () => console.log("alert closed") },
+        ]);
       })
       .catch((err) => {
         console.log(err);
