@@ -19,7 +19,6 @@ import addItem from "./app/screens/addItem";
 import page1 from "./app/screens/journal pages/page1";
 import page2 from "./app/screens/journal pages/page2";
 import page3 from "./app/screens/journal pages/page3";
-import { Text } from "react-native";
 
 const HomeStack = createStackNavigator();
 const JournalStack = createStackNavigator();

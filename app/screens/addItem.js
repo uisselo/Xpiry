@@ -10,6 +10,7 @@ import {
 import SelectCategory from "react-native-picker-select";
 import DatePicker from "@react-native-community/datetimepicker";
 import NumericInput from "react-native-numeric-input";
+import { db } from "../db/config";
 
 export default class addItem extends Component {
   constructor(props) {
@@ -19,6 +20,12 @@ export default class addItem extends Component {
       itemQty: 0,
       itemBarcode: "",
     };
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  async onSubmit() {
+    const { itemName, itemQty, itemBarcode } = this.state;
+    console.log(itemName, itemQty, itemBarcode);
   }
 
   render() {
@@ -115,7 +122,10 @@ export default class addItem extends Component {
                   Scan Barcode
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.btnSave}>
+              <TouchableOpacity
+                style={styles.btnSave}
+                onPress={() => this.onSubmit()}
+              >
                 <Text style={{ fontSize: 20, color: "#fff" }}>Save</Text>
               </TouchableOpacity>
             </View>
