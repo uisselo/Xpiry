@@ -3,10 +3,12 @@ import {
   View,
   Text,
   TextInput,
+  Input,
   StyleSheet,
   TouchableOpacity,
   ScrollView,
   Alert,
+  Platform,
 } from "react-native";
 import SelectCategory from "react-native-picker-select";
 import DatePicker from "@react-native-community/datetimepicker";
@@ -24,18 +26,22 @@ export default class addItem extends Component {
     this.state = {
       itemName: "",
       itemCategory: "",
+      itemExpirationDate: new Date(),
       itemQty: 0,
       itemBarcode: "",
+      datePickerVisible: false,
     };
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   onSubmit() {
-    const { itemName, itemCategory, itemQty, itemBarcode } = this.state;
+    const { itemName, itemCategory, itemExpirationDate, itemQty, itemBarcode } =
+      this.state;
     const db = firebase.firestore().collection("Items");
     const item = {
       name: itemName,
       category: itemCategory,
+      expirationDate: itemExpirationDate,
       quantity: itemQty,
       barcode: itemBarcode,
     };
@@ -85,13 +91,55 @@ export default class addItem extends Component {
               />
             </View>
 
+            <Text style={styles.label}>Expiration Date</Text>
+            <View style={styles.row}>
+              <View style={[styles.input, { width: 230 }]}>
+                <TextInput
+                  placeholder="Expiration Date"
+                  editable={false}
+                  value={this.state.itemExpirationDate.toLocaleDateString()}
+                />
+              </View>
+              <TouchableOpacity
+                style={[
+                  styles.btn,
+                  {
+                    fontSize: 15,
+                    width: 110,
+                    color: "#fff",
+                    borderColor: "#ea4c4c",
+                    backgroundColor: "#ea4c4c",
+                  },
+                ]}
+                onPress={() => this.setState({ datePickerVisible: true })}
+              >
+                <Text style={{ color: "#fff" }}>Select Date</Text>
+              </TouchableOpacity>
+            </View>
+            <View>
+              {this.state.datePickerVisible && (
+                <DatePicker
+                  mode="date"
+                  display="spinner"
+                  value={this.state.itemExpirationDate}
+                  onChange={(event, value) => {
+                    this.setState({
+                      itemExpirationDate: value,
+                      datePickerVisible: Platform.OS === "ios" ? true : false,
+                    });
+                    if (event.type === "set") console.log("value:", value);
+                  }}
+                />
+              )}
+            </View>
+
             <Text style={styles.label}>Quantity</Text>
             <NumericInput
               value={this.state.itemQty}
               onChange={(itemQty) => this.setState({ itemQty })}
               onLimitReached={(isMax, msg) => console.log(isMax, msg)}
               minValue={0}
-              totalWidth={240}
+              totalWidth={230}
               totalHeight={40}
               iconSize={25}
               step={1}
@@ -106,8 +154,8 @@ export default class addItem extends Component {
               iconStyle={{
                 color: "#fff",
               }}
-              rightButtonBackgroundColor="#EA4C4C"
-              leftButtonBackgroundColor="#EA4C4C"
+              rightButtonBackgroundColor="#ea4c4c"
+              leftButtonBackgroundColor="#ea4c4c"
             />
 
             <Text style={styles.label}>Barcode Number</Text>
@@ -118,17 +166,37 @@ export default class addItem extends Component {
               placeholder="Enter barcode number"
             />
 
-            <View style={styles.buttons}>
-              <TouchableOpacity style={styles.btnScan}>
-                <Text style={{ fontSize: 20, color: "#EA4C4C" }}>
+            <View style={[styles.row, { marginTop: 15 }]}>
+              <TouchableOpacity
+                style={[
+                  styles.btn,
+                  { borderColor: "#ea4c4c", backgroundColor: "#fff" },
+                ]}
+              >
+                <Text
+                  style={{
+                    fontSize: 20,
+                    color: "#ea4c4c",
+                  }}
+                >
                   Scan Barcode
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.btnSave}
+                style={[
+                  styles.btn,
+                  { borderColor: "#ea4c4c", backgroundColor: "#ea4c4c" },
+                ]}
                 onPress={() => this.onSubmit()}
               >
-                <Text style={{ fontSize: 20, color: "#fff" }}>Save</Text>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    color: "#fff",
+                  }}
+                >
+                  Save
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -166,28 +234,15 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginVertical: 15,
   },
-  buttons: {
+  row: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 15,
   },
-  btnScan: {
+  btn: {
     height: 40,
     width: 170,
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: "#EA4C4C",
-    backgroundColor: "#fff",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  btnSave: {
-    height: 40,
-    width: 170,
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: "#EA4C4C",
-    backgroundColor: "#EA4C4C",
     justifyContent: "center",
     alignItems: "center",
   },
