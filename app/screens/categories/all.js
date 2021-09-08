@@ -20,8 +20,8 @@ export default class all extends Component {
   }
 
   componentDidMount() {
-    const db = firebase.firestore().collection("Items");
-    db.onSnapshot((docs) => {
+    const allItems = firebase.firestore().collection("Items");
+    allItems.onSnapshot((docs) => {
       const items = [];
       docs.forEach((doc) => {
         const data = doc.data();
