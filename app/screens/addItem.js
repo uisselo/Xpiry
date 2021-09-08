@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TextInput,
-  Input,
   StyleSheet,
   TouchableOpacity,
   ScrollView,
@@ -16,8 +15,6 @@ import NumericInput from "react-native-numeric-input";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { db } from "../db/config";
-
-// initialize firebase
 db();
 
 export default class addItem extends Component {
@@ -45,10 +42,9 @@ export default class addItem extends Component {
       quantity: itemQty,
       barcode: itemBarcode,
     };
-
     db.add(item)
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data());
         Alert.alert("Success", "Item has been added to database.", [
           { text: "OK", onPress: () => console.log("alert closed") },
         ]);

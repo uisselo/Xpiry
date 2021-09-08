@@ -20,11 +20,8 @@ import page1 from "./app/screens/journal pages/page1";
 import page2 from "./app/screens/journal pages/page2";
 import page3 from "./app/screens/journal pages/page3";
 
-const HomeStack = createStackNavigator();
-const JournalStack = createStackNavigator();
-const Tab = createBottomTabNavigator();
-
 // home screen
+const HomeStack = createStackNavigator();
 const HomeStackScreen = () => {
   return (
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
@@ -40,6 +37,7 @@ const HomeStackScreen = () => {
 };
 
 // journal screen
+const JournalStack = createStackNavigator();
 const JournalStackScreen = () => {
   return (
     <JournalStack.Navigator screenOptions={{ headerShown: false }}>
@@ -52,6 +50,7 @@ const JournalStackScreen = () => {
 };
 
 // bottom tab navigation
+const Tab = createBottomTabNavigator();
 export default () => {
   return (
     <NavigationContainer>

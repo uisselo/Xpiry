@@ -76,10 +76,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     shadowColor: "#000",
     shadowOffset: {
-      width: 10,
-      height: 20,
+      width: 0,
+      height: 1,
     },
-    shadowRadius: 20,
+    shadowRadius: 3,
     shadowOpacity: 0.05,
     elevation: 2,
   },
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     right: 10,
   },
   dataLabel: {
-    color: "#EA4C4C",
+    color: "#ea4c4c",
     position: "absolute",
     left: 10,
     bottom: 0,
@@ -106,14 +106,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     shadowColor: "#000",
     shadowOffset: {
-      width: 10,
-      height: 20,
+      width: 0,
+      height: 1,
     },
-    shadowRadius: 20,
+    shadowRadius: 3,
     shadowOpacity: 0.05,
     elevation: 2,
   },
   itemStatus: {
-    color: "#EA4C4C",
+    color: "#ea4c4c",
   },
 });
