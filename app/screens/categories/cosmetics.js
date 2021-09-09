@@ -28,7 +28,7 @@ export default class cosmetics extends Component {
       const items = [];
       docs.forEach((doc) => {
         const data = doc.data();
-        const fbd = new Date(data.expirationDate.toDate());
+        const fbd = data.expirationDate.toDate();
         const monthNames = [
           "Jan",
           "Feb",
@@ -50,8 +50,12 @@ export default class cosmetics extends Component {
           " " +
           fbd.getFullYear();
         items.push({
+          id: doc.id,
           name: data.name,
+          category: data.category,
           expirationDate: ed,
+          quantity: data.quantity,
+          barcode: data.barcode,
         });
       });
       this.setState({ itemList: items });
@@ -63,9 +67,15 @@ export default class cosmetics extends Component {
       <View style={styles.container}>
         <FlatList
           data={this.state.itemList}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => {
             return (
-              <TouchableOpacity style={styles.item}>
+              <TouchableOpacity
+                style={styles.item}
+                onPress={() =>
+                  this.props.navigation.navigate("ItemDetails", { item: item })
+                }
+              >
                 <Text>{item.name}</Text>
                 <Text style={styles.expirationDate}>
                   Expiration on {item.expirationDate}
