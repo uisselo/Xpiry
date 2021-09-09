@@ -63,6 +63,7 @@ export default class all extends Component {
     return (
       <View style={styles.container}>
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={this.state.itemList}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => {

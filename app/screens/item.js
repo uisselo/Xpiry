@@ -13,7 +13,7 @@ export default class item extends Component {
     return (
       <View style={styles.container}>
         <View style={{ width: 350 }}>
-          <TouchableWithoutFeedback style={[styles.box, { height: 150 }]}>
+          <TouchableWithoutFeedback style={[styles.box, { height: 130 }]}>
             <View style={styles.row}>
               <View style={{ width: 200 }}>
                 <Text style={{ fontSize: 25 }}>{item.name}</Text>
@@ -109,7 +109,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#ea4c4c",
     paddingVertical: 5,
     paddingHorizontal: 10,
-    borderRadius: 15,
+    borderRadius: 10,
+    overflow: "hidden",
     alignSelf: "flex-start",
   },
   btn: {
