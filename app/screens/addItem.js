@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import {
   View,
   Text,
@@ -43,8 +43,7 @@ export default class addItem extends Component {
       barcode: itemBarcode,
     };
     db.add(item)
-      .then((res) => {
-        console.log(res.data());
+      .then(() => {
         Alert.alert("Success", "Item has been added to database.", [
           {
             text: "OK",
