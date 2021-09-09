@@ -46,7 +46,13 @@ export default class addItem extends Component {
       .then((res) => {
         console.log(res.data());
         Alert.alert("Success", "Item has been added to database.", [
-          { text: "OK", onPress: () => console.log("alert closed") },
+          {
+            text: "OK",
+            onPress: () => {
+              console.log("Alert closed.");
+              this.props.navigation.goBack();
+            },
+          },
         ]);
       })
       .catch((err) => {

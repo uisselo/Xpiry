@@ -1,11 +1,38 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import { db } from "../db/config";
+db();
 
 export default class item extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+  }
+
+  onDelete() {
+    firebase
+      .firestore()
+      .collection("Items")
+      .doc(this.props.route.params.item.id)
+      .delete()
+      .then(() => {
+        console.log("Item successfully deleted!");
+        Alert.alert("Success", "Item successfully deleted.", [
+          {
+            text: "OK",
+            onPress: () => {
+              console.log("Alert closed.");
+              this.props.navigation.goBack();
+            },
+          },
+        ]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   render() {
@@ -57,6 +84,7 @@ export default class item extends Component {
                 styles.btn,
                 { borderColor: "#ea4c4c", backgroundColor: "#ea4c4c" },
               ]}
+              onPress={() => this.onDelete()}
             >
               <Text
                 style={{
