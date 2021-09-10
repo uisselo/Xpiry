@@ -10,7 +10,7 @@ import {
   Platform,
 } from "react-native";
 import SelectCategory from "react-native-picker-select";
-import DatePicker from "@react-native-community/datetimepicker";
+import DatePicker from "react-native-modal-datetime-picker";
 import NumericInput from "react-native-numeric-input";
 import firebase from "firebase/app";
 import "firebase/firestore";
@@ -116,22 +116,18 @@ export default class addItem extends Component {
               >
                 <Text style={{ color: "#fff" }}>Select Date</Text>
               </TouchableOpacity>
-            </View>
-            <View>
-              {this.state.datePickerVisible && (
-                <DatePicker
-                  mode="date"
-                  display="spinner"
-                  value={this.state.itemExpirationDate}
-                  onChange={(event, value) => {
-                    this.setState({
-                      itemExpirationDate: value,
-                      datePickerVisible: Platform.OS === "ios" ? true : false,
-                    });
-                    if (event.type === "set") console.log("value:", value);
-                  }}
-                />
-              )}
+              <DatePicker
+                isVisible={this.state.datePickerVisible}
+                mode="date"
+                onConfirm={(date) => {
+                  console.log("Date picked:", date);
+                  this.setState({
+                    datePickerVisible: false,
+                    itemExpirationDate: date,
+                  });
+                }}
+                onCancel={() => this.setState({ datePickerVisible: false })}
+              />
             </View>
 
             <Text style={styles.label}>Quantity</Text>

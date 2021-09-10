@@ -41,7 +41,7 @@ export default class all extends Component {
           "Dec",
         ];
         const ed =
-          fbd.getDay() +
+          fbd.getDate() +
           " " +
           monthNames[fbd.getMonth()] +
           " " +

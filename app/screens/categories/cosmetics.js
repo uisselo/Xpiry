@@ -44,7 +44,7 @@ export default class cosmetics extends Component {
           "Dec",
         ];
         const ed =
-          fbd.getDay() +
+          fbd.getDate() +
           " " +
           monthNames[fbd.getMonth()] +
           " " +

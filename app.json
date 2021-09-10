@@ -3,6 +3,7 @@
     "name": "Xpiry",
     "slug": "Xpiry",
     "version": "1.0.0",
+    "userInterfaceStyle": "automatic",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
     "splash": {
