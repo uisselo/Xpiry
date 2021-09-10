@@ -96,9 +96,9 @@ export default class addItem extends Component {
             <View style={styles.row}>
               <View style={[styles.input, { width: 230 }]}>
                 <TextInput
-                  placeholder="Expiration Date"
                   editable={false}
                   value={this.state.itemExpirationDate.toLocaleDateString()}
+                  placeholder="Expiration Date"
                 />
               </View>
               <TouchableOpacity
@@ -219,10 +219,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     shadowColor: "#000",
     shadowOffset: {
-      width: 10,
-      height: 20,
+      width: 0,
+      height: 1,
     },
-    shadowRadius: 20,
+    shadowRadius: 3,
     shadowOpacity: 0.05,
     elevation: 2,
     justifyContent: "center",
