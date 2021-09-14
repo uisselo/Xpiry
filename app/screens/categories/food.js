@@ -49,14 +49,16 @@ export default class food extends Component {
           monthNames[fbd.getMonth()] +
           " " +
           fbd.getFullYear();
-        items.push({
-          id: doc.id,
-          name: data.name,
-          category: data.category,
-          expirationDate: ed,
-          quantity: data.quantity,
-          barcode: data.barcode,
-        });
+        if (Date.now() / 1000 <= doc.data().expirationDate.seconds) {
+          items.push({
+            id: doc.id,
+            name: data.name,
+            category: data.category,
+            expirationDate: ed,
+            quantity: data.quantity,
+            barcode: data.barcode,
+          });
+        }
       });
       if (this._isMounted) {
         this.setState({ itemList: items });
