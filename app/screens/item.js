@@ -54,6 +54,11 @@ export default class item extends Component {
           barcode: itemBarcode,
         })
         .then(() => {
+          this.setState({
+            itemName: itemName,
+            itemQty: itemQty,
+            itemBarcode: itemBarcode,
+          });
           console.log("Item successfully updated!");
           Alert.alert("Success", "Item successfully updated.", [
             {
@@ -235,10 +240,12 @@ export default class item extends Component {
           <TouchableWithoutFeedback style={[styles.box, { height: 130 }]}>
             <View style={styles.row}>
               <View style={{ width: 200 }}>
-                <Text style={{ fontSize: 25 }}>{item.name}</Text>
+                <Text style={{ fontSize: 25 }}>
+                  {this.state.itemName}
+                </Text>
               </View>
               <Text style={styles.qty}>
-                {item.quantity}
+                {this.state.itemQty}
                 {item.quantity === 0
                   ? ""
                   : item.quantity > 1
@@ -252,7 +259,7 @@ export default class item extends Component {
             </Text>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback style={[styles.box, { height: 100 }]}>
-            <Text style={{ fontSize: 25 }}>{item.barcode}</Text>
+            <Text style={{ fontSize: 25 }}>{this.state.itemBarcode}</Text>
             <Text style={{ color: "#ea4c4c" }}>Barcode Number</Text>
           </TouchableWithoutFeedback>
           <View style={[styles.row, { marginTop: 10 }]}>

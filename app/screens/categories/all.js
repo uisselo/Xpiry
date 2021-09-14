@@ -14,9 +14,7 @@ db();
 export default class all extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      itemList: [],
-    };
+    this.state = { itemList: [] };
     _isMounted = false;
   }
 
@@ -87,7 +85,6 @@ export default class all extends Component {
                 <Text>{item.name}</Text>
                 <Text style={styles.expirationDate}>
                   Expiration on {item.expirationDate}
-                  {/* {new Date(item.expirationDate).valueOf()} */}
                 </Text>
               </TouchableOpacity>
             );
