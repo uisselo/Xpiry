@@ -17,9 +17,11 @@ export default class cosmetics extends Component {
     this.state = {
       itemList: [],
     };
+    _isMounted = false;
   }
 
   componentDidMount() {
+    this._isMounted = true;
     const cosmetics = firebase
       .firestore()
       .collection("Items")
@@ -58,8 +60,14 @@ export default class cosmetics extends Component {
           barcode: data.barcode,
         });
       });
-      this.setState({ itemList: items });
+      if (this._isMounted) {
+        this.setState({ itemList: items });
+      }
     });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {

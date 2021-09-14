@@ -17,9 +17,11 @@ export default class all extends Component {
     this.state = {
       itemList: [],
     };
+    _isMounted = false;
   }
 
   componentDidMount() {
+    this._isMounted = true;
     const allItems = firebase.firestore().collection("Items");
     allItems.onSnapshot((docs) => {
       const items = [];
@@ -55,8 +57,14 @@ export default class all extends Component {
           barcode: data.barcode,
         });
       });
-      this.setState({ itemList: items });
+      if (this._isMounted) {
+        this.setState({ itemList: items });
+      }
     });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {

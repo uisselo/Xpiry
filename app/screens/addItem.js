@@ -28,7 +28,15 @@ export default class addItem extends Component {
       itemBarcode: "",
       datePickerVisible: false,
     };
-    this.onSubmit = this.onSubmit.bind(this);
+    _isMounted = false;
+  }
+
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   onSubmit() {
@@ -42,21 +50,23 @@ export default class addItem extends Component {
       quantity: itemQty,
       barcode: itemBarcode,
     };
-    db.add(item)
-      .then(() => {
-        Alert.alert("Success", "Item has been added to database.", [
-          {
-            text: "OK",
-            onPress: () => {
-              console.log("Alert closed.");
-              this.props.navigation.goBack();
+    if (this._isMounted) {
+      db.add(item)
+        .then(() => {
+          Alert.alert("Success", "Item has been added to database.", [
+            {
+              text: "OK",
+              onPress: () => {
+                console.log("Alert closed.");
+                this.props.navigation.goBack();
+              },
             },
-          },
-        ]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+          ]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
 
   render() {

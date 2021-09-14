@@ -29,58 +29,71 @@ export default class item extends Component {
       datePickerVisible: false,
       modalVisible: false,
     };
+    _isMounted = false;
+  }
+
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   onSave() {
     const { itemName, itemExpirationDate, itemQty, itemBarcode } = this.state;
-    firebase
-      .firestore()
-      .collection("Items")
-      .doc(this.props.route.params.item.id)
-      .update({
-        name: itemName,
-        expirationDate: itemExpirationDate,
-        quantity: itemQty,
-        barcode: itemBarcode,
-      })
-      .then(() => {
-        console.log("Item successfully updated!");
-        Alert.alert("Success", "Item successfully updated.", [
-          {
-            text: "OK",
-            onPress: () => {
-              console.log("Alert closed.");
-              this.setState({ modalVisible: false });
+    if (this._isMounted) {
+      firebase
+        .firestore()
+        .collection("Items")
+        .doc(this.props.route.params.item.id)
+        .update({
+          name: itemName,
+          expirationDate: itemExpirationDate,
+          quantity: itemQty,
+          barcode: itemBarcode,
+        })
+        .then(() => {
+          console.log("Item successfully updated!");
+          Alert.alert("Success", "Item successfully updated.", [
+            {
+              text: "OK",
+              onPress: () => {
+                console.log("Alert closed.");
+                this.setState({ modalVisible: false });
+              },
             },
-          },
-        ]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+          ]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
 
   onDelete() {
-    firebase
-      .firestore()
-      .collection("Items")
-      .doc(this.props.route.params.item.id)
-      .delete()
-      .then(() => {
-        console.log("Item successfully deleted!");
-        Alert.alert("Success", "Item successfully deleted.", [
-          {
-            text: "OK",
-            onPress: () => {
-              console.log("Alert closed.");
-              this.props.navigation.goBack();
+    if (this._isMounted) {
+      firebase
+        .firestore()
+        .collection("Items")
+        .doc(this.props.route.params.item.id)
+        .delete()
+        .then(() => {
+          console.log("Item successfully deleted!");
+          Alert.alert("Success", "Item successfully deleted.", [
+            {
+              text: "OK",
+              onPress: () => {
+                console.log("Alert closed.");
+                this.props.navigation.goBack();
+              },
             },
-          },
-        ]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+          ]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
 
   render() {
