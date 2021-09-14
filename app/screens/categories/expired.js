@@ -4,74 +4,102 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
+  FlatList,
 } from "react-native";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import { db } from "../../db/config";
+db();
 
 export default class expired extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { itemList: [] };
+    _isMounted = false;
+  }
+  componentDidMount() {
+    this._isMounted = true;
+    const allItems = firebase.firestore().collection("Items");
+    allItems.onSnapshot((docs) => {
+      const items = [];
+      // docs.filter((doc) => {
+      //   return Date.now() > doc.data().expirationDate.seconds
+      // })
+      docs.forEach((doc) => {
+        const data = doc.data();
+        const fbd = data.expirationDate.toDate();
+        const monthNames = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+        const ed =
+          fbd.getDate() +
+          " " +
+          monthNames[fbd.getMonth()] +
+          " " +
+          fbd.getFullYear();
+        if (Date.now() / 1000 >= doc.data().expirationDate.seconds) {
+          items.push({
+            id: doc.id,
+            name: data.name,
+            category: data.category,
+            expirationDate: ed,
+            quantity: data.quantity,
+            barcode: data.barcode,
+          });
+        }
+      });
+      if (this._isMounted) {
+        this.setState({ itemList: items });
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {
     return (
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View style={styles.container}>
-          <View style={{ width: 350 }}>
-            <Text style={{ fontSize: 30, marginBottom: 10 }}>
-              Expired Items
-            </Text>
-            <TouchableOpacity style={styles.item}>
-              <Text>Pancit Canton</Text>
-              <Text style={styles.expirationDate}>
-                Expiration on 16 June 2023
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.item}>
-              <Text>Century Tuna</Text>
-              <Text style={styles.expirationDate}>
-                Expiration on 16 June 2023
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.item}>
-              <Text>Chicken Noodles</Text>
-              <Text style={styles.expirationDate}>
-                Expiration on 16 June 2023
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.item}>
-              <Text>Sardines</Text>
-              <Text style={styles.expirationDate}>
-                Expiration on 16 June 2023
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.item}>
-              <Text>Mang Tomas</Text>
-              <Text style={styles.expirationDate}>
-                Expiration on 16 June 2023
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.item}>
-              <Text>Heinz Ketchup</Text>
-              <Text style={styles.expirationDate}>
-                Expiration on 16 June 2023
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.item}>
-              <Text>Bearbrand Sterilized Milk</Text>
-              <Text style={styles.expirationDate}>
-                Expiration on 16 June 2023
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.item}>
-              <Text>Almond Milk</Text>
-              <Text style={styles.expirationDate}>
-                Expiration on 16 June 2023
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ScrollView>
+      <View style={styles.container}>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={this.state.itemList}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity
+                style={styles.item}
+                onPress={() =>
+                  this.props.navigation.navigate("ItemDetails", { item: item })
+                }
+              >
+                <Text>{item.name}</Text>
+                <Text style={styles.expirationDate}>Expired</Text>
+              </TouchableOpacity>
+            );
+          }}
+          ListHeaderComponent={() => {
+            return (
+              <View
+                style={{ width: 350, marginBottom: 10, marginHorizontal: 5 }}
+              >
+                <Text style={{ fontSize: 30 }}>Expired Items</Text>
+              </View>
+            );
+          }}
+        />
+      </View>
     );
   }
 }
@@ -81,16 +109,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     justifyContent: "center",
-    flexDirection: "row",
-    flexWrap: "wrap",
+    alignItems: "center",
     paddingVertical: 50,
   },
   item: {
+    width: 350,
     height: 70,
     borderRadius: 10,
     padding: 20,
     marginVertical: 5,
+    marginHorizontal: 5,
     justifyContent: "center",
+    alignSelf: "center",
     backgroundColor: "#fff",
     shadowColor: "#000",
     shadowOffset: {
@@ -102,6 +132,6 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   expirationDate: {
-    color: "#EA4C4C",
+    color: "#ea4c4c",
   },
 });

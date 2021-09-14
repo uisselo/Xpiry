@@ -48,14 +48,16 @@ export default class all extends Component {
           monthNames[fbd.getMonth()] +
           " " +
           fbd.getFullYear();
-        items.push({
-          id: doc.id,
-          name: data.name,
-          category: data.category,
-          expirationDate: ed,
-          quantity: data.quantity,
-          barcode: data.barcode,
-        });
+        if (Date.now() / 1000 <= doc.data().expirationDate.seconds) {
+          items.push({
+            id: doc.id,
+            name: data.name,
+            category: data.category,
+            expirationDate: ed,
+            quantity: data.quantity,
+            barcode: data.barcode,
+          });
+        }
       });
       if (this._isMounted) {
         this.setState({ itemList: items });
@@ -85,6 +87,7 @@ export default class all extends Component {
                 <Text>{item.name}</Text>
                 <Text style={styles.expirationDate}>
                   Expiration on {item.expirationDate}
+                  {/* {new Date(item.expirationDate).valueOf()} */}
                 </Text>
               </TouchableOpacity>
             );
