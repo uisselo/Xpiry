@@ -19,12 +19,9 @@ export default class expired extends Component {
   }
   componentDidMount() {
     this._isMounted = true;
-    const allItems = firebase.firestore().collection("Items");
-    allItems.onSnapshot((docs) => {
+    const expired = firebase.firestore().collection("Items");
+    expired.onSnapshot((docs) => {
       const items = [];
-      // docs.filter((doc) => {
-      //   return Date.now() > doc.data().expirationDate.seconds
-      // })
       docs.forEach((doc) => {
         const data = doc.data();
         const fbd = data.expirationDate.toDate();

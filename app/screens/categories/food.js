@@ -14,9 +14,7 @@ db();
 export default class food extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      itemList: [],
-    };
+    this.state = { itemList: [] };
     _isMounted = false;
   }
 
