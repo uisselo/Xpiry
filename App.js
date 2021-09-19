@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/Feather";
 
 // screens
+import loginScreen from "./app/screens/auth/login";
+import userName from "./app/screens/auth/userName";
 import homeScreen from "./app/screens/home";
 import dashboard from "./app/screens/dashboard";
 import journal from "./app/screens/journal";
@@ -52,54 +54,76 @@ const JournalStackScreen = () => {
 
 // bottom tab navigation
 const Tab = createBottomTabNavigator();
+const TabNavi = () => {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: "#EA4C4C",
+        tabBarInactiveTintColor: "#808080",
+        tabBarLabelStyle: { fontSize: 12 },
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeStackScreen}
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <Icon name="home" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Dashboard"
+        component={dashboard}
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <Icon name="grid" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Journal"
+        component={JournalStackScreen}
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <Icon name="file-text" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="About"
+        component={about}
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <Icon name="help-circle" size={size} color={color} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
+
+const Stack = createStackNavigator();
 export default () => {
+  const [state, setState] = useState({ isLoggedIn: false });
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{
-          headerShown: false,
-          tabBarActiveTintColor: "#EA4C4C",
-          tabBarInactiveTintColor: "#808080",
-          tabBarLabelStyle: { fontSize: 12 },
-        }}
-      >
-        <Tab.Screen
-          name="Home"
-          component={HomeStackScreen}
-          options={{
-            tabBarIcon: ({ size, color }) => (
-              <Icon name="home" size={size} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Dashboard"
-          component={dashboard}
-          options={{
-            tabBarIcon: ({ size, color }) => (
-              <Icon name="grid" size={size} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Journal"
-          component={JournalStackScreen}
-          options={{
-            tabBarIcon: ({ size, color }) => (
-              <Icon name="file-text" size={size} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="About"
-          component={about}
-          options={{
-            tabBarIcon: ({ size, color }) => (
-              <Icon name="help-circle" size={size} color={color} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {state.isLoggedIn == false ? (
+          <>
+            <Stack.Screen
+              name="Login"
+              component={loginScreen}
+              setState={setState}
+            />
+            <Stack.Screen name="UserName" component={userName} />
+            <Stack.Screen name="TabNavi" component={TabNavi} />
+          </>
+        ) : (
+          <Stack.Screen name="TabNavi" component={TabNavi} />
+        )}
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };

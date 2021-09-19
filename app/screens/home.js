@@ -7,11 +7,44 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+import { db } from "../db/config";
+db();
 
 export default class homeScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { userProfile: [] };
+    _isMounted = false;
+  }
+
+  componentDidMount() {
+    this._isMounted = true;
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        const userData = {
+          userId: user.uid,
+          userName: user.displayName,
+          mobileNum: user.phoneNumber,
+        };
+        console.log(userData);
+        if (this._isMounted) {
+          this.setState({ userProfile: userData });
+          firebase
+            .firestore()
+            .collection("Users")
+            .add(userData)
+            .then(() => console.log("User added to DB."))
+            .catch((err) => console.log(err));
+        }
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {
@@ -20,7 +53,9 @@ export default class homeScreen extends Component {
         <View style={styles.container}>
           <View style={styles.header}>
             <Text style={{ fontSize: 20 }}>Welcome</Text>
-            <Text style={{ fontSize: 30 }}>Nunito Sans</Text>
+            <Text style={{ fontSize: 30 }}>
+              {this.state.userProfile.userName}
+            </Text>
           </View>
 
           <TouchableOpacity // all items
