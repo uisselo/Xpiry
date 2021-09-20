@@ -20,10 +20,12 @@ export default class medicine extends Component {
 
   componentDidMount() {
     this._isMounted = true;
-    const medicine = firebase
-      .firestore()
+    const db = firebase.firestore();
+    const userRef = db.collection("Users").doc(firebase.auth().currentUser.uid);
+    const medicine = db
       .collection("Items")
-      .where("category", "==", "Medicine");
+      .where("fromUser", "==", userRef)
+      .where("itemCategory", "==", "Medicine");
     medicine.onSnapshot((docs) => {
       const items = [];
       docs.forEach((doc) => {

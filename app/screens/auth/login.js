@@ -5,11 +5,15 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  Keyboard,
 } from "react-native";
 import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
 import firebase from "firebase/app";
 import "firebase/auth";
 import { db } from "../../db/config";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 db();
 
 function login({ navigation }) {
@@ -48,73 +52,84 @@ function login({ navigation }) {
           ref={recaptchaVerifier}
           firebaseConfig={firebase.app().options}
         />
-        <View style={{ width: 350, marginBottom: 20 }}>
-          <Text style={{ fontSize: 30, marginBottom: 5 }}>Welcome</Text>
-          <Text>Enter your phone number to proceed.</Text>
-        </View>
-        <View style={styles.input}>
-          <Text style={styles.phCode}>+63 |</Text>
-          <TextInput
-            style={styles.numInput}
-            placeholder="Phone number"
-            onChangeText={setPhoneNumber}
-            keyboardType="phone-pad"
-            autoCompleteType="tel"
-          />
-        </View>
-        <View style={styles.bottom}>
-          <TouchableOpacity
-            style={[
-              styles.btn,
-              {
-                borderColor: "#ea4c4c",
-                backgroundColor: "#ea4c4c",
-                marginVertical: 10,
-              },
-            ]}
-            onPress={sendVerification}
-          >
-            <Text
-              style={{
-                color: "#fff",
-              }}
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : height}
+          style={{ flex: 1 }}
+        >
+          <View style={{ width: 350, marginBottom: 20 }}>
+            <Text style={{ fontSize: 30, marginBottom: 5 }}>Welcome</Text>
+            <Text>Enter your phone number to proceed.</Text>
+          </View>
+          <View style={styles.input}>
+            <Text style={styles.phCode}>+63 |</Text>
+            <TextInput
+              style={styles.numInput}
+              placeholder="Phone number"
+              onChangeText={setPhoneNumber}
+              keyboardType="phone-pad"
+              autoCompleteType="tel"
+            />
+          </View>
+          <View style={styles.bottom}>
+            <TouchableOpacity
+              style={[
+                styles.btn,
+                {
+                  borderColor: "#ea4c4c",
+                  backgroundColor: "#ea4c4c",
+                  marginVertical: 10,
+                },
+              ]}
+              onPress={sendVerification}
             >
-              Continue
-            </Text>
-          </TouchableOpacity>
-        </View>
+              <Text
+                style={{
+                  color: "#fff",
+                }}
+              >
+                Continue
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
       </View>
     );
   } else
     return (
       <View style={styles.container}>
-        <TextInput
-          style={styles.input}
-          placeholder="Confirmation Code"
-          onChangeText={setCode}
-          keyboardType="number-pad"
-        />
-        <View style={styles.bottom}>
-          <TouchableOpacity
-            style={[
-              styles.btn,
-              {
-                borderColor: "#ea4c4c",
-                backgroundColor: "#ea4c4c",
-                marginTop: 10,
-              },
-            ]}
-            onPress={confirmCode}
-          >
-            <Text
-              style={{
-                color: "#fff",
-              }}
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : height}
+          style={{ flex: 1 }}
+        >
+          <TextInput
+            style={styles.input}
+            placeholder="Confirmation Code"
+            onChangeText={setCode}
+            keyboardType="number-pad"
+          />
+          <View style={styles.bottom}>
+            <TouchableOpacity
+              style={[
+                styles.btn,
+                {
+                  borderColor: "#ea4c4c",
+                  backgroundColor: "#ea4c4c",
+                  marginTop: 10,
+                  marginBottom: 20,
+                },
+              ]}
+              onPress={confirmCode}
             >
-              Confirm
-            </Text>
-          </TouchableOpacity>
-        </View>
+              <Text
+                style={{
+                  color: "#fff",
+                }}
+              >
+                Confirm
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
       </View>
     );
 }
@@ -147,8 +162,8 @@ const styles = StyleSheet.create({
   },
   phCode: {
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    // alignItems: "center",
+    // justifyContent: "center",
   },
   numInput: {
     marginLeft: 5,

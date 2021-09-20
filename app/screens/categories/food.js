@@ -20,10 +20,12 @@ export default class food extends Component {
 
   componentDidMount() {
     this._isMounted = true;
-    const food = firebase
-      .firestore()
+    const db = firebase.firestore();
+    const userRef = db.collection("Users").doc(firebase.auth().currentUser.uid);
+    const food = db
       .collection("Items")
-      .where("category", "==", "Food");
+      .where("fromUser", "==", userRef)
+      .where("itemCategory", "==", "Food");
     food.onSnapshot((docs) => {
       const items = [];
       docs.forEach((doc) => {

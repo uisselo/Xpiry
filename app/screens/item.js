@@ -48,10 +48,10 @@ export default class item extends Component {
         .collection("Items")
         .doc(this.props.route.params.item.id)
         .update({
-          name: itemName,
-          expirationDate: itemExpirationDate,
+          itemName: itemName,
+          expiryDate: itemExpirationDate,
           quantity: itemQty,
-          barcode: itemBarcode,
+          barcodeNumber: itemBarcode,
         })
         .then(() => {
           this.setState({

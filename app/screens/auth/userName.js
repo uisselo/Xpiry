@@ -5,6 +5,8 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -42,32 +44,38 @@ function userName({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter your name"
-        onChangeText={setUserName}
-      />
-      <View style={styles.bottom}>
-        <TouchableOpacity
-          style={[
-            styles.btn,
-            {
-              borderColor: "#ea4c4c",
-              backgroundColor: "#ea4c4c",
-              marginTop: 10,
-            },
-          ]}
-          onPress={setName}
-        >
-          <Text
-            style={{
-              color: "#fff",
-            }}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : height}
+        style={{ flex: 1 }}
+      >
+        <TextInput
+          style={styles.input}
+          placeholder="Enter your name"
+          onChangeText={setUserName}
+        />
+        <View style={styles.bottom}>
+          <TouchableOpacity
+            style={[
+              styles.btn,
+              {
+                borderColor: "#ea4c4c",
+                backgroundColor: "#ea4c4c",
+                marginTop: 10,
+                marginBottom: 20,
+              },
+            ]}
+            onPress={setName}
           >
-            Complete
-          </Text>
-        </TouchableOpacity>
-      </View>
+            <Text
+              style={{
+                color: "#fff",
+              }}
+            >
+              Complete
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
     </View>
   );
 }

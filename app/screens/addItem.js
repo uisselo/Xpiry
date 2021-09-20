@@ -42,8 +42,8 @@ export default class addItem extends Component {
   onSubmit() {
     const { itemName, itemCategory, itemExpirationDate, itemQty, itemBarcode } =
       this.state;
-    const db = firebase.firestore().collection("Items");
-    const id = firebase.firestore().collection("Items").doc().id;
+    const db = firebase.firestore();
+    const id = db.collection("Items").doc().id;
     const item = {
       itemId: id,
       itemName: itemName,
@@ -51,9 +51,11 @@ export default class addItem extends Component {
       expiryDate: itemExpirationDate,
       barcodeNumber: itemBarcode,
       quantity: itemQty,
+      fromUser: db.doc("Users/" + firebase.auth().currentUser.uid),
     };
     if (this._isMounted) {
-      db.doc(id)
+      db.collection("Items")
+        .doc(id)
         .set(item)
         .then(() => {
           Alert.alert("Success", "Item has been added to database.", [

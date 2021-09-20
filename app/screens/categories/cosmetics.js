@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
+import querybase from "querybase";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { db } from "../../db/config";
@@ -20,10 +21,12 @@ export default class cosmetics extends Component {
 
   componentDidMount() {
     this._isMounted = true;
-    const cosmetics = firebase
-      .firestore()
+    const db = firebase.firestore();
+    const userRef = db.collection("Users").doc(firebase.auth().currentUser.uid);
+    const cosmetics = db
       .collection("Items")
-      .where("category", "==", "Cosmetics");
+      .where("fromUser", "==", userRef)
+      .where("itemCategory", "==", "Cosmetics");
     cosmetics.onSnapshot((docs) => {
       const items = [];
       docs.forEach((doc) => {

@@ -20,7 +20,9 @@ export default class all extends Component {
 
   componentDidMount() {
     this._isMounted = true;
-    const allItems = firebase.firestore().collection("Items");
+    const db = firebase.firestore();
+    const userRef = db.collection("Users").doc(firebase.auth().currentUser.uid);
+    const allItems = db.collection("Items").where("fromUser", "==", userRef);
     allItems.onSnapshot((docs) => {
       const items = [];
       docs.forEach((doc) => {
@@ -84,7 +86,7 @@ export default class all extends Component {
               >
                 <Text>{item.name}</Text>
                 <Text style={styles.expiryDate}>
-                  Expiration on {item.expiryDate}
+                  Expires on {item.expiryDate}
                 </Text>
               </TouchableOpacity>
             );
