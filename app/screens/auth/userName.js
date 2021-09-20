@@ -23,6 +23,18 @@ function userName({ navigation }) {
       })
       .then(() => {
         console.log("Update successful!");
+        const userData = {
+          userId: user.uid,
+          userName: user.displayName,
+          mobileNum: user.phoneNumber,
+        };
+        firebase
+          .firestore()
+          .collection("Users")
+          .doc(user.uid)
+          .set(userData)
+          .then(() => console.log("User added to DB."))
+          .catch((err) => console.log(err));
         navigation.navigate("TabNavi");
       })
       .catch((err) => console.log(err));

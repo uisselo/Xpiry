@@ -33,9 +33,10 @@ function login({ navigation }) {
     firebase
       .auth()
       .signInWithCredential(credential)
-      .then((result) => {
-        console.log(result);
-        navigation.navigate("UserName");
+      .then((user) => {
+        user.additionalUserInfo.isNewUser == false
+          ? navigation.navigate("TabNavi")
+          : navigation.navigate("UserName");
       })
       .catch((err) => console.log(err));
   };

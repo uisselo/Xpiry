@@ -29,15 +29,8 @@ export default class homeScreen extends Component {
           userName: user.displayName,
           mobileNum: user.phoneNumber,
         };
-        console.log(userData);
         if (this._isMounted) {
           this.setState({ userProfile: userData });
-          firebase
-            .firestore()
-            .collection("Users")
-            .add(userData)
-            .then(() => console.log("User added to DB."))
-            .catch((err) => console.log(err));
         }
       }
     });
