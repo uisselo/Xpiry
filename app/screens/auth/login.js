@@ -53,7 +53,7 @@ function login({ navigation }) {
           firebaseConfig={firebase.app().options}
         />
         <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : height}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={{ flex: 1 }}
         >
           <View style={{ width: 350, marginBottom: 20 }}>
@@ -98,7 +98,7 @@ function login({ navigation }) {
     return (
       <View style={styles.container}>
         <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : height}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={{ flex: 1 }}
         >
           <TextInput
