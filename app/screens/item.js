@@ -23,7 +23,7 @@ export default class item extends Component {
     const { item } = this.props.route.params;
     this.state = {
       itemName: item.name,
-      itemExpirationDate: new Date(item.expirationDate),
+      itemExpirationDate: new Date(item.expiryDate),
       itemQty: item.quantity,
       itemBarcode: item.barcode,
       datePickerVisible: false,
@@ -137,7 +137,7 @@ export default class item extends Component {
                     <TextInput
                       editable={false}
                       value={this.state.itemExpirationDate.toLocaleDateString()}
-                      placeholder={item.expirationDate}
+                      placeholder={item.expiryDate}
                     />
                   </View>
                   <TouchableOpacity
@@ -159,7 +159,7 @@ export default class item extends Component {
                   <DatePicker
                     isVisible={this.state.datePickerVisible}
                     mode="date"
-                    date={new Date(item.expirationDate)}
+                    date={new Date(item.expiryDate)}
                     onConfirm={(date) => {
                       console.log("Date picked:", date);
                       this.setState({
@@ -255,7 +255,7 @@ export default class item extends Component {
             </View>
             <Text style={{ fontSize: 20 }}>{item.category}</Text>
             <Text style={{ color: "#ea4c4c" }}>
-              Expires on {item.expirationDate}
+              Expires on {item.expiryDate}
             </Text>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback style={[styles.box, { height: 100 }]}>

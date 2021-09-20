@@ -28,7 +28,7 @@ export default class medicine extends Component {
       const items = [];
       docs.forEach((doc) => {
         const data = doc.data();
-        const fbd = data.expirationDate.toDate();
+        const fbd = data.expiryDate.toDate();
         const monthNames = [
           "Jan",
           "Feb",
@@ -49,14 +49,14 @@ export default class medicine extends Component {
           monthNames[fbd.getMonth()] +
           " " +
           fbd.getFullYear();
-        if (Date.now() / 1000 <= doc.data().expirationDate.seconds) {
+        if (Date.now() / 1000 <= doc.data().expiryDate.seconds) {
           items.push({
             id: doc.id,
-            name: data.name,
-            category: data.category,
-            expirationDate: ed,
+            name: data.itemName,
+            category: data.itemCategory,
+            expiryDate: ed,
+            barcode: data.barcodeNumber,
             quantity: data.quantity,
-            barcode: data.barcode,
           });
         }
       });
@@ -86,8 +86,8 @@ export default class medicine extends Component {
                 }
               >
                 <Text>{item.name}</Text>
-                <Text style={styles.expirationDate}>
-                  Expiration on {item.expirationDate}
+                <Text style={styles.expiryDate}>
+                  Expiration on {item.expiryDate}
                 </Text>
               </TouchableOpacity>
             );
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     elevation: 2,
   },
-  expirationDate: {
+  expiryDate: {
     color: "#ea4c4c",
   },
 });
