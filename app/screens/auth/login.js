@@ -13,7 +13,6 @@ import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
 import firebase from "firebase/app";
 import "firebase/auth";
 import { db } from "../../db/config";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 db();
 
 function login({ navigation }) {
