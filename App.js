@@ -17,6 +17,8 @@ import food from "./app/screens/categories/food";
 import cosmetics from "./app/screens/categories/cosmetics";
 import medicine from "./app/screens/categories/medicine";
 import addItem from "./app/screens/addItem";
+import scannedBarcode from "./app/screens/addItemWithBarcode";
+import scanBarcode from "./app/screens/scanBarcode";
 import page1 from "./app/screens/journal pages/page1";
 import page2 from "./app/screens/journal pages/page2";
 import page3 from "./app/screens/journal pages/page3";
@@ -34,6 +36,8 @@ const HomeStackScreen = () => {
       <HomeStack.Screen name="Cosmetics" component={cosmetics} />
       <HomeStack.Screen name="Medicine" component={medicine} />
       <HomeStack.Screen name="AddItem" component={addItem} />
+      <HomeStack.Screen name="ScanBarcode" component={scanBarcode} />
+      <HomeStack.Screen name="ScannedBarcode" component={scannedBarcode} />
       <HomeStack.Screen name="ItemDetails" component={item} />
     </HomeStack.Navigator>
   );

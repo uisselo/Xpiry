@@ -171,34 +171,40 @@ export default class addItem extends Component {
             />
 
             <Text style={styles.label}>Barcode Number</Text>
-            <TextInput
-              style={styles.input}
-              value={this.state.itemBarcode}
-              onChangeText={(itemBarcode) => this.setState({ itemBarcode })}
-              placeholder="Enter barcode number"
-            />
+            <View style={styles.row}>
+              <TextInput
+                style={[styles.input, { width: 230 }]}
+                editable={false}
+                value={this.props.route.params.data}
+                onChangeText={(itemBarcode) => this.setState({ itemBarcode })}
+                placeholder={this.props.route.params.data}
+              />
+              <TouchableOpacity
+                style={[
+                  styles.btn,
+                  {
+                    fontSize: 15,
+                    width: 110,
+                    color: "#fff",
+                    borderColor: "#ea4c4c",
+                    backgroundColor: "#ea4c4c",
+                  },
+                ]}
+                onPress={() => this.props.navigation.navigate("AddItem")}
+              >
+                <Text style={{ color: "#fff" }}>Remove</Text>
+              </TouchableOpacity>
+            </View>
 
             <View style={[styles.row, { marginTop: 15 }]}>
               <TouchableOpacity
                 style={[
                   styles.btn,
-                  { borderColor: "#ea4c4c", backgroundColor: "#fff" },
-                ]}
-                onPress={() => this.props.navigation.navigate("ScanBarcode")}
-              >
-                <Text
-                  style={{
-                    fontSize: 20,
-                    color: "#ea4c4c",
-                  }}
-                >
-                  Scan Barcode
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.btn,
-                  { borderColor: "#ea4c4c", backgroundColor: "#ea4c4c" },
+                  {
+                    width: 350,
+                    borderColor: "#ea4c4c",
+                    backgroundColor: "#ea4c4c",
+                  },
                 ]}
                 onPress={() => this.onSubmit()}
               >
