@@ -110,7 +110,7 @@ export default class homeScreen extends Component {
           >
             <Text style={styles.text}>All Items</Text>
             <Image
-              source={{ uri: "https://i.imgur.com/L3JFbmd.png" }}
+              source={{ uri: "https://i.imgur.com/eHsbCtJ.png" }}
               style={styles.logo}
             />
           </TouchableOpacity>
