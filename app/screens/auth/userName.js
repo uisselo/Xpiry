@@ -45,7 +45,7 @@ function userName({ navigation }) {
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        behavior={Platform.OS === "ios" ? "padding" : ""}
         style={{ flex: 1 }}
       >
         <TextInput
@@ -60,8 +60,7 @@ function userName({ navigation }) {
               {
                 borderColor: "#ea4c4c",
                 backgroundColor: "#ea4c4c",
-                marginTop: 10,
-                marginBottom: 20,
+                marginVertical: 10,
               },
             ]}
             onPress={setName}

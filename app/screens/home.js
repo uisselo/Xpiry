@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import Modal from "react-native-modal";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
@@ -16,7 +17,7 @@ db();
 export default class homeScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = { userProfile: [] };
+    this.state = { userProfile: [], modalVisible: false };
     _isMounted = false;
   }
 
@@ -44,6 +45,53 @@ export default class homeScreen extends Component {
     return (
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
+          <Modal
+            hasBackdrop={true}
+            backdropColor="#000"
+            onBackdropPress={() => this.setState({ modalVisible: false })}
+            isVisible={this.state.modalVisible}
+          >
+            <View style={styles.modal}>
+              <View style={styles.row}>
+                <TouchableOpacity
+                  style={[
+                    styles.btn,
+                    { borderColor: "#ea4c4c", backgroundColor: "#fff" },
+                  ]}
+                  onPress={() => {
+                    this.props.navigation.navigate("ScanBarcode");
+                    this.setState({ modalVisible: false });
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#ea4c4c",
+                    }}
+                  >
+                    Scan Barcode
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.btn,
+                    { borderColor: "#ea4c4c", backgroundColor: "#ea4c4c" },
+                  ]}
+                  onPress={() => {
+                    this.props.navigation.navigate("AddItem");
+                    this.setState({ modalVisible: false });
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#fff",
+                    }}
+                  >
+                    Add manually
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
           <View style={styles.header}>
             <Text style={{ fontSize: 20 }}>Welcome</Text>
             <Text style={{ fontSize: 30 }}>
@@ -135,7 +183,7 @@ export default class homeScreen extends Component {
                 borderWidth: 3,
               },
             ]}
-            onPress={() => this.props.navigation.navigate("AddItem")}
+            onPress={() => this.setState({ modalVisible: true })}
           >
             <Text style={[styles.text, { color: "#6C6C6C" }]}>Add Item</Text>
             <Image
@@ -180,5 +228,34 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     alignSelf: "center",
+  },
+  modal: {
+    width: 350,
+    height: 100,
+    justifyContent: "center",
+    alignSelf: "center",
+    borderRadius: 10,
+    padding: 20,
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowRadius: 3,
+    shadowOpacity: 0.05,
+    elevation: 2,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  btn: {
+    height: 40,
+    width: 150,
+    borderRadius: 10,
+    borderWidth: 2,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

@@ -50,9 +50,10 @@ function login({ navigation }) {
         <FirebaseRecaptchaVerifierModal
           ref={recaptchaVerifier}
           firebaseConfig={firebase.app().options}
+          attemptInvisibleVerification={true}
         />
         <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          behavior={Platform.OS === "ios" ? "padding" : ""}
           style={{ flex: 1 }}
         >
           <View style={{ width: 350, marginBottom: 20 }}>
@@ -60,7 +61,9 @@ function login({ navigation }) {
             <Text>Enter your phone number to proceed.</Text>
           </View>
           <View style={styles.input}>
-            <Text style={styles.phCode}>+63 |</Text>
+            <TextInput editable={false} style={styles.phCode}>
+              +63 |
+            </TextInput>
             <TextInput
               style={styles.numInput}
               placeholder="Phone number"
@@ -97,7 +100,7 @@ function login({ navigation }) {
     return (
       <View style={styles.container}>
         <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          behavior={Platform.OS === "ios" ? "padding" : ""}
           style={{ flex: 1 }}
         >
           <TextInput
@@ -113,8 +116,7 @@ function login({ navigation }) {
                 {
                   borderColor: "#ea4c4c",
                   backgroundColor: "#ea4c4c",
-                  marginTop: 10,
-                  marginBottom: 20,
+                  marginVertical: 10,
                 },
               ]}
               onPress={confirmCode}

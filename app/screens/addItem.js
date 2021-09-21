@@ -63,7 +63,7 @@ export default class addItem extends Component {
               text: "OK",
               onPress: () => {
                 console.log("Alert closed.");
-                this.props.navigation.goBack();
+                this.props.navigation.navigate("All");
               },
             },
           ]);

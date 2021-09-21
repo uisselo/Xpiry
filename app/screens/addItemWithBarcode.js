@@ -25,7 +25,7 @@ export default class addItem extends Component {
       itemCategory: "",
       itemExpirationDate: new Date(),
       itemQty: 0,
-      itemBarcode: "",
+      itemBarcode: this.props.route.params.data,
       datePickerVisible: false,
     };
     _isMounted = false;
@@ -63,7 +63,7 @@ export default class addItem extends Component {
               text: "OK",
               onPress: () => {
                 console.log("Alert closed.");
-                this.props.navigation.goBack();
+                this.props.navigation.navigate("All");
               },
             },
           ]);
@@ -171,40 +171,34 @@ export default class addItem extends Component {
             />
 
             <Text style={styles.label}>Barcode Number</Text>
-            <View style={styles.row}>
-              <TextInput
-                style={[styles.input, { width: 230 }]}
-                editable={false}
-                value={this.props.route.params.data}
-                onChangeText={(itemBarcode) => this.setState({ itemBarcode })}
-                placeholder={this.props.route.params.data}
-              />
-              <TouchableOpacity
-                style={[
-                  styles.btn,
-                  {
-                    fontSize: 15,
-                    width: 110,
-                    color: "#fff",
-                    borderColor: "#ea4c4c",
-                    backgroundColor: "#ea4c4c",
-                  },
-                ]}
-                onPress={() => this.props.navigation.navigate("AddItem")}
-              >
-                <Text style={{ color: "#fff" }}>Remove</Text>
-              </TouchableOpacity>
-            </View>
+            <TextInput
+              style={styles.input}
+              editable={false}
+              value={this.props.route.params.data}
+              placeholder={this.props.route.params.data}
+            />
 
             <View style={[styles.row, { marginTop: 15 }]}>
               <TouchableOpacity
                 style={[
                   styles.btn,
-                  {
-                    width: 350,
-                    borderColor: "#ea4c4c",
-                    backgroundColor: "#ea4c4c",
-                  },
+                  { borderColor: "#ea4c4c", backgroundColor: "#fff" },
+                ]}
+                onPress={() => this.props.navigation.navigate("AddItem")}
+              >
+                <Text
+                  style={{
+                    fontSize: 20,
+                    color: "#ea4c4c",
+                  }}
+                >
+                  Remove Barcode
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.btn,
+                  { borderColor: "#ea4c4c", backgroundColor: "#ea4c4c" },
                 ]}
                 onPress={() => this.onSubmit()}
               >
