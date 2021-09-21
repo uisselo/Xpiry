@@ -57,15 +57,18 @@ function scanBarcode({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <Text style={{ fontSize: 20, marginBottom: 5 }}>
+        Place the Barcode inside the area.
+      </Text>
+      <Text style={{ marginBottom: 20 }}>
+        Scanning will start automatically.
+      </Text>
       <View style={styles.barcodeBox}>
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : handleBarcodeScanned}
           style={{ height: 400, width: 400 }}
         />
       </View>
-      <Text style={{ fontSize: 30, marginTop: 20, marginBottom: 10 }}>
-        {text}
-      </Text>
     </View>
   );
 }
