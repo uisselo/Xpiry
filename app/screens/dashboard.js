@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
+  Image,
 } from "react-native";
 import moment from "moment";
 import firebase from "firebase/app";
@@ -118,8 +119,34 @@ export default class dashboard extends Component {
                   })
                 }
               >
-                <Text>{item.name}</Text>
-                <Text style={styles.status}>Expired</Text>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  {item.category === "Food" ? (
+                    <Image
+                      source={{
+                        uri: "https://cdn-icons-png.flaticon.com/512/1046/1046857.png",
+                      }}
+                      style={{ width: 30, height: 30 }}
+                    />
+                  ) : item.category === "Cosmetics" ? (
+                    <Image
+                      source={{
+                        uri: "https://cdn-icons-png.flaticon.com/512/2413/2413171.png",
+                      }}
+                      style={{ width: 30, height: 30 }}
+                    />
+                  ) : (
+                    <Image
+                      source={{
+                        uri: "https://cdn-icons-png.flaticon.com/512/656/656019.png",
+                      }}
+                      style={{ width: 30, height: 30 }}
+                    />
+                  )}
+                  <View style={{ marginLeft: 20 }}>
+                    <Text>{item.name}</Text>
+                    <Text style={styles.status}>Expired</Text>
+                  </View>
+                </View>
               </TouchableOpacity>
             );
           }}
@@ -143,8 +170,34 @@ export default class dashboard extends Component {
                   })
                 }
               >
-                <Text>{item.name}</Text>
-                <Text style={styles.status}>Expired</Text>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  {item.category === "Food" ? (
+                    <Image
+                      source={{
+                        uri: "https://cdn-icons-png.flaticon.com/512/1046/1046857.png",
+                      }}
+                      style={{ width: 30, height: 30 }}
+                    />
+                  ) : item.category === "Cosmetics" ? (
+                    <Image
+                      source={{
+                        uri: "https://cdn-icons-png.flaticon.com/512/2413/2413171.png",
+                      }}
+                      style={{ width: 30, height: 30 }}
+                    />
+                  ) : (
+                    <Image
+                      source={{
+                        uri: "https://cdn-icons-png.flaticon.com/512/656/656019.png",
+                      }}
+                      style={{ width: 30, height: 30 }}
+                    />
+                  )}
+                  <View style={{ marginLeft: 20 }}>
+                    <Text>{item.name}</Text>
+                    <Text style={styles.status}>Expired</Text>
+                  </View>
+                </View>
               </TouchableOpacity>
             );
           }}
