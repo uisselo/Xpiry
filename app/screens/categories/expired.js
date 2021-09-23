@@ -71,6 +71,9 @@ export default class expired extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <View style={styles.title}>
+          <Text style={{ fontSize: 30 }}>Expired Items</Text>
+        </View>
         <FlatList
           showsVerticalScrollIndicator={false}
           data={this.state.itemList}
@@ -84,17 +87,8 @@ export default class expired extends Component {
                 }
               >
                 <Text>{item.name}</Text>
-                <Text style={styles.expiryDate}>Expired</Text>
+                <Text style={styles.status}>Expired</Text>
               </TouchableOpacity>
-            );
-          }}
-          ListHeaderComponent={() => {
-            return (
-              <View
-                style={{ width: 350, marginBottom: 10, marginHorizontal: 5 }}
-              >
-                <Text style={{ fontSize: 30 }}>Expired Items</Text>
-              </View>
             );
           }}
         />
@@ -110,6 +104,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 50,
+  },
+  title: {
+    marginBottom: 10,
+    width: 350,
+    alignSelf: "center",
   },
   item: {
     width: 350,
@@ -130,7 +129,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     elevation: 2,
   },
-  expiryDate: {
+  status: {
     color: "#ea4c4c",
   },
 });

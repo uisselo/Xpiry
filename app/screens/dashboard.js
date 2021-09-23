@@ -4,53 +4,152 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
+  FlatList,
 } from "react-native";
+import moment from "moment";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import { db } from "../db/config";
+db();
 
 export default class dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { itemList: [] };
+    _isMounted = false;
+  }
+
+  componentDidMount() {
+    this._isMounted = true;
+    this._isMounted = true;
+    const db = firebase.firestore();
+    const userRef = db.collection("Users").doc(firebase.auth().currentUser.uid);
+    const expired = db.collection("Items").where("fromUser", "==", userRef);
+    expired.onSnapshot((docs) => {
+      const items = [];
+      docs.forEach((doc) => {
+        const data = doc.data();
+        const fbd = data.expiryDate.toDate();
+        const monthNames = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+        const ed =
+          fbd.getDate() +
+          " " +
+          monthNames[fbd.getMonth()] +
+          " " +
+          fbd.getFullYear();
+        if (Date.now() / 1000 >= doc.data().expiryDate.seconds) {
+          items.push({
+            id: doc.id,
+            name: data.itemName,
+            category: data.itemCategory,
+            expiryDate: ed,
+            barcode: data.barcodeNumber,
+            quantity: data.quantity,
+          });
+        }
+      });
+      if (this._isMounted) {
+        this.setState({ itemList: items });
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {
     return (
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View style={styles.container}>
-          <View style={{ width: 350 }}>
-            <Text style={{ fontSize: 30, marginBottom: 15 }}>Dashboard</Text>
-            <View style={styles.dataContainer}>
-              <TouchableOpacity style={styles.data}>
-                <Text style={styles.dataNum}>4</Text>
-                <Text style={styles.dataLabel}>Expired Items Today</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.data}>
-                <Text style={styles.dataNum}>11</Text>
-                <Text style={styles.dataLabel}>Expired Items This Week</Text>
-              </TouchableOpacity>
-            </View>
-            <Text style={{ fontSize: 20, marginVertical: 15 }}>
-              Expired Items Today
-            </Text>
-            <TouchableOpacity style={styles.item}>
-              <Text>Pancit Canton</Text>
-              <Text style={styles.itemStatus}>Expired</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.item}>
-              <Text>Century Tuna</Text>
-              <Text style={styles.itemStatus}>Expired</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.item}>
-              <Text>Biogesic</Text>
-              <Text style={styles.itemStatus}>Expired</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.item}>
-              <Text>Dove Lotion</Text>
-              <Text style={styles.itemStatus}>Expired</Text>
-            </TouchableOpacity>
-          </View>
+      <View style={styles.container}>
+        <View style={styles.title}>
+          <Text style={{ fontSize: 30 }}>Dashboard</Text>
         </View>
-      </ScrollView>
+        <View style={styles.dataContainer}>
+          <TouchableOpacity style={styles.data}>
+            <Text style={styles.dataNum}>
+              {
+                this.state.itemList.filter((item) =>
+                  moment(item.expiryDate).isSame(Date.now(), "D")
+                ).length
+              }
+            </Text>
+            <Text style={styles.dataLabel}>Expired Items Today</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.data}>
+            <Text style={styles.dataNum}>
+              {
+                this.state.itemList.filter((item) =>
+                  moment(item.expiryDate).isSame(Date.now(), "W")
+                ).length
+              }
+            </Text>
+            <Text style={styles.dataLabel}>Expired Items This Week</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={[styles.title, { marginVertical: 15 }]}>
+          <Text style={{ fontSize: 30 }}>Expired Items Today</Text>
+        </View>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={this.state.itemList.filter((item) =>
+            moment(item.expiryDate).isSame(Date.now(), "D")
+          )}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity
+                style={styles.item}
+                onPress={() =>
+                  this.props.navigation.navigate("ItemDetails", {
+                    item: item,
+                  })
+                }
+              >
+                <Text>{item.name}</Text>
+                <Text style={styles.status}>Expired</Text>
+              </TouchableOpacity>
+            );
+          }}
+        />
+        <View style={[styles.title, { marginVertical: 15 }]}>
+          <Text style={{ fontSize: 30 }}>Expired Items This Week</Text>
+        </View>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={this.state.itemList.filter((item) =>
+            moment(item.expiryDate).isSame(Date.now(), "W")
+          )}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity
+                style={styles.item}
+                onPress={() =>
+                  this.props.navigation.navigate("ItemDetails", {
+                    item: item,
+                  })
+                }
+              >
+                <Text>{item.name}</Text>
+                <Text style={styles.status}>Expired</Text>
+              </TouchableOpacity>
+            );
+          }}
+        />
+      </View>
     );
   }
 }
@@ -60,13 +159,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     justifyContent: "center",
-    flexDirection: "row",
-    flexWrap: "wrap",
+    alignItems: "center",
     paddingVertical: 50,
   },
+  title: {
+    marginBottom: 10,
+    width: 350,
+    alignSelf: "center",
+  },
   dataContainer: {
+    width: 350,
     flexDirection: "row",
     justifyContent: "space-between",
+    alignSelf: "center",
   },
   data: {
     height: 100,
@@ -98,11 +203,14 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   item: {
+    width: 350,
     height: 70,
     borderRadius: 10,
     padding: 20,
     marginVertical: 5,
+    marginHorizontal: 5,
     justifyContent: "center",
+    alignSelf: "center",
     backgroundColor: "#fff",
     shadowColor: "#000",
     shadowOffset: {
@@ -113,7 +221,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     elevation: 2,
   },
-  itemStatus: {
+  status: {
     color: "#ea4c4c",
   },
 });

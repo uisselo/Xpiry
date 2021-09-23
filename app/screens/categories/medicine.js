@@ -75,6 +75,9 @@ export default class medicine extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <View style={styles.title}>
+          <Text style={{ fontSize: 30 }}>All Items</Text>
+        </View>
         <FlatList
           showsVerticalScrollIndicator={false}
           data={this.state.itemList}
@@ -94,15 +97,6 @@ export default class medicine extends Component {
               </TouchableOpacity>
             );
           }}
-          ListHeaderComponent={() => {
-            return (
-              <View
-                style={{ width: 350, marginBottom: 10, marginHorizontal: 5 }}
-              >
-                <Text style={{ fontSize: 30 }}>Medicine</Text>
-              </View>
-            );
-          }}
         />
       </View>
     );
@@ -116,6 +110,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 50,
+  },
+  title: {
+    marginBottom: 10,
+    width: 350,
+    alignSelf: "center",
   },
   item: {
     width: 350,
