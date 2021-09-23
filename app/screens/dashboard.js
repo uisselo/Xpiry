@@ -22,7 +22,6 @@ export default class dashboard extends Component {
 
   componentDidMount() {
     this._isMounted = true;
-    this._isMounted = true;
     const db = firebase.firestore();
     const userRef = db.collection("Users").doc(firebase.auth().currentUser.uid);
     const expired = db.collection("Items").where("fromUser", "==", userRef);
