@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import Modal from "react-native-modal";
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -50,6 +51,7 @@ export default class homeScreen extends Component {
             backdropColor="#000"
             onBackdropPress={() => this.setState({ modalVisible: false })}
             isVisible={this.state.modalVisible}
+            statusBarTranslucent
           >
             <View style={styles.modal}>
               <View style={styles.row}>

@@ -82,7 +82,7 @@ export default class dashboard extends Component {
             <Text style={styles.dataNum}>
               {
                 this.state.itemList.filter((item) =>
-                  moment(item.expiryDate).isSame(Date.now(), "D")
+                  moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "D")
                 ).length
               }
             </Text>
@@ -92,7 +92,7 @@ export default class dashboard extends Component {
             <Text style={styles.dataNum}>
               {
                 this.state.itemList.filter((item) =>
-                  moment(item.expiryDate).isSame(Date.now(), "W")
+                  moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "W")
                 ).length
               }
             </Text>
@@ -100,12 +100,12 @@ export default class dashboard extends Component {
           </TouchableOpacity>
         </View>
         <View style={[styles.title, { marginVertical: 15 }]}>
-          <Text style={{ fontSize: 30 }}>Expired Items Today</Text>
+          <Text style={{ fontSize: 20 }}>Expired Items Today</Text>
         </View>
         <FlatList
           showsVerticalScrollIndicator={false}
           data={this.state.itemList.filter((item) =>
-            moment(item.expiryDate).isSame(Date.now(), "D")
+            moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "D")
           )}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => {
@@ -151,12 +151,12 @@ export default class dashboard extends Component {
           }}
         />
         <View style={[styles.title, { marginVertical: 15 }]}>
-          <Text style={{ fontSize: 30 }}>Expired Items This Week</Text>
+          <Text style={{ fontSize: 20 }}>Expired Items This Week</Text>
         </View>
         <FlatList
           showsVerticalScrollIndicator={false}
           data={this.state.itemList.filter((item) =>
-            moment(item.expiryDate).isSame(Date.now(), "W")
+            moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "W")
           )}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => {

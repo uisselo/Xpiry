@@ -7,6 +7,7 @@ import {
   FlatList,
   Image,
 } from "react-native";
+import moment from "moment";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { db } from "../../db/config";
@@ -112,7 +113,10 @@ export default class expired extends Component {
                   )}
                   <View style={{ marginLeft: 20 }}>
                     <Text>{item.name}</Text>
-                    <Text style={styles.status}>Expired</Text>
+                    <Text style={styles.status}>
+                      Expired for{" "}
+                      {moment(item.expiryDate, "DD-MMM-YYYY").fromNow(true)}
+                    </Text>
                   </View>
                 </View>
               </TouchableOpacity>

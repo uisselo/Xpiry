@@ -36,6 +36,7 @@
     "react-native-gesture-handler": "~1.10.2",
     "react-native-modal": "^13.0.0",
     "react-native-modal-datetime-picker": "^11.0.0",
+    "react-native-modal-translucent": "^5.0.0",
     "react-native-numeric-input": "^1.9.0",
     "react-native-otp": "^1.0.0",
     "react-native-otp-form": "^1.0.2",

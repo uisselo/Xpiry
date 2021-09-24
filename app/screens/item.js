@@ -111,6 +111,7 @@ export default class item extends Component {
             backdropColor="#000"
             onBackdropPress={() => this.setState({ modalVisible: false })}
             isVisible={this.state.modalVisible}
+            statusBarTranslucent
           >
             <View style={styles.modal}>
               <Text style={{ fontSize: 30, marginBottom: 10 }}>
