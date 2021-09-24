@@ -6,11 +6,15 @@ import {
   TouchableOpacity,
   FlatList,
   Image,
+  useWindowDimensions,
+  Animated,
 } from "react-native";
+import { TabView, SceneMap } from "react-native-tab-view";
 import moment from "moment";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { db } from "../db/config";
+import { ScrollView } from "react-native-gesture-handler";
 db();
 
 export default class dashboard extends Component {
@@ -73,135 +77,148 @@ export default class dashboard extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.title}>
-          <Text style={{ fontSize: 30 }}>Dashboard</Text>
-        </View>
-        <View style={styles.dataContainer}>
-          <TouchableOpacity style={styles.data}>
-            <Text style={styles.dataNum}>
-              {
-                this.state.itemList.filter((item) =>
-                  moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "D")
-                ).length
-              }
-            </Text>
-            <Text style={styles.dataLabel}>Expired Items Today</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.data}>
-            <Text style={styles.dataNum}>
-              {
-                this.state.itemList.filter((item) =>
-                  moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "W")
-                ).length
-              }
-            </Text>
-            <Text style={styles.dataLabel}>Expired Items This Week</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={[styles.title, { marginVertical: 15 }]}>
-          <Text style={{ fontSize: 20 }}>Expired Items Today</Text>
-        </View>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={this.state.itemList.filter((item) =>
-            moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "D")
-          )}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => {
-            return (
-              <TouchableOpacity
-                style={styles.item}
-                onPress={() =>
-                  this.props.navigation.navigate("ItemDetails", {
-                    item: item,
-                  })
+      <ScrollView
+        nestedScrollEnabled={true}
+        contentContainerStyle={{ flexGrow: 1 }}
+      >
+        <View style={styles.container}>
+          <View style={styles.title}>
+            <Text style={{ fontSize: 30 }}>Dashboard</Text>
+          </View>
+          <View style={styles.dataContainer}>
+            <TouchableOpacity style={styles.data}>
+              <Text style={styles.dataNum}>
+                {
+                  this.state.itemList.filter((item) =>
+                    moment(item.expiryDate, "DD-MMM-YYYY").isSame(
+                      Date.now(),
+                      "D"
+                    )
+                  ).length
                 }
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  {item.category === "Food" ? (
-                    <Image
-                      source={{
-                        uri: "https://cdn-icons-png.flaticon.com/512/1046/1046857.png",
-                      }}
-                      style={{ width: 30, height: 30 }}
-                    />
-                  ) : item.category === "Cosmetics" ? (
-                    <Image
-                      source={{
-                        uri: "https://cdn-icons-png.flaticon.com/512/2413/2413171.png",
-                      }}
-                      style={{ width: 30, height: 30 }}
-                    />
-                  ) : (
-                    <Image
-                      source={{
-                        uri: "https://cdn-icons-png.flaticon.com/512/656/656019.png",
-                      }}
-                      style={{ width: 30, height: 30 }}
-                    />
-                  )}
-                  <View style={{ marginLeft: 20 }}>
-                    <Text>{item.name}</Text>
-                    <Text style={styles.status}>Expired</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            );
-          }}
-        />
-        <View style={[styles.title, { marginVertical: 15 }]}>
-          <Text style={{ fontSize: 20 }}>Expired Items This Week</Text>
-        </View>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={this.state.itemList.filter((item) =>
-            moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "W")
-          )}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => {
-            return (
-              <TouchableOpacity
-                style={styles.item}
-                onPress={() =>
-                  this.props.navigation.navigate("ItemDetails", {
-                    item: item,
-                  })
+              </Text>
+              <Text style={styles.dataLabel}>Expired Items Today</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.data}>
+              <Text style={styles.dataNum}>
+                {
+                  this.state.itemList.filter((item) =>
+                    moment(item.expiryDate, "DD-MMM-YYYY").isSame(
+                      Date.now(),
+                      "W"
+                    )
+                  ).length
                 }
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  {item.category === "Food" ? (
-                    <Image
-                      source={{
-                        uri: "https://cdn-icons-png.flaticon.com/512/1046/1046857.png",
-                      }}
-                      style={{ width: 30, height: 30 }}
-                    />
-                  ) : item.category === "Cosmetics" ? (
-                    <Image
-                      source={{
-                        uri: "https://cdn-icons-png.flaticon.com/512/2413/2413171.png",
-                      }}
-                      style={{ width: 30, height: 30 }}
-                    />
-                  ) : (
-                    <Image
-                      source={{
-                        uri: "https://cdn-icons-png.flaticon.com/512/656/656019.png",
-                      }}
-                      style={{ width: 30, height: 30 }}
-                    />
-                  )}
-                  <View style={{ marginLeft: 20 }}>
-                    <Text>{item.name}</Text>
-                    <Text style={styles.status}>Expired</Text>
+              </Text>
+              <Text style={styles.dataLabel}>Expired Items This Week</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={[styles.title, { marginVertical: 15 }]}>
+            <Text style={{ fontSize: 20 }}>Expired Items Today</Text>
+          </View>
+          <FlatList
+            nestedScrollEnabled={true}
+            showsVerticalScrollIndicator={false}
+            data={this.state.itemList.filter((item) =>
+              moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "D")
+            )}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => {
+              return (
+                <TouchableOpacity
+                  style={styles.item}
+                  onPress={() =>
+                    this.props.navigation.navigate("ItemDetails", {
+                      item: item,
+                    })
+                  }
+                >
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    {item.category === "Food" ? (
+                      <Image
+                        source={{
+                          uri: "https://cdn-icons-png.flaticon.com/512/1046/1046857.png",
+                        }}
+                        style={{ width: 30, height: 30 }}
+                      />
+                    ) : item.category === "Cosmetics" ? (
+                      <Image
+                        source={{
+                          uri: "https://cdn-icons-png.flaticon.com/512/2413/2413171.png",
+                        }}
+                        style={{ width: 30, height: 30 }}
+                      />
+                    ) : (
+                      <Image
+                        source={{
+                          uri: "https://cdn-icons-png.flaticon.com/512/656/656019.png",
+                        }}
+                        style={{ width: 30, height: 30 }}
+                      />
+                    )}
+                    <View style={{ marginLeft: 20 }}>
+                      <Text>{item.name}</Text>
+                      <Text style={styles.status}>Expired</Text>
+                    </View>
                   </View>
-                </View>
-              </TouchableOpacity>
-            );
-          }}
-        />
-      </View>
+                </TouchableOpacity>
+              );
+            }}
+          />
+          <View style={[styles.title, { marginVertical: 15 }]}>
+            <Text style={{ fontSize: 20 }}>Expired Items This Week</Text>
+          </View>
+          <FlatList
+            nestedScrollEnabled={true}
+            showsVerticalScrollIndicator={false}
+            data={this.state.itemList.filter((item) =>
+              moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "W")
+            )}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => {
+              return (
+                <TouchableOpacity
+                  style={styles.item}
+                  onPress={() =>
+                    this.props.navigation.navigate("ItemDetails", {
+                      item: item,
+                    })
+                  }
+                >
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    {item.category === "Food" ? (
+                      <Image
+                        source={{
+                          uri: "https://cdn-icons-png.flaticon.com/512/1046/1046857.png",
+                        }}
+                        style={{ width: 30, height: 30 }}
+                      />
+                    ) : item.category === "Cosmetics" ? (
+                      <Image
+                        source={{
+                          uri: "https://cdn-icons-png.flaticon.com/512/2413/2413171.png",
+                        }}
+                        style={{ width: 30, height: 30 }}
+                      />
+                    ) : (
+                      <Image
+                        source={{
+                          uri: "https://cdn-icons-png.flaticon.com/512/656/656019.png",
+                        }}
+                        style={{ width: 30, height: 30 }}
+                      />
+                    )}
+                    <View style={{ marginLeft: 20 }}>
+                      <Text>{item.name}</Text>
+                      <Text style={styles.status}>Expired</Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              );
+            }}
+          />
+        </View>
+      </ScrollView>
     );
   }
 }

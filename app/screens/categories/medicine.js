@@ -76,7 +76,7 @@ export default class medicine extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.title}>
-          <Text style={{ fontSize: 30 }}>All Items</Text>
+          <Text style={{ fontSize: 30 }}>Medicine</Text>
         </View>
         <FlatList
           showsVerticalScrollIndicator={false}
