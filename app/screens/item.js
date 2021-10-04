@@ -8,6 +8,10 @@ import {
   Alert,
   Platform,
 } from "react-native";
+import {
+  widthPercentageToDP,
+  heightPercentageToDP,
+} from "react-native-responsive-screen";
 import Modal from "react-native-modal";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import DatePicker from "react-native-modal-datetime-picker";
@@ -126,7 +130,12 @@ export default class item extends Component {
               />
               <Text style={{ marginVertical: 5 }}>Expiration Date</Text>
               <View style={styles.row}>
-                <View style={[styles.input, { width: 200 }]}>
+                <View
+                  style={[
+                    styles.input,
+                    { width: widthPercentageToDP(60), marginRight: 5 },
+                  ]}
+                >
                   <TextInput
                     editable={false}
                     value={this.state.itemExpirationDate.toLocaleDateString()}
@@ -138,7 +147,7 @@ export default class item extends Component {
                     styles.btn,
                     {
                       fontSize: 15,
-                      width: 100,
+                      width: widthPercentageToDP(14.5),
                       color: "#fff",
                       alignSelf: "center",
                       borderColor: "#ea4c4c",
@@ -231,7 +240,7 @@ export default class item extends Component {
 
           <TouchableWithoutFeedback style={[styles.box, { height: 130 }]}>
             <View style={styles.row}>
-              <View style={{ width: 200 }}>
+              <View style={{ width: widthPercentageToDP(55) }}>
                 <Text style={{ fontSize: 25 }}>{this.state.itemName}</Text>
               </View>
               <Text style={styles.qty}>
@@ -300,7 +309,7 @@ const styles = StyleSheet.create({
     paddingVertical: 50,
   },
   modal: {
-    width: 350,
+    width: widthPercentageToDP(80),
     height: 450,
     justifyContent: "center",
     alignSelf: "center",
@@ -317,7 +326,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   box: {
-    width: 350,
+    width: widthPercentageToDP(80),
     borderRadius: 10,
     padding: 20,
     marginVertical: 5,
@@ -336,8 +345,9 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    flexWrap: "wrap",
+    justifyContent: "center",
+    alignSelf: "center",
+    width: widthPercentageToDP(60),
   },
   qty: {
     color: "#fff",
@@ -366,7 +376,8 @@ const styles = StyleSheet.create({
   },
   btn: {
     height: 40,
-    width: 170,
+    width: widthPercentageToDP(39.5),
+    marginHorizontal: 5,
     borderRadius: 10,
     borderWidth: 2,
     justifyContent: "center",
@@ -374,7 +385,8 @@ const styles = StyleSheet.create({
   },
   btnModal: {
     height: 40,
-    width: 150,
+    width: widthPercentageToDP(37.25),
+    marginHorizontal: 5,
     borderRadius: 10,
     borderWidth: 2,
     justifyContent: "center",

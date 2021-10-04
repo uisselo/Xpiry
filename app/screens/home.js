@@ -7,6 +7,10 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import {
+  widthPercentageToDP,
+  heightPercentageToDP,
+} from "react-native-responsive-screen";
 import { StatusBar } from "expo-status-bar";
 import Modal from "react-native-modal";
 import firebase from "firebase/app";
@@ -209,8 +213,8 @@ const styles = StyleSheet.create({
     paddingVertical: 50,
   },
   box: {
-    width: 170,
-    height: 170,
+    width: widthPercentageToDP(40),
+    height: heightPercentageToDP(23),
     margin: 5,
     borderRadius: 10,
     justifyContent: "center",
@@ -223,16 +227,16 @@ const styles = StyleSheet.create({
     top: 0,
   },
   header: {
-    width: 350,
+    width: widthPercentageToDP(80),
     paddingBottom: 15,
   },
   logo: {
-    width: 70,
-    height: 70,
+    width: 80,
+    height: 80,
     alignSelf: "center",
   },
   modal: {
-    width: 350,
+    width: widthPercentageToDP(80),
     height: 100,
     justifyContent: "center",
     alignSelf: "center",
@@ -250,11 +254,12 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
   },
   btn: {
     height: 40,
-    width: 150,
+    width: widthPercentageToDP(34),
+    marginHorizontal: 5,
     borderRadius: 10,
     borderWidth: 2,
     justifyContent: "center",

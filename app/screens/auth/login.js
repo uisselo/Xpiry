@@ -9,6 +9,10 @@ import {
   Platform,
   Keyboard,
 } from "react-native";
+import {
+  widthPercentageToDP,
+  heightPercentageToDP,
+} from "react-native-responsive-screen";
 import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -146,7 +150,7 @@ const styles = StyleSheet.create({
   input: {
     flexDirection: "row",
     height: 40,
-    width: 350,
+    width: widthPercentageToDP(80),
     borderRadius: 10,
     padding: 10,
     marginVertical: 5,
@@ -172,7 +176,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     height: 40,
-    width: 350,
+    width: widthPercentageToDP(80),
     borderRadius: 10,
     borderWidth: 2,
     justifyContent: "center",

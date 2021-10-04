@@ -7,6 +7,10 @@ import {
   FlatList,
   Image,
 } from "react-native";
+import {
+  widthPercentageToDP,
+  heightPercentageToDP,
+} from "react-native-responsive-screen";
 import moment from "moment";
 import firebase from "firebase/app";
 import "firebase/firestore";
@@ -138,11 +142,11 @@ const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 10,
-    width: 350,
+    width: widthPercentageToDP(80),
     alignSelf: "center",
   },
   item: {
-    width: 350,
+    width: widthPercentageToDP(80),
     height: 70,
     borderRadius: 10,
     padding: 20,
