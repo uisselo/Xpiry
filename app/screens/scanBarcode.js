@@ -1,6 +1,10 @@
 import { BarCodeScanner } from "expo-barcode-scanner";
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import {
+  widthPercentageToDP,
+  heightPercentageToDP,
+} from "react-native-responsive-screen";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 function scanBarcode({ navigation }) {
@@ -66,7 +70,10 @@ function scanBarcode({ navigation }) {
       <View style={styles.barcodeBox}>
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : handleBarcodeScanned}
-          style={{ height: 400, width: 400 }}
+          style={{
+            width: widthPercentageToDP(80),
+            height: 400,
+          }}
         />
       </View>
     </View>
@@ -84,8 +91,8 @@ const styles = StyleSheet.create({
   barcodeBox: {
     alignItems: "center",
     justifyContent: "center",
-    height: 300,
-    width: 300,
+    width: widthPercentageToDP(80),
+    height: heightPercentageToDP(40),
     overflow: "hidden",
     borderRadius: 30,
     backgroundColor: "#e5e5e5",

@@ -109,7 +109,7 @@ export default class item extends Component {
     const { item } = this.props.route.params;
     return (
       <View style={styles.container}>
-        <View style={{ width: 350 }}>
+        <View style={{ width: widthPercentageToDP(80) }}>
           <Modal
             hasBackdrop={true}
             backdropColor="#000"
@@ -129,56 +129,38 @@ export default class item extends Component {
                 placeholder={item.name}
               />
               <Text style={{ marginVertical: 5 }}>Expiration Date</Text>
-              <View style={styles.row}>
-                <View
-                  style={[
-                    styles.input,
-                    { width: widthPercentageToDP(60), marginRight: 5 },
-                  ]}
+              <TouchableOpacity
+                style={styles.input}
+                onPress={() => this.setState({ datePickerVisible: true })}
+              >
+                <Text
+                  editable={false}
+                  value={this.state.itemExpirationDate.toLocaleDateString()}
+                  placeholder={item.expiryDate}
                 >
-                  <TextInput
-                    editable={false}
-                    value={this.state.itemExpirationDate.toLocaleDateString()}
-                    placeholder={item.expiryDate}
-                  />
-                </View>
-                <TouchableOpacity
-                  style={[
-                    styles.btn,
-                    {
-                      fontSize: 15,
-                      width: widthPercentageToDP(14.5),
-                      color: "#fff",
-                      alignSelf: "center",
-                      borderColor: "#ea4c4c",
-                      backgroundColor: "#ea4c4c",
-                    },
-                  ]}
-                  onPress={() => this.setState({ datePickerVisible: true })}
-                >
-                  <Text style={{ color: "#fff" }}>Select Date</Text>
-                </TouchableOpacity>
-                <DatePicker
-                  isVisible={this.state.datePickerVisible}
-                  mode="date"
-                  date={new Date(item.expiryDate)}
-                  onConfirm={(date) => {
-                    console.log("Date picked:", date);
-                    this.setState({
-                      datePickerVisible: false,
-                      itemExpirationDate: date,
-                    });
-                  }}
-                  onCancel={() => this.setState({ datePickerVisible: false })}
-                />
-              </View>
+                  {this.state.itemExpirationDate.toLocaleDateString()}
+                </Text>
+              </TouchableOpacity>
+              <DatePicker
+                isVisible={this.state.datePickerVisible}
+                mode="date"
+                date={new Date(item.expiryDate)}
+                onConfirm={(date) => {
+                  console.log("Date picked:", date);
+                  this.setState({
+                    datePickerVisible: false,
+                    itemExpirationDate: date,
+                  });
+                }}
+                onCancel={() => this.setState({ datePickerVisible: false })}
+              />
               <Text style={{ marginVertical: 5 }}>Quantity</Text>
               <NumericInput
                 value={this.state.itemQty}
                 onChange={(itemQty) => this.setState({ itemQty })}
                 onLimitReached={(isMax, msg) => console.log(isMax, msg)}
                 minValue={0}
-                totalWidth={200}
+                totalWidth={widthPercentageToDP(50)}
                 totalHeight={40}
                 iconSize={25}
                 step={1}
@@ -238,26 +220,31 @@ export default class item extends Component {
             </View>
           </Modal>
 
-          <TouchableWithoutFeedback style={[styles.box, { height: 130 }]}>
-            <View style={styles.row}>
-              <View style={{ width: widthPercentageToDP(55) }}>
-                <Text style={{ fontSize: 25 }}>{this.state.itemName}</Text>
-              </View>
-              <Text style={styles.qty}>
-                {this.state.itemQty}
-                {item.quantity === 0
-                  ? ""
-                  : item.quantity > 1
-                  ? " Items"
-                  : " Item"}
-              </Text>
-            </View>
+          <TouchableWithoutFeedback style={styles.box}>
+            <Text
+              style={{
+                fontSize: 25,
+                fontWeight: "600",
+                marginBottom: 3,
+                width: widthPercentageToDP(40),
+              }}
+            >
+              {this.state.itemName}
+            </Text>
+            <Text style={styles.qty}>
+              {this.state.itemQty}
+              {item.quantity === 0
+                ? ""
+                : item.quantity > 1
+                ? " Items"
+                : " Item"}
+            </Text>
             <Text style={{ fontSize: 20 }}>{item.category}</Text>
             <Text style={{ color: "#ea4c4c" }}>
               Expires on {item.expiryDate}
             </Text>
           </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback style={[styles.box, { height: 100 }]}>
+          <TouchableWithoutFeedback style={styles.box}>
             <Text style={{ fontSize: 25 }}>{this.state.itemBarcode}</Text>
             <Text style={{ color: "#ea4c4c" }}>Barcode Number</Text>
           </TouchableWithoutFeedback>
@@ -331,7 +318,7 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 5,
     marginHorizontal: 5,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignSelf: "center",
     backgroundColor: "#fff",
     shadowColor: "#000",
@@ -350,13 +337,16 @@ const styles = StyleSheet.create({
     width: widthPercentageToDP(60),
   },
   qty: {
+    position: "absolute",
+    top: 20,
+    right: 20,
     color: "#fff",
     backgroundColor: "#ea4c4c",
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 10,
     overflow: "hidden",
-    alignSelf: "flex-start",
+    alignSelf: "flex-end",
   },
   input: {
     height: 40,
@@ -376,7 +366,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     height: 40,
-    width: widthPercentageToDP(39.5),
+    width: widthPercentageToDP(39),
     marginHorizontal: 5,
     borderRadius: 10,
     borderWidth: 2,
@@ -385,7 +375,7 @@ const styles = StyleSheet.create({
   },
   btnModal: {
     height: 40,
-    width: widthPercentageToDP(37.25),
+    width: widthPercentageToDP(34),
     marginHorizontal: 5,
     borderRadius: 10,
     borderWidth: 2,

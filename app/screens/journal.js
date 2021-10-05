@@ -7,6 +7,10 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import {
+  widthPercentageToDP,
+  heightPercentageToDP,
+} from "react-native-responsive-screen";
 
 export default class journal extends Component {
   constructor(props) {
@@ -18,7 +22,7 @@ export default class journal extends Component {
     return (
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
-          <View style={{ width: 350 }}>
+          <View style={{ width: widthPercentageToDP(80) }}>
             <Text style={{ fontSize: 30, marginBottom: 10 }}>Journal</Text>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate("Page1")}

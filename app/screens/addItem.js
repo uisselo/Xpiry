@@ -9,6 +9,10 @@ import {
   Alert,
   Platform,
 } from "react-native";
+import {
+  widthPercentageToDP,
+  heightPercentageToDP,
+} from "react-native-responsive-screen";
 import SelectCategory from "react-native-picker-select";
 import DatePicker from "react-native-modal-datetime-picker";
 import NumericInput from "react-native-numeric-input";
@@ -78,7 +82,7 @@ export default class addItem extends Component {
     return (
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
-          <View style={{ width: 350 }}>
+          <View style={{ width: widthPercentageToDP(80) }}>
             <Text style={{ fontSize: 30 }}>Add new Item</Text>
 
             <Text style={styles.label}>Item Name</Text>
@@ -108,42 +112,30 @@ export default class addItem extends Component {
             </View>
 
             <Text style={styles.label}>Expiration Date</Text>
-            <View style={styles.row}>
-              <View style={[styles.input, { width: 230 }]}>
-                <TextInput
-                  editable={false}
-                  value={this.state.itemExpirationDate.toLocaleDateString()}
-                  placeholder="Expiration Date"
-                />
-              </View>
-              <TouchableOpacity
-                style={[
-                  styles.btn,
-                  {
-                    fontSize: 15,
-                    width: 110,
-                    color: "#fff",
-                    borderColor: "#ea4c4c",
-                    backgroundColor: "#ea4c4c",
-                  },
-                ]}
-                onPress={() => this.setState({ datePickerVisible: true })}
+            <TouchableOpacity
+              style={styles.input}
+              onPress={() => this.setState({ datePickerVisible: true })}
+            >
+              <Text
+                editable={false}
+                value={this.state.itemExpirationDate.toLocaleDateString()}
+                placeholder="Expiration Date"
               >
-                <Text style={{ color: "#fff" }}>Select Date</Text>
-              </TouchableOpacity>
-              <DatePicker
-                isVisible={this.state.datePickerVisible}
-                mode="date"
-                onConfirm={(date) => {
-                  console.log("Date picked:", date);
-                  this.setState({
-                    datePickerVisible: false,
-                    itemExpirationDate: date,
-                  });
-                }}
-                onCancel={() => this.setState({ datePickerVisible: false })}
-              />
-            </View>
+                {this.state.itemExpirationDate.toLocaleDateString()}
+              </Text>
+            </TouchableOpacity>
+            <DatePicker
+              isVisible={this.state.datePickerVisible}
+              mode="date"
+              onConfirm={(date) => {
+                console.log("Date picked:", date);
+                this.setState({
+                  datePickerVisible: false,
+                  itemExpirationDate: date,
+                });
+              }}
+              onCancel={() => this.setState({ datePickerVisible: false })}
+            />
 
             <Text style={styles.label}>Quantity</Text>
             <NumericInput
@@ -151,7 +143,7 @@ export default class addItem extends Component {
               onChange={(itemQty) => this.setState({ itemQty })}
               onLimitReached={(isMax, msg) => console.log(isMax, msg)}
               minValue={0}
-              totalWidth={230}
+              totalWidth={widthPercentageToDP(50)}
               totalHeight={40}
               iconSize={25}
               step={1}
@@ -253,7 +245,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     height: 40,
-    width: 170,
+    width: widthPercentageToDP(39),
     borderRadius: 10,
     borderWidth: 2,
     justifyContent: "center",

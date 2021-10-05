@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
+import {
+  widthPercentageToDP,
+  heightPercentageToDP,
+} from "react-native-responsive-screen";
 
 export default class about extends Component {
   constructor(props) {
@@ -11,7 +15,7 @@ export default class about extends Component {
     return (
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
-          <View style={{ width: 350 }}>
+          <View style={{ width: widthPercentageToDP(80) }}>
             <Text style={{ fontSize: 30, marginBottom: 15 }}>About</Text>
             <Text style={{ fontSize: 18 }}>
               Xpiry is an expiration date tracker application for food and drug
