@@ -19,8 +19,8 @@ export default class about extends Component {
             <Text style={{ fontSize: 30, marginBottom: 15 }}>About</Text>
             <Text style={{ fontSize: 18 }}>
               Xpiry is an expiration date tracker application for food and drug
-              products. Xpiry also has informative articles concerning expired
-              products and its effects to people when consumed.
+              products. The application also has informative articles concerning
+              expired products and its effects to people when consumed.
             </Text>
           </View>
         </View>

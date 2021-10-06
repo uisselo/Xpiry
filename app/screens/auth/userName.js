@@ -41,7 +41,7 @@ function userName({ navigation }) {
           .set(userData)
           .then(() => console.log("User added to DB."))
           .catch((err) => console.log(err));
-        navigation.navigate("TabNavi");
+        navigation.navigate("Main");
       })
       .catch((err) => console.log(err));
   };

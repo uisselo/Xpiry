@@ -220,12 +220,14 @@ export default class item extends Component {
             </View>
           </Modal>
 
+          <View style={styles.title}>
+            <Text style={{ fontSize: 30 }}>Item Details</Text>
+          </View>
           <TouchableWithoutFeedback style={styles.box}>
             <Text
               style={{
-                fontSize: 25,
+                fontSize: 20,
                 fontWeight: "600",
-                marginBottom: 3,
                 width: widthPercentageToDP(40),
               }}
             >
@@ -245,7 +247,7 @@ export default class item extends Component {
             </Text>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback style={styles.box}>
-            <Text style={{ fontSize: 25 }}>{this.state.itemBarcode}</Text>
+            <Text style={{ fontSize: 20 }}>{this.state.itemBarcode}</Text>
             <Text style={{ color: "#ea4c4c" }}>Barcode Number</Text>
           </TouchableWithoutFeedback>
           <View style={[styles.row, { marginTop: 10 }]}>
@@ -294,6 +296,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     paddingVertical: 50,
+  },
+  title: {
+    marginBottom: 10,
+    width: widthPercentageToDP(80),
+    alignSelf: "center",
   },
   modal: {
     width: widthPercentageToDP(80),

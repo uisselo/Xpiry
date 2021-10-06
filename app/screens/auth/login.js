@@ -42,7 +42,7 @@ function login({ navigation }) {
       .signInWithCredential(credential)
       .then((user) => {
         user.additionalUserInfo.isNewUser == false
-          ? navigation.navigate("TabNavi")
+          ? navigation.navigate("Main")
           : navigation.navigate("UserName");
       })
       .catch((err) => console.log(err));
