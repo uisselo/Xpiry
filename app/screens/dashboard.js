@@ -172,7 +172,6 @@ const styles = StyleSheet.create({
     right: 20,
   },
   dataLabel: {
-    color: "#ea4c4c",
     fontWeight: "700",
     position: "absolute",
     left: 20,

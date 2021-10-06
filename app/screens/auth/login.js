@@ -41,9 +41,10 @@ function login({ navigation }) {
       .auth()
       .signInWithCredential(credential)
       .then((user) => {
-        user.additionalUserInfo.isNewUser == false
-          ? navigation.navigate("Main")
-          : navigation.navigate("UserName");
+        console.log(user.additionalUserInfo.isNewUser);
+        user.additionalUserInfo.isNewUser == true
+          ? navigation.navigate("UserName")
+          : navigation.navigate("Main");
       })
       .catch((err) => console.log(err));
   };
@@ -167,8 +168,6 @@ const styles = StyleSheet.create({
   },
   phCode: {
     flexDirection: "row",
-    // alignItems: "center",
-    // justifyContent: "center",
   },
   numInput: {
     marginLeft: 5,
