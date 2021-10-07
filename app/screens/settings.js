@@ -51,9 +51,7 @@ export default class settings extends Component {
             <View style={styles.row}>
               <Icon name="help-circle" size={20} color="#000" />
               <Text style={{ fontSize: 20, paddingLeft: 10 }}>About</Text>
-              <View
-                style={{ position: "absolute", right: 0, paddingRight: 10 }}
-              >
+              <View style={styles.icon}>
                 <Icon name="chevron-right" size={20} color="#000" />
               </View>
             </View>
@@ -65,9 +63,7 @@ export default class settings extends Component {
               <Text style={{ fontSize: 20, paddingLeft: 10 }}>
                 Privacy Policy
               </Text>
-              <View
-                style={{ position: "absolute", right: 0, paddingRight: 10 }}
-              >
+              <View style={styles.icon}>
                 <Icon name="chevron-right" size={20} color="#000" />
               </View>
             </View>
@@ -79,9 +75,7 @@ export default class settings extends Component {
               <Text style={{ fontSize: 20, paddingLeft: 10 }}>
                 Terms and Conditions
               </Text>
-              <View
-                style={{ position: "absolute", right: 0, paddingRight: 10 }}
-              >
+              <View style={styles.icon}>
                 <Icon name="chevron-right" size={20} color="#000" />
               </View>
             </View>
@@ -91,9 +85,7 @@ export default class settings extends Component {
             <View style={styles.row}>
               <Icon name="log-out" size={20} color="#000" />
               <Text style={{ fontSize: 20, paddingLeft: 10 }}>Logout</Text>
-              <View
-                style={{ position: "absolute", right: 0, paddingRight: 10 }}
-              >
+              <View style={styles.icon}>
                 <Icon name="chevron-right" size={20} color="#000" />
               </View>
             </View>
@@ -121,6 +113,11 @@ const styles = StyleSheet.create({
   linkDivider: {
     borderBottomColor: "#e5e5e5",
     borderBottomWidth: 1,
+  },
+  icon: {
+    position: "absolute",
+    right: 0,
+    paddingRight: 10,
   },
   row: {
     flexDirection: "row",

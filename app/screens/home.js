@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   ScrollView,
   Platform,
-  Alert,
   KeyboardAvoidingView,
 } from "react-native";
 import {

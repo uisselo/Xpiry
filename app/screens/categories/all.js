@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {
   View,
   Text,
+  TextInput,
   StyleSheet,
   TouchableOpacity,
   FlatList,
@@ -11,6 +12,7 @@ import {
   widthPercentageToDP,
   heightPercentageToDP,
 } from "react-native-responsive-screen";
+import Icon from "react-native-vector-icons/Feather";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { db } from "../../db/config";
@@ -19,9 +21,18 @@ db();
 export default class all extends Component {
   constructor(props) {
     super(props);
-    this.state = { itemList: [] };
+    this.state = { itemList: [], inMemoryItems: [] };
     _isMounted = false;
   }
+
+  searchItem = (value) => {
+    const filteredItems = this.state.inMemoryItems.filter((item) => {
+      let itemLowercase = item.name.toLowerCase();
+      let searchTermLowercase = value.toLowerCase();
+      return itemLowercase.indexOf(searchTermLowercase) > -1;
+    });
+    this.setState({ itemList: filteredItems });
+  };
 
   componentDidMount() {
     this._isMounted = true;
@@ -65,7 +76,7 @@ export default class all extends Component {
         }
       });
       if (this._isMounted) {
-        this.setState({ itemList: items });
+        this.setState({ itemList: items, inMemoryItems: items });
       }
     });
   }
@@ -79,6 +90,15 @@ export default class all extends Component {
       <View style={styles.container}>
         <View style={styles.title}>
           <Text style={{ fontSize: 30 }}>All Items</Text>
+        </View>
+        <View style={styles.searchBar}>
+          <TextInput
+            placeholder="Search Item"
+            onChangeText={(value) => this.searchItem(value)}
+          />
+          <View style={styles.searchIcon}>
+            <Icon name="search" size={20} color="#c7c7cd" />
+          </View>
         </View>
         <FlatList
           showsVerticalScrollIndicator={false}
@@ -125,6 +145,19 @@ export default class all extends Component {
               </TouchableOpacity>
             );
           }}
+          ListEmptyComponent={() => {
+            return (
+              <View
+                style={{
+                  justifyContent: "center",
+                  width: widthPercentageToDP(80),
+                  paddingTop: 10,
+                }}
+              >
+                <Text style={{ fontSize: 20 }}>No Items Found</Text>
+              </View>
+            );
+          }}
         />
       </View>
     );
@@ -140,9 +173,33 @@ const styles = StyleSheet.create({
     paddingVertical: 50,
   },
   title: {
-    marginBottom: 10,
     width: widthPercentageToDP(80),
     alignSelf: "center",
+  },
+  searchBar: {
+    width: widthPercentageToDP(80),
+    marginVertical: 10,
+    alignSelf: "center",
+    alignItems: "center",
+    height: 40,
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowRadius: 3,
+    shadowOpacity: 0.05,
+    elevation: 2,
+    flexDirection: "row",
+  },
+  searchIcon: {
+    position: "absolute",
+    right: 0,
+    paddingRight: 20,
   },
   item: {
     width: widthPercentageToDP(80),
