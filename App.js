@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
+import Login from "./app/screens/auth/login";
 import AppStack from "./app/navigation/appStack";
-import AuthStack from "./app/navigation/authStack";
 import firebase from "firebase/app";
 import "firebase/auth";
 import { db } from "./app/db/config";
@@ -17,7 +17,7 @@ export default () => {
   });
   return (
     <NavigationContainer>
-      {isLoggedIn == false ? <AuthStack /> : <AppStack />}
+      {isLoggedIn == false ? <Login /> : <AppStack />}
     </NavigationContainer>
   );
 };

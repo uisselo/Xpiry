@@ -19,7 +19,7 @@ import "firebase/auth";
 import { db } from "../../db/config";
 db();
 
-function login({ navigation }) {
+function login() {
   const recaptchaVerifier = useRef(null);
   const [phoneNumber, setPhoneNumber] = useState();
   const [verificationId, setVerificationId] = useState();
@@ -41,10 +41,7 @@ function login({ navigation }) {
       .auth()
       .signInWithCredential(credential)
       .then((user) => {
-        console.log(user.additionalUserInfo.isNewUser);
-        user.additionalUserInfo.isNewUser == true
-          ? navigation.navigate("UserName")
-          : navigation.navigate("Main");
+        console.log(user);
       })
       .catch((err) => console.log(err));
   };

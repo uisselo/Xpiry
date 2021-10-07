@@ -2,11 +2,13 @@ import React, { Component, createRef } from "react";
 import {
   View,
   Text,
+  TextInput,
   Image,
   StyleSheet,
   TouchableOpacity,
   ScrollView,
   Platform,
+  Alert,
 } from "react-native";
 import {
   widthPercentageToDP,
@@ -35,13 +37,52 @@ export default class homeScreen extends Component {
     super(props);
     this.state = {
       userProfile: [],
-      modalVisible: false,
+      userName: "",
+      addItemOptionsModal: false,
+      registerModal: false,
       expoPushToken: "",
       notification: false,
     };
     this.notificationListener = createRef();
     this.responseListener = createRef();
     _isMounted = false;
+  }
+
+  registerNewUser() {
+    const user = firebase.auth().currentUser;
+    user
+      .updateProfile({
+        displayName: this.state.userName,
+      })
+      .then(() => {
+        console.log("Update Successful.");
+        this.setState({ registerModal: false });
+        firebase
+          .firestore()
+          .collection("Users")
+          .doc(user.uid)
+          .set(
+            {
+              userId: user.uid,
+              userName: user.displayName,
+              mobileNum: user.phoneNumber,
+            },
+            { merge: true }
+          )
+          .then(() => {
+            console.log("User added to DB.");
+            const userData = {
+              userId: user.uid,
+              userName: user.displayName,
+              mobileNum: user.phoneNumber,
+            };
+            if (this._isMounted) {
+              this.setState({ userProfile: userData });
+            }
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
   }
 
   registerForPushNotificationsAsync = async () => {
@@ -64,7 +105,7 @@ export default class homeScreen extends Component {
         firebase
           .firestore()
           .doc("Users/" + firebase.auth().currentUser.uid)
-          .set({ expoToken: token });
+          .set({ expoToken: token }, { merge: true });
       }
     } else {
       alert("Must use physical device for Push Notifications");
@@ -86,13 +127,17 @@ export default class homeScreen extends Component {
     this._isMounted = true;
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        const userData = {
-          userId: user.uid,
-          userName: user.displayName,
-          mobileNum: user.phoneNumber,
-        };
-        if (this._isMounted) {
-          this.setState({ userProfile: userData });
+        if (user.displayName == null) {
+          this.setState({ registerModal: true });
+        } else {
+          const userData = {
+            userId: user.uid,
+            userName: user.displayName,
+            mobileNum: user.phoneNumber,
+          };
+          if (this._isMounted) {
+            this.setState({ userProfile: userData });
+          }
         }
       }
     });
@@ -126,11 +171,57 @@ export default class homeScreen extends Component {
     return (
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
-          <Modal
+          <Modal // register new user modal
             hasBackdrop={true}
             backdropColor="#000"
-            onBackdropPress={() => this.setState({ modalVisible: false })}
-            isVisible={this.state.modalVisible}
+            onBackdropPress={() => {
+              Alert.alert("Please enter your name.", [
+                { text: "OK", onPress: () => console.log("Alert closed.") },
+              ]);
+            }}
+            isVisible={this.state.registerModal}
+            statusBarTranslucent
+          >
+            <View style={[styles.modal, { height: 150 }]}>
+              <TextInput
+                style={styles.input}
+                value={this.state.userName}
+                onChangeText={(userName) => this.setState({ userName })}
+                placeholder="Enter your name"
+              />
+              <TouchableOpacity
+                style={[
+                  styles.btn,
+                  {
+                    borderColor: "#ea4c4c",
+                    backgroundColor: "#ea4c4c",
+                    alignSelf: "center",
+                    marginHorizontal: 0,
+                    marginTop: 15,
+                  },
+                ]}
+                onPress={() => {
+                  this.registerNewUser();
+                  this.setState({ registerModal: false });
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#fff",
+                  }}
+                >
+                  Continue
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </Modal>
+          <Modal // add item options modal
+            hasBackdrop={true}
+            backdropColor="#000"
+            onBackdropPress={() =>
+              this.setState({ addItemOptionsModal: false })
+            }
+            isVisible={this.state.addItemOptionsModal}
             statusBarTranslucent
           >
             <View style={styles.modal}>
@@ -142,7 +233,7 @@ export default class homeScreen extends Component {
                   ]}
                   onPress={() => {
                     this.props.navigation.navigate("ScanBarcode");
-                    this.setState({ modalVisible: false });
+                    this.setState({ addItemOptionsModal: false });
                   }}
                 >
                   <Text
@@ -160,7 +251,7 @@ export default class homeScreen extends Component {
                   ]}
                   onPress={() => {
                     this.props.navigation.navigate("AddItem");
-                    this.setState({ modalVisible: false });
+                    this.setState({ addItemOptionsModal: false });
                   }}
                 >
                   <Text
@@ -265,7 +356,7 @@ export default class homeScreen extends Component {
                 borderWidth: 3,
               },
             ]}
-            onPress={() => this.setState({ modalVisible: true })}
+            onPress={() => this.setState({ addItemOptionsModal: true })}
           >
             <Text style={[styles.text, { color: "#6C6C6C" }]}>Add Item</Text>
             <Image
@@ -327,6 +418,22 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     shadowOpacity: 0.05,
     elevation: 2,
+  },
+  input: {
+    height: 40,
+    borderRadius: 10,
+    padding: 10,
+    marginVertical: 5,
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowRadius: 3,
+    shadowOpacity: 0.05,
+    elevation: 2,
+    justifyContent: "center",
   },
   row: {
     flexDirection: "row",
