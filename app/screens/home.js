@@ -9,6 +9,7 @@ import {
   ScrollView,
   Platform,
   Alert,
+  KeyboardAvoidingView,
 } from "react-native";
 import {
   widthPercentageToDP,
@@ -38,8 +39,7 @@ export default class homeScreen extends Component {
     this.state = {
       userProfile: [],
       userName: "",
-      addItemOptionsModal: false,
-      registerModal: false,
+      modalVisible: false,
       expoPushToken: "",
       notification: false,
     };
@@ -56,7 +56,6 @@ export default class homeScreen extends Component {
       })
       .then(() => {
         console.log("Update Successful.");
-        this.setState({ registerModal: false });
         firebase
           .firestore()
           .collection("Users")
@@ -127,17 +126,13 @@ export default class homeScreen extends Component {
     this._isMounted = true;
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        if (user.displayName == null) {
-          this.setState({ registerModal: true });
-        } else {
-          const userData = {
-            userId: user.uid,
-            userName: user.displayName,
-            mobileNum: user.phoneNumber,
-          };
-          if (this._isMounted) {
-            this.setState({ userProfile: userData });
-          }
+        const userData = {
+          userId: user.uid,
+          userName: user.displayName,
+          mobileNum: user.phoneNumber,
+        };
+        if (this._isMounted) {
+          this.setState({ userProfile: userData });
         }
       }
     });
@@ -168,205 +163,208 @@ export default class homeScreen extends Component {
   }
 
   render() {
-    return (
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View style={styles.container}>
-          <Modal // register new user modal
-            hasBackdrop={true}
-            backdropColor="#000"
-            onBackdropPress={() => {
-              Alert.alert("Please enter your name.", [
-                { text: "OK", onPress: () => console.log("Alert closed.") },
-              ]);
-            }}
-            isVisible={this.state.registerModal}
-            statusBarTranslucent
+    if (firebase.auth().currentUser.displayName == null) {
+      return (
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "#fff",
+            justifyContent: "center",
+            alignItems: "center",
+            paddingVertical: 50,
+          }}
+        >
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : ""}
+            style={{ flex: 1 }}
           >
-            <View style={[styles.modal, { height: 150 }]}>
-              <TextInput
-                style={styles.input}
-                value={this.state.userName}
-                onChangeText={(userName) => this.setState({ userName })}
-                placeholder="Enter your name"
-              />
+            <TextInput
+              style={styles.input}
+              value={this.state.userName}
+              onChangeText={(userName) => this.setState({ userName })}
+              placeholder="Enter your name"
+            />
+            <View style={styles.bottom}>
               <TouchableOpacity
                 style={[
                   styles.btn,
                   {
                     borderColor: "#ea4c4c",
                     backgroundColor: "#ea4c4c",
-                    alignSelf: "center",
+                    marginVertical: 10,
                     marginHorizontal: 0,
-                    marginTop: 15,
+                    width: widthPercentageToDP(80),
                   },
                 ]}
-                onPress={() => {
-                  this.registerNewUser();
-                  this.setState({ registerModal: false });
-                }}
+                onPress={() => this.registerNewUser()}
               >
                 <Text
                   style={{
                     color: "#fff",
                   }}
                 >
-                  Continue
+                  Complete
                 </Text>
               </TouchableOpacity>
             </View>
-          </Modal>
-          <Modal // add item options modal
-            hasBackdrop={true}
-            backdropColor="#000"
-            onBackdropPress={() =>
-              this.setState({ addItemOptionsModal: false })
-            }
-            isVisible={this.state.addItemOptionsModal}
-            statusBarTranslucent
-          >
-            <View style={styles.modal}>
-              <View style={styles.row}>
-                <TouchableOpacity
-                  style={[
-                    styles.btn,
-                    { borderColor: "#ea4c4c", backgroundColor: "#fff" },
-                  ]}
-                  onPress={() => {
-                    this.props.navigation.navigate("ScanBarcode");
-                    this.setState({ addItemOptionsModal: false });
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "#ea4c4c",
-                    }}
-                  >
-                    Scan Barcode
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    styles.btn,
-                    { borderColor: "#ea4c4c", backgroundColor: "#ea4c4c" },
-                  ]}
-                  onPress={() => {
-                    this.props.navigation.navigate("AddItem");
-                    this.setState({ addItemOptionsModal: false });
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "#fff",
-                    }}
-                  >
-                    Add manually
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </Modal>
-          <View style={styles.header}>
-            <Text style={{ fontSize: 20 }}>Welcome</Text>
-            <Text style={{ fontSize: 30 }}>
-              {this.state.userProfile.userName}
-            </Text>
-          </View>
-
-          <TouchableOpacity // all items
-            style={[
-              styles.box,
-              {
-                backgroundColor: "#4aa3ba",
-              },
-            ]}
-            onPress={() => this.props.navigation.navigate("All")}
-          >
-            <Text style={styles.text}>All Items</Text>
-            <Image
-              source={{ uri: "https://i.imgur.com/eHsbCtJ.png" }}
-              style={styles.logo}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity // expired items
-            style={[
-              styles.box,
-              {
-                backgroundColor: "#a8896c",
-              },
-            ]}
-            onPress={() => this.props.navigation.navigate("Expired")}
-          >
-            <Text style={styles.text}>Expired Items</Text>
-            <Image
-              source={{ uri: "https://i.imgur.com/YjKWeo4.png" }}
-              style={styles.logo}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity // food category
-            style={[
-              styles.box,
-              {
-                backgroundColor: "#ffd2a5",
-              },
-            ]}
-            onPress={() => this.props.navigation.navigate("Food")}
-          >
-            <Text style={styles.text}>Food</Text>
-            <Image
-              source={{ uri: "https://i.imgur.com/tCeuzKA.png" }}
-              style={styles.logo}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity // cosmetics category
-            style={[
-              styles.box,
-              {
-                backgroundColor: "#ffb6b9",
-              },
-            ]}
-            onPress={() => this.props.navigation.navigate("Cosmetics")}
-          >
-            <Text style={styles.text}>Cosmetics</Text>
-            <Image
-              source={{ uri: "https://i.imgur.com/ogwnOqn.png" }}
-              style={styles.logo}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity // medicine category
-            style={[
-              styles.box,
-              {
-                backgroundColor: "#61b292",
-              },
-            ]}
-            onPress={() => this.props.navigation.navigate("Medicine")}
-          >
-            <Text style={styles.text}>Medicine</Text>
-            <Image
-              source={{ uri: "https://i.imgur.com/3kq4QjT.png" }}
-              style={styles.logo}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity // add item
-            style={[
-              styles.box,
-              {
-                backgroundColor: "#fff",
-                borderColor: "#8AC6D1",
-                borderWidth: 3,
-              },
-            ]}
-            onPress={() => this.setState({ addItemOptionsModal: true })}
-          >
-            <Text style={[styles.text, { color: "#6C6C6C" }]}>Add Item</Text>
-            <Image
-              source={{ uri: "https://i.imgur.com/dlU2ozJ.png" }}
-              style={styles.logo}
-            />
-          </TouchableOpacity>
+          </KeyboardAvoidingView>
         </View>
-      </ScrollView>
-    );
+      );
+    } else
+      return (
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <View style={styles.container}>
+            <Modal // add item options modal
+              hasBackdrop={true}
+              backdropColor="#000"
+              onBackdropPress={() =>
+                this.setState({ modalVisible: false })
+              }
+              isVisible={this.state.modalVisible}
+              statusBarTranslucent
+            >
+              <View style={styles.modal}>
+                <View style={styles.row}>
+                  <TouchableOpacity
+                    style={[
+                      styles.btn,
+                      { borderColor: "#ea4c4c", backgroundColor: "#fff" },
+                    ]}
+                    onPress={() => {
+                      this.props.navigation.navigate("ScanBarcode");
+                      this.setState({ modalVisible: false });
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "#ea4c4c",
+                      }}
+                    >
+                      Scan Barcode
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[
+                      styles.btn,
+                      { borderColor: "#ea4c4c", backgroundColor: "#ea4c4c" },
+                    ]}
+                    onPress={() => {
+                      this.props.navigation.navigate("AddItem");
+                      this.setState({ modalVisible: false });
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "#fff",
+                      }}
+                    >
+                      Add manually
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
+            <View style={styles.header}>
+              <Text style={{ fontSize: 20 }}>Welcome</Text>
+              <Text style={{ fontSize: 30 }}>
+                {this.state.userProfile.userName}
+              </Text>
+            </View>
+            <TouchableOpacity // all items
+              style={[
+                styles.box,
+                {
+                  backgroundColor: "#4aa3ba",
+                },
+              ]}
+              onPress={() => this.props.navigation.navigate("All")}
+            >
+              <Text style={styles.text}>All Items</Text>
+              <Image
+                source={{ uri: "https://i.imgur.com/eHsbCtJ.png" }}
+                style={styles.logo}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity // expired items
+              style={[
+                styles.box,
+                {
+                  backgroundColor: "#a8896c",
+                },
+              ]}
+              onPress={() => this.props.navigation.navigate("Expired")}
+            >
+              <Text style={styles.text}>Expired Items</Text>
+              <Image
+                source={{ uri: "https://i.imgur.com/YjKWeo4.png" }}
+                style={styles.logo}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity // food category
+              style={[
+                styles.box,
+                {
+                  backgroundColor: "#ffd2a5",
+                },
+              ]}
+              onPress={() => this.props.navigation.navigate("Food")}
+            >
+              <Text style={styles.text}>Food</Text>
+              <Image
+                source={{ uri: "https://i.imgur.com/tCeuzKA.png" }}
+                style={styles.logo}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity // cosmetics category
+              style={[
+                styles.box,
+                {
+                  backgroundColor: "#ffb6b9",
+                },
+              ]}
+              onPress={() => this.props.navigation.navigate("Cosmetics")}
+            >
+              <Text style={styles.text}>Cosmetics</Text>
+              <Image
+                source={{ uri: "https://i.imgur.com/ogwnOqn.png" }}
+                style={styles.logo}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity // medicine category
+              style={[
+                styles.box,
+                {
+                  backgroundColor: "#61b292",
+                },
+              ]}
+              onPress={() => this.props.navigation.navigate("Medicine")}
+            >
+              <Text style={styles.text}>Medicine</Text>
+              <Image
+                source={{ uri: "https://i.imgur.com/3kq4QjT.png" }}
+                style={styles.logo}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity // add item
+              style={[
+                styles.box,
+                {
+                  backgroundColor: "#fff",
+                  borderColor: "#8AC6D1",
+                  borderWidth: 3,
+                },
+              ]}
+              onPress={() => this.setState({ modalVisible: true })}
+            >
+              <Text style={[styles.text, { color: "#6C6C6C" }]}>Add Item</Text>
+              <Image
+                source={{ uri: "https://i.imgur.com/dlU2ozJ.png" }}
+                style={styles.logo}
+              />
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      );
   }
 }
 
@@ -421,6 +419,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
+    width: widthPercentageToDP(80),
     borderRadius: 10,
     padding: 10,
     marginVertical: 5,
@@ -446,6 +445,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 2,
     justifyContent: "center",
+    alignItems: "center",
+  },
+  bottom: {
+    flex: 1,
+    justifyContent: "flex-end",
     alignItems: "center",
   },
 });

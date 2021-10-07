@@ -32,7 +32,7 @@ export default class settings extends Component {
       .auth()
       .signOut()
       .then(() => {
-        console.log("User is logged out.");
+        console.log("User successfully logged out.");
       })
       .catch((err) => console.log(err));
   }

@@ -40,8 +40,8 @@ function login() {
     firebase
       .auth()
       .signInWithCredential(credential)
-      .then((user) => {
-        console.log(user);
+      .then(() => {
+        console.log("User successfully logged in.");
       })
       .catch((err) => console.log(err));
   };
@@ -58,7 +58,7 @@ function login() {
           behavior={Platform.OS === "ios" ? "padding" : ""}
           style={{ flex: 1 }}
         >
-          <View style={{ width: 350, marginBottom: 20 }}>
+          <View style={{ width: widthPercentageToDP(80), marginBottom: 20 }}>
             <Text style={{ fontSize: 30, marginBottom: 5 }}>Welcome</Text>
             <Text>Enter your phone number to proceed.</Text>
           </View>
