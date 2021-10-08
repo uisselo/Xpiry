@@ -1,9 +1,8 @@
 // Why we shouldn't consume expired goods
 
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ScrollView, Linking } from "react-native";
-import Unorderedlist from "react-native-unordered-list";
-import Carousel from "react-native-carousel-control";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+
 export default class page2 extends Component {
   constructor(props) {
     super(props);
@@ -13,6 +12,7 @@ export default class page2 extends Component {
   render() {
     return (
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+
         <Carousel
           currentPage={2}
           pageStyle={{ backgroundColor: "ffd2a5", borderRadius: 30}}
@@ -155,6 +155,13 @@ export default class page2 extends Component {
             </View>
         </Carousel>
     </ScrollView>
+
+        <View style={styles.container}>
+          <View style={{ width: 350 }}>
+            <Text>Page 2</Text>
+          </View>
+        </View>
+      </ScrollView>
     );
   }
 }
@@ -167,34 +174,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     paddingVertical: 50,
-  },
-  title: {
-    paddingTop: 15,
-    paddingLeft: 10,
-    fontSize: 30,
-    borderRadius: 30,
-  },
-  bullet: {
-    fontSize: 15,
-    textShadowRadius: 1,
-    margin: 5,
-    textAlign: "justify",
-    padding: 10,
-  },
-  content: {
-    fontSize: 15,
-    textShadowRadius: 1,
-    margin: 10,
-    textAlign: "justify",
-    padding: 5,
-  },
-  link: {
-    fontSize: 15,
-    textShadowRadius: 1,
-    margin: 10,
-    fontWeight: "bold",
-    textAlign: "justify",
-    padding: 10,
-    color: "#EA4C4C",
   },
 });
