@@ -41,16 +41,14 @@ export default class settings extends Component {
     return (
       <View style={styles.container}>
         <View style={{ width: widthPercentageToDP(80) }}>
-          <Text style={{ fontSize: 30, alignSelf: "center", marginBottom: 20 }}>
-            Settings
-          </Text>
+          <Text style={styles.title}>Settings</Text>
           <TouchableOpacity
             style={styles.link}
             onPress={() => this.props.navigation.navigate("About")}
           >
             <View style={styles.row}>
               <Icon name="help-circle" size={20} color="#000" />
-              <Text style={styles.linkLabel}>About</Text>
+              <Text style={[styles.baseText, styles.linkLabel]}>About</Text>
               <View style={styles.icon}>
                 <Icon name="chevron-right" size={20} color="#000" />
               </View>
@@ -63,14 +61,16 @@ export default class settings extends Component {
           >
             <View style={styles.row}>
               <Icon name="lock" size={20} color="#000" />
-              <Text style={styles.linkLabel}>Privacy Policy</Text>
+              <Text style={[styles.baseText, styles.linkLabel]}>
+                Privacy Policy
+              </Text>
               <View style={styles.icon}>
                 <Icon name="chevron-right" size={20} color="#000" />
               </View>
             </View>
           </TouchableOpacity>
           <View style={styles.linkDivider} />
-          <TouchableOpacity style={styles.link}>
+          {/* <TouchableOpacity style={styles.link}>
             <View style={styles.row}>
               <Icon name="file" size={20} color="#000" />
               <Text style={styles.linkLabel}>Terms and Conditions</Text>
@@ -79,11 +79,11 @@ export default class settings extends Component {
               </View>
             </View>
           </TouchableOpacity>
-          <View style={styles.linkDivider} />
+          <View style={styles.linkDivider} /> */}
           <TouchableOpacity style={styles.link} onPress={() => this.logOut()}>
             <View style={styles.row}>
               <Icon name="log-out" size={20} color="#000" />
-              <Text style={styles.linkLabel}>Logout</Text>
+              <Text style={[styles.baseText, styles.linkLabel]}>Logout</Text>
               <View style={styles.icon}>
                 <Icon name="chevron-right" size={20} color="#000" />
               </View>
@@ -104,6 +104,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     paddingVertical: 50,
+  },
+  title: {
+    fontSize: 30,
+    fontFamily: "NunitoSans_700Bold",
+    marginBottom: 20,
+    alignSelf: "center",
+  },
+  baseText: {
+    fontFamily: "NunitoSans_400Regular",
   },
   link: {
     paddingLeft: 10,

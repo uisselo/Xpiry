@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo-google-fonts/nunito-sans": "^0.2.0",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@react-native-clipboard/clipboard": "^1.8.4",
@@ -24,6 +25,7 @@
     "expo-barcode-scanner": "~10.2.2",
     "expo-constants": "~11.0.1",
     "expo-firebase-recaptcha": "^1.4.2",
+    "expo-font": "~9.2.1",
     "expo-notifications": "~0.12.3",
     "expo-permissions": "~12.1.1",
     "expo-status-bar": "~1.0.4",

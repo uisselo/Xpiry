@@ -1,10 +1,18 @@
 import React, { Component } from "react";
-import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  Linking,
+} from "react-native";
 import UnorderedList from "react-native-unordered-list";
 import {
   widthPercentageToDP,
   heightPercentageToDP,
 } from "react-native-responsive-screen";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 export default class page1 extends Component {
   constructor(props) {
@@ -17,12 +25,17 @@ export default class page1 extends Component {
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
           <View style={{ width: widthPercentageToDP(80) }}>
-            <Image
-              source={{
-                uri: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2860&q=80",
-              }}
-              style={styles.img}
-            />
+            <TouchableWithoutFeedback>
+              <Image
+                source={{
+                  uri: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2860&q=80",
+                }}
+                style={styles.img}
+              />
+              <View style={styles.photoCredit}>
+                <Text style={styles.baseText}>Image by Christine Sandu</Text>
+              </View>
+            </TouchableWithoutFeedback>
             <Text style={styles.title}>What are medicines? Drugs?</Text>
             <Text style={styles.paragraph}>
               Medicines are chemicals or compounds that are used to treat,
@@ -49,12 +62,17 @@ export default class page1 extends Component {
                 Vitamins, eye drops or dietary supplements
               </Text>
             </UnorderedList>
-            <Image
-              source={{
-                uri: "https://images.unsplash.com/photo-1516826435551-36a8a09e4526?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2940&q=80",
-              }}
-              style={styles.img}
-            />
+            <TouchableWithoutFeedback>
+              <Image
+                source={{
+                  uri: "https://images.unsplash.com/photo-1516826435551-36a8a09e4526?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2940&q=80",
+                }}
+                style={styles.img}
+              />
+              <View style={styles.photoCredit}>
+                <Text style={styles.baseText}>Image by Sharon McCutcheon</Text>
+              </View>
+            </TouchableWithoutFeedback>
             <Text style={styles.title}>Tips on Medicine Intake</Text>
             <UnorderedList bulletUnicode={0x2022} style={styles.bullet}>
               <Text style={styles.paragraph}>
@@ -88,15 +106,18 @@ export default class page1 extends Component {
                 before they start you on a new medicine.
               </Text>
             </UnorderedList>
-            <Image
-              source={{
-                uri: "https://images.unsplash.com/photo-1543709533-c032159da7b0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",
-              }}
-              style={styles.img}
-            />
-            <Text style={styles.title}>
-              What to do with expired medicine?
-            </Text>
+            <TouchableWithoutFeedback>
+              <Image
+                source={{
+                  uri: "https://images.unsplash.com/photo-1543709533-c032159da7b0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",
+                }}
+                style={styles.img}
+              />
+              <View style={styles.photoCredit}>
+                <Text style={styles.baseText}>Image by Haley Lawrence</Text>
+              </View>
+            </TouchableWithoutFeedback>
+            <Text style={styles.title}>What to do with expired medicine?</Text>
             <Text style={styles.paragraph}>
               The Food and Drug Administration in the United States began
               requiring an expiration date on prescription and over-the-counter
@@ -109,6 +130,50 @@ export default class page1 extends Component {
               expired medical items may be less effective or dangerous. There is
               no guarantee that the medicine will be safe and effective after
               the expiration date has passed.
+            </Text>
+            <Text style={styles.title}>Sources</Text>
+            <Text style={styles.paragraph}>
+              <Text
+                style={styles.link}
+                onPress={() =>
+                  Linking.openURL(
+                    "https://www.nia.nih.gov/health/safe-use-medicines-older-adults"
+                  )
+                }
+              >
+                Safe Use of Medicines for Older Adults
+              </Text>
+              {"\n"}
+              <Text
+                style={styles.link}
+                onPress={() =>
+                  Linking.openURL(
+                    "https://www.fda.gov/drugs/special-features/why-you-need-take-your-medications-prescribed-or-instructed"
+                  )
+                }
+              >
+                Why You Need to Take Your Medications as Prescribed or
+                Instructed
+              </Text>
+              {"\n"}
+              <Text
+                style={styles.link}
+                onPress={() =>
+                  Linking.openURL(
+                    "https://www.fda.gov/drugs/special-features/dont-be-tempted-use-expired-medicines"
+                  )
+                }
+              >
+                Don’t Be Tempted to Use Expired Medicines
+              </Text>
+              {"\n"}
+              Images used are from{" "}
+              <Text
+                style={styles.link}
+                onPress={() => Linking.openURL("https://unsplash.com/")}
+              >
+                Unsplash
+              </Text>
             </Text>
           </View>
         </View>
@@ -141,11 +206,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
+    fontFamily: "NunitoSans_600SemiBold",
     fontWeight: "500",
     paddingVertical: 10,
   },
   paragraph: {
     fontSize: 18,
+    fontFamily: "NunitoSans_400Regular",
     paddingVertical: 5,
     textAlign: "justify",
     lineHeight: 35,
@@ -158,8 +225,26 @@ const styles = StyleSheet.create({
   },
   bullet: {
     width: 10,
-    fontWeight: "bold",
+    fontFamily: "NunitoSans_600SemiBold",
     paddingVertical: 5,
     lineHeight: 30,
+  },
+  baseText: {
+    fontFamily: "NunitoSans_400Regular",
+  },
+  photoCredit: {
+    position: "absolute",
+    backgroundColor: "#f3f3f3",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: 10,
+    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: 10,
+    marginBottom: 5,
+  },
+  link: {
+    color: "#0645ad",
+    textDecorationLine: "underline",
   },
 });

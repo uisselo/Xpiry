@@ -92,39 +92,43 @@ export default class dashboard extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.title}>
-          <Text style={{ fontSize: 30 }}>Dashboard</Text>
+        <View style={styles.header}>
+          <Text style={styles.title}>Dashboard</Text>
         </View>
         <View style={styles.dataContainer}>
           <TouchableOpacity style={styles.data}>
-            <Text style={styles.dataNum}>
+            <Text style={[styles.baseText, styles.dataNum]}>
               {
                 this.state.expiredItems.filter((item) =>
                   moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "D")
                 ).length
               }
             </Text>
-            <Text style={styles.dataLabel}>Expired Items Today</Text>
+            <Text style={[styles.baseText, styles.dataLabel]}>
+              Expired Items Today
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.data}>
-            <Text style={styles.dataNum}>
+            <Text style={[styles.baseText, styles.dataNum]}>
               {
                 this.state.expiredItems.filter((item) =>
                   moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "W")
                 ).length
               }
             </Text>
-            <Text style={styles.dataLabel}>Expired Items this Week</Text>
+            <Text style={[styles.baseText, styles.dataLabel]}>
+              Expired Items this Week
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.data}>
-            <Text style={styles.dataNum}>
+            <Text style={[styles.baseText, styles.dataNum]}>
               {
                 this.state.items.filter((item) =>
                   moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "W")
                 ).length
               }
             </Text>
-            <Text style={styles.dataLabel}>
+            <Text style={[styles.baseText, styles.dataLabel]}>
               Items that will Expire in a Week
             </Text>
           </TouchableOpacity>
@@ -141,10 +145,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 50,
   },
-  title: {
-    marginBottom: 10,
+  header: {
     width: widthPercentageToDP(80),
     alignSelf: "center",
+    marginBottom: 10,
+  },
+  title: {
+    fontSize: 30,
+    fontFamily: "NunitoSans_700Bold",
+  },
+  baseText: {
+    fontFamily: "NunitoSans_600SemiBold",
   },
   dataContainer: {
     width: widthPercentageToDP(80),
@@ -172,7 +183,7 @@ const styles = StyleSheet.create({
     right: 20,
   },
   dataLabel: {
-    fontWeight: "700",
+    fontSize: 20,
     position: "absolute",
     left: 20,
     bottom: 0,

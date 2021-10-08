@@ -178,7 +178,7 @@ export default class homeScreen extends Component {
             style={{ flex: 1 }}
           >
             <TextInput
-              style={styles.input}
+              style={[styles.input, styles.baseText]}
               value={this.state.userName}
               onChangeText={(userName) => this.setState({ userName })}
               placeholder="Enter your name"
@@ -198,9 +198,12 @@ export default class homeScreen extends Component {
                 onPress={() => this.registerNewUser()}
               >
                 <Text
-                  style={{
-                    color: "#fff",
-                  }}
+                  style={[
+                    styles.baseText,
+                    {
+                      color: "#fff",
+                    },
+                  ]}
                 >
                   Complete
                 </Text>
@@ -211,14 +214,13 @@ export default class homeScreen extends Component {
       );
     } else
       return (
+        
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <View style={styles.container}>
             <Modal // add item options modal
               hasBackdrop={true}
               backdropColor="#000"
-              onBackdropPress={() =>
-                this.setState({ modalVisible: false })
-              }
+              onBackdropPress={() => this.setState({ modalVisible: false })}
               isVisible={this.state.modalVisible}
               statusBarTranslucent
             >
@@ -235,9 +237,12 @@ export default class homeScreen extends Component {
                     }}
                   >
                     <Text
-                      style={{
-                        color: "#ea4c4c",
-                      }}
+                      style={[
+                        styles.baseText,
+                        {
+                          color: "#ea4c4c",
+                        },
+                      ]}
                     >
                       Scan Barcode
                     </Text>
@@ -253,9 +258,12 @@ export default class homeScreen extends Component {
                     }}
                   >
                     <Text
-                      style={{
-                        color: "#fff",
-                      }}
+                      style={[
+                        styles.baseText,
+                        {
+                          color: "#fff",
+                        },
+                      ]}
                     >
                       Add manually
                     </Text>
@@ -264,8 +272,8 @@ export default class homeScreen extends Component {
               </View>
             </Modal>
             <View style={styles.header}>
-              <Text style={{ fontSize: 20 }}>Welcome</Text>
-              <Text style={{ fontSize: 30 }}>
+              <Text style={[styles.baseText, { fontSize: 20 }]}>Welcome!</Text>
+              <Text style={{ fontSize: 30, fontFamily: "NunitoSans_700Bold" }}>
                 {this.state.userProfile.userName}
               </Text>
             </View>
@@ -383,12 +391,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
   },
+  baseText: {
+    fontFamily: "NunitoSans_600SemiBold",
+  },
   text: {
     padding: 10,
     color: "#fff",
     fontWeight: "bold",
     position: "absolute",
     top: 0,
+    fontSize: 17,
+    fontFamily: "NunitoSans_600SemiBold",
   },
   header: {
     width: widthPercentageToDP(80),

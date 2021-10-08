@@ -88,13 +88,14 @@ export default class all extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.title}>
-          <Text style={{ fontSize: 30 }}>All Items</Text>
+        <View style={styles.header}>
+          <Text style={styles.title}>All Items</Text>
         </View>
         <View style={styles.searchBar}>
           <TextInput
             placeholder="Search Item"
             onChangeText={(value) => this.searchItem(value)}
+            style={styles.baseText}
           />
           <View style={styles.searchIcon}>
             <Icon name="search" size={20} color="#c7c7cd" />
@@ -136,8 +137,8 @@ export default class all extends Component {
                     />
                   )}
                   <View style={{ marginLeft: 20 }}>
-                    <Text>{item.name}</Text>
-                    <Text style={styles.expiryDate}>
+                    <Text style={styles.baseText}>{item.name}</Text>
+                    <Text style={[styles.baseText, styles.expiryDate]}>
                       Expires on {item.expiryDate}
                     </Text>
                   </View>
@@ -154,7 +155,9 @@ export default class all extends Component {
                   paddingTop: 10,
                 }}
               >
-                <Text style={{ fontSize: 20 }}>No Items Found</Text>
+                <Text style={[styles.baseText, { fontSize: 20 }]}>
+                  No Items Found
+                </Text>
               </View>
             );
           }}
@@ -172,9 +175,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 50,
   },
-  title: {
+  header: {
     width: widthPercentageToDP(80),
     alignSelf: "center",
+    marginBottom: 5,
+  },
+  title: {
+    fontSize: 30,
+    fontFamily: "NunitoSans_700Bold",
+  },
+  baseText: {
+    fontFamily: "NunitoSans_600SemiBold",
   },
   searchBar: {
     width: widthPercentageToDP(80),

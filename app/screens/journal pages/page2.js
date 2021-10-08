@@ -5,6 +5,7 @@ import {
   widthPercentageToDP,
   heightPercentageToDP,
 } from "react-native-responsive-screen";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 export default class page2 extends Component {
   constructor(props) {
@@ -17,12 +18,17 @@ export default class page2 extends Component {
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
           <View style={{ width: widthPercentageToDP(80) }}>
-            <Image
-              source={{
-                uri: "https://images.unsplash.com/photo-1593014290067-93bac771f1c4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-              }}
-              style={styles.img}
-            />
+            <TouchableWithoutFeedback>
+              <Image
+                source={{
+                  uri: "https://images.unsplash.com/photo-1580913428706-c311e67898b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",
+                }}
+                style={styles.img}
+              />
+              <View style={styles.photoCredit}>
+                <Text style={styles.baseText}>Image by Mehrad Vosoughi</Text>
+              </View>
+            </TouchableWithoutFeedback>
             <Text style={styles.title}>
               This is what really happens when you eat Expired Food
             </Text>
@@ -46,14 +52,14 @@ export default class page2 extends Component {
             </Text>
             <UnorderedList bulletUnicode={0x2022} style={styles.bullet}>
               <Text style={styles.paragraph}>
-                <Text style={{ fontWeight: "bold" }}>Nothing at all. </Text>
+                <Text style={styles.boldText}>Nothing at all. </Text>
                 The dates are only suggestions by the manufacturer for when the
                 food is at its peak quality, not when it is unsafe to eat.
               </Text>
             </UnorderedList>
             <UnorderedList bulletUnicode={0x2022} style={styles.bullet}>
               <Text style={styles.paragraph}>
-                <Text style={{ fontWeight: "bold" }}>Food poisoning. </Text>
+                <Text style={styles.boldText}>Food poisoning. </Text>
                 Symptoms like fever, chill, stomach cramps, diarrhea, nausea,
                 and vomiting. This is more common with perishable foods like
                 eggs, meats, fruits, and vegetables. Mold, sour taste, weird
@@ -62,7 +68,7 @@ export default class page2 extends Component {
             </UnorderedList>
             <UnorderedList bulletUnicode={0x2022} style={styles.bullet}>
               <Text style={styles.paragraph}>
-                <Text style={{ fontWeight: "bold" }}>
+                <Text style={styles.boldText}>
                   Exposure to dangerous bacteria.{" "}
                 </Text>
                 Symptoms like fever, chill, stomach cramps, diarrhea, nausea,
@@ -73,9 +79,7 @@ export default class page2 extends Component {
             </UnorderedList>
             <UnorderedList bulletUnicode={0x2022} style={styles.bullet}>
               <Text style={styles.paragraph}>
-                <Text style={{ fontWeight: "bold" }}>
-                  Loss of nutritional value.{" "}
-                </Text>
+                <Text style={styles.boldText}>Loss of nutritional value. </Text>
                 This is specifically true with infant formula, which is the only
                 item that federal regulations require a “use-by” date on the
                 product label under inspection of the FDA to monitor nutrient
@@ -84,7 +88,7 @@ export default class page2 extends Component {
             </UnorderedList>
             <UnorderedList bulletUnicode={0x2022} style={styles.bullet}>
               <Text style={styles.paragraph}>
-                <Text style={{ fontWeight: "bold" }}>
+                <Text style={styles.boldText}>
                   Perfectly good food gets wasted.{" "}
                 </Text>
                 In an effort to reduce food waste, it is important that
@@ -92,30 +96,35 @@ export default class page2 extends Component {
                 and not for safety.
               </Text>
             </UnorderedList>
-            <Image
-              source={{
-                uri: "https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80",
-              }}
-              style={styles.img}
-            />
+            <TouchableWithoutFeedback>
+              <Image
+                source={{
+                  uri: "https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80",
+                }}
+                style={styles.img}
+              />
+              <View style={styles.photoCredit}>
+                <Text style={styles.baseText}>Image by Maria Lin Kim</Text>
+              </View>
+            </TouchableWithoutFeedback>
             <Text style={styles.title}>Tips on Food Safety</Text>
             <UnorderedList bulletUnicode={0x2022} style={styles.bullet}>
               <Text style={styles.paragraph}>
-                <Text style={{ fontWeight: "bold" }}>Store food safely. </Text>
+                <Text style={styles.boldText}>Store food safely. </Text>
                 Keep raw meat, poultry and fish separate from other foods in
                 order to prevent cross-contamination.
               </Text>
             </UnorderedList>
             <UnorderedList bulletUnicode={0x2022} style={styles.bullet}>
               <Text style={styles.paragraph}>
-                <Text style={{ fontWeight: "bold" }}>Handle it properly. </Text>
+                <Text style={styles.boldText}>Handle it properly. </Text>
                 Clean hands and surfaces can reduce your risk of developing a
                 foodborne illness.
               </Text>
             </UnorderedList>
             <UnorderedList bulletUnicode={0x2022} style={styles.bullet}>
               <Text style={styles.paragraph}>
-                <Text style={{ fontWeight: "bold" }}>
+                <Text style={styles.boldText}>
                   Cook the item to safe temperatures.{" "}
                 </Text>
                 Harmful bacteria is killed when a food is cooked thoroughly.
@@ -123,7 +132,7 @@ export default class page2 extends Component {
             </UnorderedList>
             <UnorderedList bulletUnicode={0x2022} style={styles.bullet}>
               <Text style={styles.paragraph}>
-                <Text style={{ fontWeight: "bold" }}>
+                <Text style={styles.boldText}>
                   Maximize the shelf life of the product.{" "}
                 </Text>
                 Store pantry items between 50 and 70 degrees, ideally in metal,
@@ -132,7 +141,7 @@ export default class page2 extends Component {
             </UnorderedList>
             <UnorderedList bulletUnicode={0x2022} style={styles.bullet}>
               <Text style={styles.paragraph}>
-                <Text style={{ fontWeight: "bold" }}>
+                <Text style={styles.boldText}>
                   Track how long the item’s been stored.{" "}
                 </Text>
                 Most items last up to five days in the refrigerator (at 40
@@ -140,6 +149,38 @@ export default class page2 extends Component {
                 or below).
               </Text>
             </UnorderedList>
+            <Text style={styles.title}>Sources</Text>
+            <Text style={styles.paragraph}>
+              <Text
+                style={styles.link}
+                onPress={() =>
+                  Linking.openURL(
+                    "https://www.mashed.com/232887/this-is-what-really-happens-when-you-eat-expired-food/"
+                  )
+                }
+              >
+                This Is What Really Happens When You Eat Expired Food
+              </Text>
+              {"\n"}
+              <Text
+                style={styles.link}
+                onPress={() =>
+                  Linking.openURL(
+                    "https://www.livestrong.com/article/480566-effects-of-expired-foods/"
+                  )
+                }
+              >
+                How Bad Is It Really to Eat Expired Food?
+              </Text>
+              {"\n"}
+              Images used are from{" "}
+              <Text
+                style={styles.link}
+                onPress={() => Linking.openURL("https://unsplash.com/")}
+              >
+                Unsplash
+              </Text>
+            </Text>
           </View>
         </View>
       </ScrollView>
@@ -171,14 +212,18 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
-    fontWeight: "500",
+    fontFamily: "NunitoSans_600SemiBold",
     paddingVertical: 10,
   },
   paragraph: {
     fontSize: 18,
+    fontFamily: "NunitoSans_400Regular",
     paddingVertical: 5,
     textAlign: "justify",
     lineHeight: 35,
+  },
+  boldText: {
+    fontFamily: "NunitoSans_700Bold",
   },
   row: {
     flexDirection: "row",
@@ -188,8 +233,26 @@ const styles = StyleSheet.create({
   },
   bullet: {
     width: 10,
-    fontWeight: "bold",
+    fontFamily: "NunitoSans_600SemiBold",
     paddingVertical: 5,
     lineHeight: 30,
+  },
+  baseText: {
+    fontFamily: "NunitoSans_400Regular",
+  },
+  photoCredit: {
+    position: "absolute",
+    backgroundColor: "#f3f3f3",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: 10,
+    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: 10,
+    marginBottom: 5,
+  },
+  link: {
+    color: "#0645ad",
+    textDecorationLine: "underline",
   },
 });

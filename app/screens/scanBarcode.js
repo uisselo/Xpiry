@@ -31,7 +31,7 @@ function scanBarcode({ navigation }) {
   if (hasPermission === null) {
     return (
       <View style={styles.container}>
-        <Text>Requesting for camera permission</Text>
+        <Text style={styles.baseText}>Requesting for camera permission</Text>
       </View>
     );
   }
@@ -39,7 +39,9 @@ function scanBarcode({ navigation }) {
   if (hasPermission === false) {
     return (
       <View style={styles.container}>
-        <Text style={{ margin: 10 }}>No access to camera</Text>
+        <Text style={[styles.baseText, { margin: 10 }]}>
+          No access to camera
+        </Text>
         <TouchableOpacity
           style={[
             styles.btn,
@@ -48,9 +50,12 @@ function scanBarcode({ navigation }) {
           onPress={() => askForCameraPermission()}
         >
           <Text
-            style={{
-              color: "#fff",
-            }}
+            style={[
+              styles.baseText,
+              {
+                color: "#fff",
+              },
+            ]}
           >
             Allow Camera
           </Text>
@@ -61,10 +66,10 @@ function scanBarcode({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 20, marginBottom: 5 }}>
+      <Text style={[styles.baseText, { fontSize: 20, marginBottom: 5 }]}>
         Place the Barcode inside the area.
       </Text>
-      <Text style={{ marginBottom: 20 }}>
+      <Text style={[styles.baseText, { marginBottom: 20 }]}>
         Scanning will start automatically.
       </Text>
       <View style={styles.barcodeBox}>
@@ -87,6 +92,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 50,
+  },
+  baseText: {
+    fontFamily: "NunitoSans_400Regular",
   },
   barcodeBox: {
     alignItems: "center",

@@ -83,20 +83,28 @@ export default class addItem extends Component {
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
           <View style={{ width: widthPercentageToDP(80) }}>
-            <Text style={{ fontSize: 30 }}>Add new Item</Text>
+            <Text style={{ fontSize: 30, fontFamily: "NunitoSans_700Bold" }}>
+              Add new Item
+            </Text>
 
-            <Text style={styles.label}>Item Name</Text>
+            <Text style={[styles.baseText, styles.label]}>Item Name</Text>
             <TextInput
-              style={styles.input}
+              style={[styles.baseText, styles.input]}
               value={this.state.itemName}
               onChangeText={(itemName) => this.setState({ itemName })}
               placeholder="Enter product name"
             />
 
-            <Text style={styles.label}>Item Category</Text>
+            <Text style={[styles.baseText, styles.label]}>Item Category</Text>
             <View style={styles.input}>
               <SelectCategory
-                style={{ inputAndroid: { color: "black" } }}
+                style={{
+                  inputAndroid: {
+                    color: "black",
+                    fontFamily: "NunitoSans_400Regular",
+                  },
+                  inputIOS: { fontFamily: "NunitoSans_400Regular" },
+                }}
                 useNativeAndroidPickerStyle={false}
                 value={this.state.itemCategory}
                 onValueChange={(itemCategory) =>
@@ -111,7 +119,7 @@ export default class addItem extends Component {
               />
             </View>
 
-            <Text style={styles.label}>Expiration Date</Text>
+            <Text style={[styles.baseText, styles.label]}>Expiration Date</Text>
             <TouchableOpacity
               style={styles.input}
               onPress={() => this.setState({ datePickerVisible: true })}
@@ -120,6 +128,7 @@ export default class addItem extends Component {
                 editable={false}
                 value={this.state.itemExpirationDate.toLocaleDateString()}
                 placeholder="Expiration Date"
+                style={styles.baseText}
               >
                 {this.state.itemExpirationDate.toLocaleDateString()}
               </Text>
@@ -137,7 +146,7 @@ export default class addItem extends Component {
               onCancel={() => this.setState({ datePickerVisible: false })}
             />
 
-            <Text style={styles.label}>Quantity</Text>
+            <Text style={[styles.baseText, styles.label]}>Quantity</Text>
             <NumericInput
               value={this.state.itemQty}
               onChange={(itemQty) => this.setState({ itemQty })}
@@ -152,9 +161,12 @@ export default class addItem extends Component {
               textColor="#000"
               borderColor="#fff"
               containerStyle={styles.input}
-              inputStyle={{
-                backgroundColor: "#fff",
-              }}
+              inputStyle={[
+                styles.baseText,
+                {
+                  backgroundColor: "#fff",
+                },
+              ]}
               iconStyle={{
                 color: "#fff",
               }}
@@ -164,7 +176,7 @@ export default class addItem extends Component {
 
             <Text style={styles.label}>Barcode Number</Text>
             <TextInput
-              style={styles.input}
+              style={[styles.baseText, styles.input]}
               editable={false}
               value={this.props.route.params.data}
               placeholder={this.props.route.params.data}
@@ -179,10 +191,13 @@ export default class addItem extends Component {
                 onPress={() => this.props.navigation.navigate("AddItem")}
               >
                 <Text
-                  style={{
-                    fontSize: 20,
-                    color: "#ea4c4c",
-                  }}
+                  style={[
+                    styles.baseText,
+                    {
+                      fontSize: 20,
+                      color: "#ea4c4c",
+                    },
+                  ]}
                 >
                   Remove Barcode
                 </Text>
@@ -195,10 +210,13 @@ export default class addItem extends Component {
                 onPress={() => this.onSubmit()}
               >
                 <Text
-                  style={{
-                    fontSize: 20,
-                    color: "#fff",
-                  }}
+                  style={[
+                    styles.baseText,
+                    {
+                      fontSize: 20,
+                      color: "#fff",
+                    },
+                  ]}
                 >
                   Save
                 </Text>
@@ -234,6 +252,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     elevation: 2,
     justifyContent: "center",
+  },
+  baseText: {
+    fontFamily: "NunitoSans_400Regular",
   },
   label: {
     fontSize: 15,

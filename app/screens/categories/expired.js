@@ -89,13 +89,14 @@ export default class expired extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.title}>
-          <Text style={{ fontSize: 30 }}>Expired Items</Text>
+        <View style={styles.header}>
+          <Text style={styles.title}>Expired Items</Text>
         </View>
         <View style={styles.searchBar}>
           <TextInput
             placeholder="Search Item"
             onChangeText={(value) => this.searchItem(value)}
+            style={styles.baseText}
           />
           <View style={styles.searchIcon}>
             <Icon name="search" size={20} color="#c7c7cd" />
@@ -137,8 +138,8 @@ export default class expired extends Component {
                     />
                   )}
                   <View style={{ marginLeft: 20 }}>
-                    <Text>{item.name}</Text>
-                    <Text style={styles.status}>
+                    <Text style={styles.baseText}>{item.name}</Text>
+                    <Text style={[styles.baseText, styles.status]}>
                       Expired for{" "}
                       {moment(item.expiryDate, "DD-MMM-YYYY").fromNow(true)}
                     </Text>
@@ -156,7 +157,9 @@ export default class expired extends Component {
                   paddingTop: 10,
                 }}
               >
-                <Text style={{ fontSize: 20 }}>No Items Found</Text>
+                <Text style={[styles.baseText, { fontSize: 20 }]}>
+                  No Items Found
+                </Text>
               </View>
             );
           }}
@@ -174,9 +177,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 50,
   },
-  title: {
+  header: {
     width: widthPercentageToDP(80),
     alignSelf: "center",
+    marginBottom: 5,
+  },
+  title: {
+    fontSize: 30,
+    fontFamily: "NunitoSans_700Bold",
+  },
+  baseText: {
+    fontFamily: "NunitoSans_600SemiBold",
   },
   searchBar: {
     width: widthPercentageToDP(80),

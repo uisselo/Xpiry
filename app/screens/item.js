@@ -110,7 +110,7 @@ export default class item extends Component {
     return (
       <View style={styles.container}>
         <View style={{ width: widthPercentageToDP(80) }}>
-          <Modal
+          <Modal // update item modal
             hasBackdrop={true}
             backdropColor="#000"
             onBackdropPress={() => this.setState({ modalVisible: false })}
@@ -118,17 +118,27 @@ export default class item extends Component {
             statusBarTranslucent
           >
             <View style={styles.modal}>
-              <Text style={{ fontSize: 30, marginBottom: 10 }}>
+              <Text
+                style={{
+                  fontSize: 30,
+                  fontFamily: "NunitoSans_600SemiBold",
+                  marginBottom: 10,
+                }}
+              >
                 Update Item
               </Text>
-              <Text style={{ marginVertical: 5 }}>Item Name</Text>
+              <Text style={[styles.baseText, { marginVertical: 5 }]}>
+                Item Name
+              </Text>
               <TextInput
-                style={styles.input}
+                style={[styles.baseText, styles.input]}
                 value={this.state.itemName}
                 onChangeText={(itemName) => this.setState({ itemName })}
                 placeholder={item.name}
               />
-              <Text style={{ marginVertical: 5 }}>Expiration Date</Text>
+              <Text style={[styles.baseText, { marginVertical: 5 }]}>
+                Expiration Date
+              </Text>
               <TouchableOpacity
                 style={styles.input}
                 onPress={() => this.setState({ datePickerVisible: true })}
@@ -137,6 +147,7 @@ export default class item extends Component {
                   editable={false}
                   value={this.state.itemExpirationDate.toLocaleDateString()}
                   placeholder={item.expiryDate}
+                  style={styles.baseText}
                 >
                   {this.state.itemExpirationDate.toLocaleDateString()}
                 </Text>
@@ -154,7 +165,9 @@ export default class item extends Component {
                 }}
                 onCancel={() => this.setState({ datePickerVisible: false })}
               />
-              <Text style={{ marginVertical: 5 }}>Quantity</Text>
+              <Text style={[styles.baseText, { marginVertical: 5 }]}>
+                Quantity
+              </Text>
               <NumericInput
                 value={this.state.itemQty}
                 onChange={(itemQty) => this.setState({ itemQty })}
@@ -169,18 +182,23 @@ export default class item extends Component {
                 textColor="#000"
                 borderColor="#fff"
                 containerStyle={styles.input}
-                inputStyle={{
-                  backgroundColor: "#fff",
-                }}
+                inputStyle={[
+                  styles.baseText,
+                  {
+                    backgroundColor: "#fff",
+                  },
+                ]}
                 iconStyle={{
                   color: "#fff",
                 }}
                 rightButtonBackgroundColor="#ea4c4c"
                 leftButtonBackgroundColor="#ea4c4c"
               />
-              <Text style={{ marginVertical: 5 }}>Barcode Number</Text>
+              <Text style={[styles.baseText, { marginVertical: 5 }]}>
+                Barcode Number
+              </Text>
               <TextInput
-                style={styles.input}
+                style={[styles.baseText, styles.input]}
                 value={this.state.itemBarcode}
                 onChangeText={(itemBarcode) => this.setState({ itemBarcode })}
                 placeholder={item.barcode}
@@ -194,9 +212,12 @@ export default class item extends Component {
                   onPress={() => this.setState({ modalVisible: false })}
                 >
                   <Text
-                    style={{
-                      color: "#ea4c4c",
-                    }}
+                    style={[
+                      styles.baseText,
+                      {
+                        color: "#ea4c4c",
+                      },
+                    ]}
                   >
                     Cancel
                   </Text>
@@ -209,9 +230,12 @@ export default class item extends Component {
                   onPress={() => this.onSave()}
                 >
                   <Text
-                    style={{
-                      color: "#fff",
-                    }}
+                    style={[
+                      styles.baseText,
+                      {
+                        color: "#fff",
+                      },
+                    ]}
                   >
                     Save Changes
                   </Text>
@@ -221,19 +245,21 @@ export default class item extends Component {
           </Modal>
 
           <View style={styles.title}>
-            <Text style={{ fontSize: 30 }}>Item Details</Text>
+            <Text style={{ fontSize: 30, fontFamily: "NunitoSans_700Bold" }}>
+              Item Details
+            </Text>
           </View>
           <TouchableWithoutFeedback style={styles.box}>
             <Text
               style={{
                 fontSize: 20,
-                fontWeight: "600",
+                fontFamily: "NunitoSans_600SemiBold",
                 width: widthPercentageToDP(40),
               }}
             >
               {this.state.itemName}
             </Text>
-            <Text style={styles.qty}>
+            <Text style={[styles.baseText, styles.qty]}>
               {this.state.itemQty}
               {item.quantity === 0
                 ? ""
@@ -241,14 +267,20 @@ export default class item extends Component {
                 ? " Items"
                 : " Item"}
             </Text>
-            <Text style={{ fontSize: 20 }}>{item.category}</Text>
-            <Text style={{ color: "#ea4c4c" }}>
+            <Text style={[styles.baseText, { fontSize: 20 }]}>
+              {item.category}
+            </Text>
+            <Text style={[styles.baseText, { color: "#ea4c4c" }]}>
               Expires on {item.expiryDate}
             </Text>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback style={styles.box}>
-            <Text style={{ fontSize: 20 }}>{this.state.itemBarcode}</Text>
-            <Text style={{ color: "#ea4c4c" }}>Barcode Number</Text>
+            <Text style={[styles.baseText, { fontSize: 20 }]}>
+              {this.state.itemBarcode}
+            </Text>
+            <Text style={[styles.baseText, { color: "#ea4c4c" }]}>
+              Barcode Number
+            </Text>
           </TouchableWithoutFeedback>
           <View style={[styles.row, { marginTop: 10 }]}>
             <TouchableOpacity
@@ -259,12 +291,15 @@ export default class item extends Component {
               onPress={() => this.setState({ modalVisible: true })}
             >
               <Text
-                style={{
-                  fontSize: 20,
-                  color: "#ea4c4c",
-                }}
+                style={[
+                  styles.baseText,
+                  {
+                    fontSize: 20,
+                    color: "#ea4c4c",
+                  },
+                ]}
               >
-                Update
+                Edit
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -275,10 +310,13 @@ export default class item extends Component {
               onPress={() => this.onDelete()}
             >
               <Text
-                style={{
-                  fontSize: 20,
-                  color: "#fff",
-                }}
+                style={[
+                  styles.baseText,
+                  {
+                    fontSize: 20,
+                    color: "#fff",
+                  },
+                ]}
               >
                 Delete
               </Text>
@@ -301,6 +339,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     width: widthPercentageToDP(80),
     alignSelf: "center",
+  },
+  baseText: {
+    fontFamily: "NunitoSans_400Regular",
   },
   modal: {
     width: widthPercentageToDP(80),

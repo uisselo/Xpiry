@@ -59,15 +59,28 @@ function login() {
           style={{ flex: 1 }}
         >
           <View style={{ width: widthPercentageToDP(80), marginBottom: 20 }}>
-            <Text style={{ fontSize: 30, marginBottom: 5 }}>Welcome</Text>
-            <Text>Enter your phone number to proceed.</Text>
+            <Text
+              style={{
+                fontSize: 30,
+                // fontFamily: "NunitoSans_700Bold",
+                marginBottom: 5,
+              }}
+            >
+              Welcome
+            </Text>
+            <Text style={styles.baseText}>
+              Enter your phone number to proceed.
+            </Text>
           </View>
           <View style={styles.input}>
-            <TextInput editable={false} style={styles.phCode}>
+            <TextInput
+              editable={false}
+              style={[styles.baseText, styles.phCode]}
+            >
               +63 |
             </TextInput>
             <TextInput
-              style={styles.numInput}
+              style={[styles.baseText, styles.numInput]}
               placeholder="Phone number"
               onChangeText={setPhoneNumber}
               keyboardType="phone-pad"
@@ -87,9 +100,12 @@ function login() {
               onPress={sendVerification}
             >
               <Text
-                style={{
-                  color: "#fff",
-                }}
+                style={[
+                  styles.baseText,
+                  {
+                    color: "#fff",
+                  },
+                ]}
               >
                 Continue
               </Text>
@@ -144,6 +160,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 50,
+  },
+  baseText: {
+    // fontFamily: "NunitoSans_400Regular",
+    fontSize: 15,
   },
   input: {
     flexDirection: "row",

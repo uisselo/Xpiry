@@ -23,7 +23,7 @@ export default class journal extends Component {
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
           <View style={{ width: widthPercentageToDP(80) }}>
-            <Text style={{ fontSize: 30 }}>Journal</Text>
+            <Text style={styles.header}>Journal</Text>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate("Page1")}
             >
@@ -34,8 +34,10 @@ export default class journal extends Component {
                 style={styles.journal}
               />
               <View style={styles.bgTitle}>
-                <Text style={styles.title}>Tips on Medicine Intake</Text>
-                <Text>
+                <Text style={[styles.baseText, styles.title]}>
+                  Tips on Medicine Intake
+                </Text>
+                <Text style={styles.baseText}>
                   Discusses the importance of medicine intake and the danger of
                   consuming expired medicine.
                 </Text>
@@ -46,13 +48,13 @@ export default class journal extends Component {
             >
               <Image
                 source={{
-                  uri: "https://images.unsplash.com/photo-1593014290067-93bac771f1c4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+                  uri: "https://images.unsplash.com/photo-1580913428706-c311e67898b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",
                 }}
                 style={styles.journal}
               />
               <View style={styles.bgTitle}>
                 <Text style={styles.title}>Expired Food</Text>
-                <Text>
+                <Text style={styles.baseText}>
                   Discusses the danger in consuming expired food and its side
                   effects. Read tips on food safety.
                 </Text>
@@ -69,7 +71,7 @@ export default class journal extends Component {
               />
               <View style={styles.bgTitle}>
                 <Text style={styles.title}>Reducing Food Wastes</Text>
-                <Text>
+                <Text style={styles.baseText}>
                   Read information about food waste and find ways on how you can
                   reduce it in your household.
                 </Text>
@@ -104,9 +106,17 @@ const styles = StyleSheet.create({
     shadowRadius: 20,
     shadowOpacity: 0.05,
   },
+  header: {
+    fontSize: 30,
+    fontFamily: "NunitoSans_700Bold",
+  },
   title: {
     fontSize: 18,
     fontWeight: "500",
+    fontFamily: "NunitoSans_600SemiBold",
+  },
+  baseText: {
+    fontFamily: "NunitoSans_400Regular",
   },
   bgTitle: {
     position: "absolute",
