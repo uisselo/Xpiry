@@ -57,12 +57,13 @@ export default class settings extends Component {
             </View>
           </TouchableOpacity>
           <View style={styles.linkDivider} />
-          <TouchableOpacity style={styles.link}>
+          <TouchableOpacity
+            style={styles.link}
+            onPress={() => this.props.navigation.navigate("Privacy")}
+          >
             <View style={styles.row}>
               <Icon name="lock" size={20} color="#000" />
-              <Text style={styles.linkLabel}>
-                Privacy Policy
-              </Text>
+              <Text style={styles.linkLabel}>Privacy Policy</Text>
               <View style={styles.icon}>
                 <Icon name="chevron-right" size={20} color="#000" />
               </View>
@@ -72,9 +73,7 @@ export default class settings extends Component {
           <TouchableOpacity style={styles.link}>
             <View style={styles.row}>
               <Icon name="file" size={20} color="#000" />
-              <Text style={styles.linkLabel}>
-                Terms and Conditions
-              </Text>
+              <Text style={styles.linkLabel}>Terms and Conditions</Text>
               <View style={styles.icon}>
                 <Icon name="chevron-right" size={20} color="#000" />
               </View>

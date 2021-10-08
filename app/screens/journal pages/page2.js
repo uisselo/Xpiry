@@ -17,7 +17,7 @@ export default class page2 extends Component {
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <Carousel
           currentPage={2}
-          pageStyle={{ backgroundColor: "ffd2a5", borderRadius: 30 }}
+          pageStyle={{ backgroundColor: "#ffd2a5", borderRadius: 30 }}
         >
           <View style={styles.container}>
             <Text style={styles.title}>
