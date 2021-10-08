@@ -23,17 +23,23 @@ export default class journal extends Component {
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
           <View style={{ width: widthPercentageToDP(80) }}>
-            <Text style={{ fontSize: 30, marginBottom: 10 }}>Journal</Text>
+            <Text style={{ fontSize: 30 }}>Journal</Text>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate("Page1")}
             >
               <Image
                 source={{
-                  uri: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+                  uri: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2860&q=80",
                 }}
                 style={styles.journal}
               />
-              <Text style={styles.title}>Tips on Medicine Intake</Text>
+              <View style={styles.bgTitle}>
+                <Text style={styles.title}>Tips on Medicine Intake</Text>
+                <Text>
+                  Discusses the importance of medicine intake and the danger of
+                  consuming expired medicine.
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate("Page2")}
@@ -44,9 +50,13 @@ export default class journal extends Component {
                 }}
                 style={styles.journal}
               />
-              <Text style={styles.title}>
-                Why we shouldn't consume expired goods
-              </Text>
+              <View style={styles.bgTitle}>
+                <Text style={styles.title}>Expired Food</Text>
+                <Text>
+                  Discusses the danger in consuming expired food and its side
+                  effects. Read tips on food safety.
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate("Page3")}
@@ -57,7 +67,13 @@ export default class journal extends Component {
                 }}
                 style={styles.journal}
               />
-              <Text style={styles.title}>Reducing Food Wastes</Text>
+              <View style={styles.bgTitle}>
+                <Text style={styles.title}>Reducing Food Wastes</Text>
+                <Text>
+                  Read information about food waste and find ways on how you can
+                  reduce it in your household.
+                </Text>
+              </View>
             </TouchableOpacity>
           </View>
         </View>
@@ -76,9 +92,9 @@ const styles = StyleSheet.create({
     paddingVertical: 50,
   },
   journal: {
-    height: 130,
+    height: heightPercentageToDP(30),
     borderRadius: 10,
-    marginVertical: 5,
+    marginVertical: 15,
     backgroundColor: "#fff",
     shadowColor: "#000",
     shadowOffset: {
@@ -89,12 +105,17 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
   },
   title: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 18,
+    fontWeight: "500",
+  },
+  bgTitle: {
     position: "absolute",
-    color: "#fff",
-    top: 20,
-    left: 20,
-    right: 20,
+    backgroundColor: "#f3f3f3",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: 15,
+    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: 10,
   },
 });
