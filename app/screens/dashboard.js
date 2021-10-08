@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     right: 20,
   },
   dataLabel: {
-    fontSize: 20,
+    fontSize: 17,
     position: "absolute",
     left: 20,
     right: 20,
