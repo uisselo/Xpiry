@@ -57,8 +57,7 @@ export default class settings extends Component {
             </View>
           </TouchableOpacity>
           <View style={styles.linkDivider} />
-          <TouchableOpacity style={styles.link}
-          onPress={() => this.props.navigation.navigate("Privacy")}>
+          <TouchableOpacity style={styles.link}>
             <View style={styles.row}>
               <Icon name="lock" size={20} color="#000" />
               <Text style={{ fontSize: 20, paddingLeft: 10 }}>

@@ -9,7 +9,6 @@ import dashboard from "../screens/dashboard";
 import journal from "../screens/journal";
 import settings from "../screens/settings";
 import about from "../screens/about";
-import privacy from "../screens/privacy";
 import all from "../screens/categories/all";
 import expired from "../screens/categories/expired";
 import food from "../screens/categories/food";
@@ -62,7 +61,6 @@ const SettingsStackScreen = () => {
     <SettingsStack.Navigator screenOptions={{ headerShown: false }}>
       <SettingsStack.Screen name="SettingsScreen" component={settings} />
       <SettingsStack.Screen name="About" component={about} />
-      <SettingsStack.Screen name="Privacy" component={privacy} />
     </SettingsStack.Navigator>
   );
 };
