@@ -50,7 +50,7 @@ export default class settings extends Component {
           >
             <View style={styles.row}>
               <Icon name="help-circle" size={20} color="#000" />
-              <Text style={{ fontSize: 20, paddingLeft: 10 }}>About</Text>
+              <Text style={styles.linkLabel}>About</Text>
               <View style={styles.icon}>
                 <Icon name="chevron-right" size={20} color="#000" />
               </View>
@@ -60,7 +60,7 @@ export default class settings extends Component {
           <TouchableOpacity style={styles.link}>
             <View style={styles.row}>
               <Icon name="lock" size={20} color="#000" />
-              <Text style={{ fontSize: 20, paddingLeft: 10 }}>
+              <Text style={styles.linkLabel}>
                 Privacy Policy
               </Text>
               <View style={styles.icon}>
@@ -72,7 +72,7 @@ export default class settings extends Component {
           <TouchableOpacity style={styles.link}>
             <View style={styles.row}>
               <Icon name="file" size={20} color="#000" />
-              <Text style={{ fontSize: 20, paddingLeft: 10 }}>
+              <Text style={styles.linkLabel}>
                 Terms and Conditions
               </Text>
               <View style={styles.icon}>
@@ -84,7 +84,7 @@ export default class settings extends Component {
           <TouchableOpacity style={styles.link} onPress={() => this.logOut()}>
             <View style={styles.row}>
               <Icon name="log-out" size={20} color="#000" />
-              <Text style={{ fontSize: 20, paddingLeft: 10 }}>Logout</Text>
+              <Text style={styles.linkLabel}>Logout</Text>
               <View style={styles.icon}>
                 <Icon name="chevron-right" size={20} color="#000" />
               </View>
@@ -109,6 +109,10 @@ const styles = StyleSheet.create({
   link: {
     paddingLeft: 10,
     paddingVertical: 15,
+  },
+  linkLabel: {
+    fontSize: 20,
+    paddingLeft: 10,
   },
   linkDivider: {
     borderBottomColor: "#e5e5e5",
