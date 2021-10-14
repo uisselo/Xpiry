@@ -118,141 +118,152 @@ export default class item extends Component {
             statusBarTranslucent
           >
             <View style={styles.modal}>
-              <Text
-                style={{
-                  fontSize: 30,
-                  fontFamily: "NunitoSans_600SemiBold",
-                  marginBottom: 10,
-                }}
-              >
-                Update Item
-              </Text>
-              <Text style={[styles.baseText, { marginVertical: 5 }]}>
-                Item Name
-              </Text>
-              <TextInput
-                style={[styles.baseText, styles.input]}
-                value={this.state.itemName}
-                onChangeText={(itemName) => this.setState({ itemName })}
-                placeholder={item.name}
-              />
-              <Text style={[styles.baseText, { marginVertical: 5 }]}>
-                Expiration Date
-              </Text>
-              <TouchableOpacity
-                style={styles.input}
-                onPress={() => this.setState({ datePickerVisible: true })}
-              >
+              <View style={{ width: widthPercentageToDP(70) }}>
                 <Text
-                  editable={false}
-                  value={this.state.itemExpirationDate.toLocaleDateString()}
-                  placeholder={item.expiryDate}
-                  style={styles.baseText}
+                  style={{
+                    fontSize: widthPercentageToDP(7),
+                    fontFamily: "NunitoSans_600SemiBold",
+                    marginBottom: 10,
+                  }}
                 >
-                  {this.state.itemExpirationDate.toLocaleDateString()}
+                  Update Item
                 </Text>
-              </TouchableOpacity>
-              <DatePicker
-                isVisible={this.state.datePickerVisible}
-                mode="date"
-                date={new Date(item.expiryDate)}
-                onConfirm={(date) => {
-                  console.log("Date picked:", date);
-                  this.setState({
-                    datePickerVisible: false,
-                    itemExpirationDate: date,
-                  });
-                }}
-                onCancel={() => this.setState({ datePickerVisible: false })}
-              />
-              <Text style={[styles.baseText, { marginVertical: 5 }]}>
-                Quantity
-              </Text>
-              <NumericInput
-                value={this.state.itemQty}
-                onChange={(itemQty) => this.setState({ itemQty })}
-                onLimitReached={(isMax, msg) => console.log(isMax, msg)}
-                minValue={0}
-                totalWidth={widthPercentageToDP(50)}
-                totalHeight={40}
-                iconSize={25}
-                step={1}
-                valueType="real"
-                rounded
-                textColor="#000"
-                borderColor="#fff"
-                containerStyle={styles.input}
-                inputStyle={[
-                  styles.baseText,
-                  {
-                    backgroundColor: "#fff",
-                  },
-                ]}
-                iconStyle={{
-                  color: "#fff",
-                }}
-                rightButtonBackgroundColor="#ea4c4c"
-                leftButtonBackgroundColor="#ea4c4c"
-              />
-              <Text style={[styles.baseText, { marginVertical: 5 }]}>
-                Barcode Number
-              </Text>
-              <TextInput
-                style={[styles.baseText, styles.input]}
-                value={this.state.itemBarcode}
-                onChangeText={(itemBarcode) => this.setState({ itemBarcode })}
-                placeholder={item.barcode}
-              />
-              <View style={[styles.row, { marginTop: 10 }]}>
+                <Text style={[styles.baseText, { marginVertical: 5 }]}>
+                  Item Name
+                </Text>
+                <TextInput
+                  style={[styles.baseText, styles.input]}
+                  value={this.state.itemName}
+                  onChangeText={(itemName) => this.setState({ itemName })}
+                  placeholder={item.name}
+                />
+                <Text style={[styles.baseText, { marginVertical: 5 }]}>
+                  Expiration Date
+                </Text>
                 <TouchableOpacity
-                  style={[
-                    styles.btnModal,
-                    { borderColor: "#ea4c4c", backgroundColor: "#fff" },
-                  ]}
-                  onPress={() => this.setState({ modalVisible: false })}
+                  style={styles.input}
+                  onPress={() => this.setState({ datePickerVisible: true })}
                 >
                   <Text
-                    style={[
-                      styles.baseText,
-                      {
-                        color: "#ea4c4c",
-                      },
-                    ]}
+                    editable={false}
+                    value={this.state.itemExpirationDate.toLocaleDateString()}
+                    placeholder={item.expiryDate}
+                    style={styles.baseText}
                   >
-                    Cancel
+                    {this.state.itemExpirationDate.toLocaleDateString()}
                   </Text>
                 </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    styles.btnModal,
-                    { borderColor: "#ea4c4c", backgroundColor: "#ea4c4c" },
+                <DatePicker
+                  isVisible={this.state.datePickerVisible}
+                  mode="date"
+                  date={new Date(item.expiryDate)}
+                  onConfirm={(date) => {
+                    console.log("Date picked:", date);
+                    this.setState({
+                      datePickerVisible: false,
+                      itemExpirationDate: date,
+                    });
+                  }}
+                  onCancel={() => this.setState({ datePickerVisible: false })}
+                />
+                <Text style={[styles.baseText, { marginVertical: 5 }]}>
+                  Quantity
+                </Text>
+                <NumericInput
+                  value={this.state.itemQty}
+                  onChange={(itemQty) => this.setState({ itemQty })}
+                  onLimitReached={(isMax, msg) => console.log(isMax, msg)}
+                  minValue={0}
+                  totalWidth={widthPercentageToDP(50)}
+                  totalHeight={40}
+                  iconSize={25}
+                  step={1}
+                  valueType="real"
+                  rounded
+                  textColor="#000"
+                  borderColor="#fff"
+                  containerStyle={styles.input}
+                  inputStyle={[
+                    styles.baseText,
+                    {
+                      backgroundColor: "#fff",
+                    },
                   ]}
-                  onPress={() => this.onSave()}
-                >
-                  <Text
-                    style={[
-                      styles.baseText,
-                      {
-                        color: "#fff",
-                      },
-                    ]}
-                  >
-                    Save Changes
-                  </Text>
-                </TouchableOpacity>
+                  iconStyle={{
+                    color: "#fff",
+                  }}
+                  rightButtonBackgroundColor="#ea4c4c"
+                  leftButtonBackgroundColor="#ea4c4c"
+                />
+                <Text style={[styles.baseText, { marginVertical: 5 }]}>
+                  Barcode Number
+                </Text>
+                <TextInput
+                  style={[styles.baseText, styles.input]}
+                  value={this.state.itemBarcode}
+                  onChangeText={(itemBarcode) => this.setState({ itemBarcode })}
+                  placeholder={item.barcode}
+                />
+                <View style={{ flexDirection: "row", marginTop: 10 }}>
+                  <View style={[styles.fixedBtnModal, { paddingRight: 5 }]}>
+                    <TouchableOpacity
+                      style={[
+                        styles.btnModal,
+                        { borderColor: "#ea4c4c", backgroundColor: "#fff" },
+                      ]}
+                      onPress={() => this.setState({ modalVisible: false })}
+                    >
+                      <Text
+                        style={[
+                          styles.baseText,
+                          {
+                            color: "#ea4c4c",
+                          },
+                        ]}
+                      >
+                        Cancel
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={[styles.fixedBtnModal, { paddingLeft: 5 }]}>
+                    <TouchableOpacity
+                      style={[
+                        styles.btnModal,
+                        { borderColor: "#ea4c4c", backgroundColor: "#ea4c4c" },
+                      ]}
+                      onPress={() => this.onSave()}
+                    >
+                      <Text
+                        style={[
+                          styles.baseText,
+                          {
+                            color: "#fff",
+                          },
+                        ]}
+                      >
+                        Save Changes
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
               </View>
             </View>
           </Modal>
 
-          <View style={styles.title}>
-            <Text style={{ fontSize: 30, fontFamily: "NunitoSans_700Bold" }}>
+          <View style={styles.header}>
+            <Text
+              style={{
+                fontSize: widthPercentageToDP(7),
+                fontFamily: "NunitoSans_700Bold",
+              }}
+            >
               Item Details
             </Text>
           </View>
           <TouchableWithoutFeedback style={styles.box}>
             <Text
               style={{
-                fontSize: 20,
+                fontSize: widthPercentageToDP(5),
                 fontFamily: "NunitoSans_600SemiBold",
                 width: widthPercentageToDP(40),
               }}
@@ -267,7 +278,9 @@ export default class item extends Component {
                 ? " Items"
                 : " Item"}
             </Text>
-            <Text style={[styles.baseText, { fontSize: 20 }]}>
+            <Text
+              style={[styles.baseText, { fontSize: widthPercentageToDP(5) }]}
+            >
               {item.category}
             </Text>
             <Text style={[styles.baseText, { color: "#ea4c4c" }]}>
@@ -275,52 +288,56 @@ export default class item extends Component {
             </Text>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback style={styles.box}>
-            <Text style={[styles.baseText, { fontSize: 20 }]}>
+            <Text
+              style={[styles.baseText, { fontSize: widthPercentageToDP(5) }]}
+            >
               {this.state.itemBarcode}
             </Text>
             <Text style={[styles.baseText, { color: "#ea4c4c" }]}>
               Barcode Number
             </Text>
           </TouchableWithoutFeedback>
-          <View style={[styles.row, { marginTop: 10 }]}>
-            <TouchableOpacity
-              style={[
-                styles.btn,
-                { borderColor: "#ea4c4c", backgroundColor: "#fff" },
-              ]}
-              onPress={() => this.setState({ modalVisible: true })}
-            >
-              <Text
+          <View style={{ flexDirection: "row", marginTop: 10 }}>
+            <View style={[styles.fixedBtn, { paddingRight: 5 }]}>
+              <TouchableOpacity
                 style={[
-                  styles.baseText,
-                  {
-                    fontSize: 20,
-                    color: "#ea4c4c",
-                  },
+                  styles.btn,
+                  { borderColor: "#ea4c4c", backgroundColor: "#fff" },
                 ]}
+                onPress={() => this.setState({ modalVisible: true })}
               >
-                Edit
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                styles.btn,
-                { borderColor: "#ea4c4c", backgroundColor: "#ea4c4c" },
-              ]}
-              onPress={() => this.onDelete()}
-            >
-              <Text
+                <Text
+                  style={[
+                    styles.baseText,
+                    {
+                      color: "#ea4c4c",
+                    },
+                  ]}
+                >
+                  Edit
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={[styles.fixedBtn, { paddingLeft: 5 }]}>
+              <TouchableOpacity
                 style={[
-                  styles.baseText,
-                  {
-                    fontSize: 20,
-                    color: "#fff",
-                  },
+                  styles.btn,
+                  { borderColor: "#ea4c4c", backgroundColor: "#ea4c4c" },
                 ]}
+                onPress={() => this.onDelete()}
               >
-                Delete
-              </Text>
-            </TouchableOpacity>
+                <Text
+                  style={[
+                    styles.baseText,
+                    {
+                      color: "#fff",
+                    },
+                  ]}
+                >
+                  Delete
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
@@ -335,19 +352,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 50,
   },
-  title: {
+  header: {
     marginBottom: 10,
     width: widthPercentageToDP(80),
     alignSelf: "center",
   },
   baseText: {
     fontFamily: "NunitoSans_400Regular",
+    fontSize: widthPercentageToDP(3.75),
   },
   modal: {
     width: widthPercentageToDP(80),
-    height: 450,
     justifyContent: "center",
     alignSelf: "center",
+    alignItems: "center",
     borderRadius: 10,
     padding: 20,
     backgroundColor: "#fff",
@@ -378,12 +396,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     elevation: 2,
   },
-  row: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignSelf: "center",
-    width: widthPercentageToDP(60),
-  },
   qty: {
     position: "absolute",
     top: 20,
@@ -394,10 +406,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 10,
     overflow: "hidden",
-    alignSelf: "flex-end",
   },
   input: {
-    height: 40,
     borderRadius: 10,
     padding: 10,
     marginVertical: 5,
@@ -412,19 +422,23 @@ const styles = StyleSheet.create({
     elevation: 2,
     justifyContent: "center",
   },
+  fixedBtn: {
+    width: widthPercentageToDP(40),
+  },
   btn: {
-    height: 40,
-    width: widthPercentageToDP(39),
-    marginHorizontal: 5,
+    padding: 10,
+    width: "100%",
     borderRadius: 10,
     borderWidth: 2,
     justifyContent: "center",
     alignItems: "center",
   },
+  fixedBtnModal: {
+    width: widthPercentageToDP(35),
+  },
   btnModal: {
-    height: 40,
-    width: widthPercentageToDP(34),
-    marginHorizontal: 5,
+    padding: 10,
+    width: "100%",
     borderRadius: 10,
     borderWidth: 2,
     justifyContent: "center",

@@ -100,7 +100,7 @@ export default class cosmetics extends Component {
             style={styles.baseText}
           />
           <View style={styles.searchIcon}>
-            <Icon name="search" size={20} color="#c7c7cd" />
+            <Icon name="search" size={widthPercentageToDP(5)} color="#c7c7cd" />
           </View>
         </View>
         <FlatList
@@ -131,7 +131,12 @@ export default class cosmetics extends Component {
                   paddingTop: 10,
                 }}
               >
-                <Text style={[styles.baseText, { fontSize: 20 }]}>
+                <Text
+                  style={[
+                    styles.baseText,
+                    { fontSize: widthPercentageToDP(5) },
+                  ]}
+                >
                   No Items Found
                 </Text>
               </View>
@@ -157,18 +162,18 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   title: {
-    fontSize: 30,
+    fontSize: widthPercentageToDP(7),
     fontFamily: "NunitoSans_700Bold",
   },
   baseText: {
-    fontFamily: "NunitoSans_600SemiBold",
+    fontSize: widthPercentageToDP(3.75),
+    fontFamily: "NunitoSans_400Regular",
   },
   searchBar: {
     width: widthPercentageToDP(80),
     marginVertical: 10,
     alignSelf: "center",
     alignItems: "center",
-    height: 40,
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -190,7 +195,6 @@ const styles = StyleSheet.create({
   },
   item: {
     width: widthPercentageToDP(80),
-    height: 70,
     borderRadius: 10,
     padding: 20,
     marginVertical: 5,

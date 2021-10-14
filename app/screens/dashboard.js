@@ -151,10 +151,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   title: {
-    fontSize: 30,
+    fontSize: widthPercentageToDP(7),
     fontFamily: "NunitoSans_700Bold",
   },
   baseText: {
+    fontSize: widthPercentageToDP(3.75),
     fontFamily: "NunitoSans_600SemiBold",
   },
   dataContainer: {
@@ -162,8 +163,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   data: {
-    height: 100,
     borderRadius: 10,
+    padding: 20,
     marginVertical: 5,
     backgroundColor: "#fff",
     shadowColor: "#000",
@@ -176,40 +177,11 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   dataNum: {
-    fontSize: 30,
-    fontWeight: "bold",
-    position: "absolute",
-    top: 20,
-    right: 20,
+    fontSize: widthPercentageToDP(7),
+    alignSelf: "flex-end",
+    paddingBottom: 20
   },
   dataLabel: {
-    fontSize: 17,
-    position: "absolute",
-    left: 20,
-    right: 20,
-    bottom: 0,
-    paddingBottom: 20,
-  },
-  item: {
-    width: 350,
-    height: 70,
-    borderRadius: 10,
-    padding: 20,
-    marginVertical: 5,
-    marginHorizontal: 5,
-    justifyContent: "center",
-    alignSelf: "center",
-    backgroundColor: "#fff",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowRadius: 3,
-    shadowOpacity: 0.05,
-    elevation: 2,
-  },
-  status: {
-    color: "#ea4c4c",
+    fontSize: widthPercentageToDP(5),
   },
 });

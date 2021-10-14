@@ -53,7 +53,9 @@ export default class journal extends Component {
                 style={styles.journal}
               />
               <View style={styles.bgTitle}>
-                <Text style={styles.title}>Expired Food</Text>
+                <Text style={[styles.baseText, styles.title]}>
+                  Expired Food
+                </Text>
                 <Text style={styles.baseText}>
                   Discusses the danger in consuming expired food and its side
                   effects. Read tips on food safety.
@@ -70,7 +72,9 @@ export default class journal extends Component {
                 style={styles.journal}
               />
               <View style={styles.bgTitle}>
-                <Text style={styles.title}>Reducing Food Wastes</Text>
+                <Text style={[styles.baseText, styles.title]}>
+                  Reducing Food Wastes
+                </Text>
                 <Text style={styles.baseText}>
                   Read information about food waste and find ways on how you can
                   reduce it in your household.
@@ -107,15 +111,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
   },
   header: {
-    fontSize: 30,
+    fontSize: widthPercentageToDP(7),
     fontFamily: "NunitoSans_700Bold",
   },
   title: {
-    fontSize: 18,
-    fontWeight: "500",
     fontFamily: "NunitoSans_600SemiBold",
   },
   baseText: {
+    fontSize: widthPercentageToDP(3.75),
     fontFamily: "NunitoSans_400Regular",
   },
   bgTitle: {
@@ -124,7 +127,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    padding: 15,
+    padding: 20,
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
   },

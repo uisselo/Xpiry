@@ -47,10 +47,18 @@ export default class settings extends Component {
             onPress={() => this.props.navigation.navigate("About")}
           >
             <View style={styles.row}>
-              <Icon name="help-circle" size={20} color="#000" />
+              <Icon
+                name="help-circle"
+                size={widthPercentageToDP(5)}
+                color="#000"
+              />
               <Text style={[styles.baseText, styles.linkLabel]}>About</Text>
               <View style={styles.icon}>
-                <Icon name="chevron-right" size={20} color="#000" />
+                <Icon
+                  name="chevron-right"
+                  size={widthPercentageToDP(5)}
+                  color="#000"
+                />
               </View>
             </View>
           </TouchableOpacity>
@@ -60,32 +68,30 @@ export default class settings extends Component {
             onPress={() => this.props.navigation.navigate("Privacy")}
           >
             <View style={styles.row}>
-              <Icon name="lock" size={20} color="#000" />
+              <Icon name="lock" size={widthPercentageToDP(5)} color="#000" />
               <Text style={[styles.baseText, styles.linkLabel]}>
                 Privacy Policy
               </Text>
               <View style={styles.icon}>
-                <Icon name="chevron-right" size={20} color="#000" />
+                <Icon
+                  name="chevron-right"
+                  size={widthPercentageToDP(5)}
+                  color="#000"
+                />
               </View>
             </View>
           </TouchableOpacity>
           <View style={styles.linkDivider} />
-          {/* <TouchableOpacity style={styles.link}>
-            <View style={styles.row}>
-              <Icon name="file" size={20} color="#000" />
-              <Text style={styles.linkLabel}>Terms and Conditions</Text>
-              <View style={styles.icon}>
-                <Icon name="chevron-right" size={20} color="#000" />
-              </View>
-            </View>
-          </TouchableOpacity>
-          <View style={styles.linkDivider} /> */}
           <TouchableOpacity style={styles.link} onPress={() => this.logOut()}>
             <View style={styles.row}>
-              <Icon name="log-out" size={20} color="#000" />
+              <Icon name="log-out" size={widthPercentageToDP(5)} color="#000" />
               <Text style={[styles.baseText, styles.linkLabel]}>Logout</Text>
               <View style={styles.icon}>
-                <Icon name="chevron-right" size={20} color="#000" />
+                <Icon
+                  name="chevron-right"
+                  size={widthPercentageToDP(5)}
+                  color="#000"
+                />
               </View>
             </View>
           </TouchableOpacity>
@@ -106,7 +112,7 @@ const styles = StyleSheet.create({
     paddingVertical: 50,
   },
   title: {
-    fontSize: 30,
+    fontSize: widthPercentageToDP(7),
     fontFamily: "NunitoSans_700Bold",
     marginBottom: 20,
     alignSelf: "center",
@@ -119,7 +125,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   linkLabel: {
-    fontSize: 20,
+    fontSize: widthPercentageToDP(5),
     paddingLeft: 10,
   },
   linkDivider: {

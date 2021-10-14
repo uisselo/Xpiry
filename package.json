@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo-google-fonts/inter": "^0.2.0",
     "@expo-google-fonts/nunito-sans": "^0.2.0",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
@@ -55,13 +56,15 @@
     "react-native-screens": "~3.4.0",
     "react-native-search-bar": "^3.5.1",
     "react-native-search-filter": "^0.1.5",
+    "react-native-square-grid": "^1.0.5",
     "react-native-tab-view": "^3.1.1",
     "react-native-unordered-list": "^1.0.4",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
     "react-native-webview": "^11.13.0",
     "react-navigation-stack": "^2.10.4",
-    "simple-carousel-react-native": "^1.0.2"
+    "simple-carousel-react-native": "^1.0.2",
+    "expo-app-loading": "1.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

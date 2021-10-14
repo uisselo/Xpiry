@@ -205,17 +205,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
   },
   title: {
-    fontSize: 25,
+    fontSize: widthPercentageToDP(6),
     fontFamily: "NunitoSans_600SemiBold",
-    fontWeight: "500",
     paddingVertical: 10,
   },
   paragraph: {
-    fontSize: 18,
+    fontSize: widthPercentageToDP(4.5),
     fontFamily: "NunitoSans_400Regular",
     paddingVertical: 5,
     textAlign: "justify",
-    lineHeight: 35,
+    lineHeight: 40,
   },
   row: {
     flexDirection: "row",
@@ -227,9 +226,11 @@ const styles = StyleSheet.create({
     width: 10,
     fontFamily: "NunitoSans_600SemiBold",
     paddingVertical: 5,
-    lineHeight: 30,
+    lineHeight: 35,
+    marginLeft: 10
   },
   baseText: {
+    fontSize: widthPercentageToDP(3.75),
     fontFamily: "NunitoSans_400Regular",
   },
   photoCredit: {

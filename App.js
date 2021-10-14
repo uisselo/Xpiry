@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import Login from "./app/screens/auth/login";
 import AppStack from "./app/navigation/appStack";
@@ -8,6 +9,7 @@ import {
   NunitoSans_600SemiBold,
   NunitoSans_700Bold,
 } from "@expo-google-fonts/nunito-sans";
+import AppLoading from "expo-app-loading";
 import firebase from "firebase/app";
 import "firebase/auth";
 import { db } from "./app/db/config";
@@ -26,9 +28,12 @@ export default () => {
     });
     return authListener;
   });
-  return (
-    <NavigationContainer>
-      {isLoggedIn == false ? <Login /> : <AppStack />}
-    </NavigationContainer>
-  );
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else
+    return (
+      <NavigationContainer>
+        {isLoggedIn == false ? <Login /> : <AppStack />}
+      </NavigationContainer>
+    );
 };

@@ -83,7 +83,12 @@ export default class addItem extends Component {
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
           <View style={{ width: widthPercentageToDP(80) }}>
-            <Text style={{ fontSize: 30, fontFamily: "NunitoSans_700Bold" }}>
+            <Text
+              style={{
+                fontSize: widthPercentageToDP(7),
+                fontFamily: "NunitoSans_700Bold",
+              }}
+            >
               Add new Item
             </Text>
 
@@ -102,8 +107,13 @@ export default class addItem extends Component {
                   inputAndroid: {
                     color: "black",
                     fontFamily: "NunitoSans_400Regular",
+                    fontSize: widthPercentageToDP(3.5),
                   },
-                  inputIOS: { fontFamily: "NunitoSans_400Regular" },
+                  inputIOS: {
+                    fontFamily: "NunitoSans_400Regular",
+                    fontSize: widthPercentageToDP(3.5),
+                  },
+                  fontSize: widthPercentageToDP(3.5),
                 }}
                 useNativeAndroidPickerStyle={false}
                 value={this.state.itemCategory}
@@ -174,7 +184,7 @@ export default class addItem extends Component {
               leftButtonBackgroundColor="#ea4c4c"
             />
 
-            <Text style={styles.label}>Barcode Number</Text>
+            <Text style={[styles.baseText, styles.label]}>Barcode Number</Text>
             <TextInput
               style={[styles.baseText, styles.input]}
               editable={false}
@@ -182,45 +192,47 @@ export default class addItem extends Component {
               placeholder={this.props.route.params.data}
             />
 
-            <View style={[styles.row, { marginTop: 15 }]}>
-              <TouchableOpacity
-                style={[
-                  styles.btn,
-                  { borderColor: "#ea4c4c", backgroundColor: "#fff" },
-                ]}
-                onPress={() => this.props.navigation.navigate("AddItem")}
-              >
-                <Text
+            <View style={{ flexDirection: "row", marginTop: 15 }}>
+              <View style={[styles.fixedBtn, { paddingRight: 5 }]}>
+                <TouchableOpacity
                   style={[
-                    styles.baseText,
-                    {
-                      fontSize: 20,
-                      color: "#ea4c4c",
-                    },
+                    styles.btn,
+                    { borderColor: "#ea4c4c", backgroundColor: "#fff" },
                   ]}
+                  onPress={() => this.props.navigation.navigate("AddItem")}
                 >
-                  Remove Barcode
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.btn,
-                  { borderColor: "#ea4c4c", backgroundColor: "#ea4c4c" },
-                ]}
-                onPress={() => this.onSubmit()}
-              >
-                <Text
+                  <Text
+                    style={[
+                      styles.baseText,
+                      {
+                        color: "#ea4c4c",
+                      },
+                    ]}
+                  >
+                    Remove Barcode
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={[styles.fixedBtn, { paddingLeft: 5 }]}>
+                <TouchableOpacity
                   style={[
-                    styles.baseText,
-                    {
-                      fontSize: 20,
-                      color: "#fff",
-                    },
+                    styles.btn,
+                    { borderColor: "#ea4c4c", backgroundColor: "#ea4c4c" },
                   ]}
+                  onPress={() => this.onSubmit()}
                 >
-                  Save
-                </Text>
-              </TouchableOpacity>
+                  <Text
+                    style={[
+                      styles.baseText,
+                      {
+                        color: "#fff",
+                      },
+                    ]}
+                  >
+                    Save
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </View>
@@ -239,7 +251,6 @@ const styles = StyleSheet.create({
     paddingVertical: 50,
   },
   input: {
-    height: 40,
     borderRadius: 10,
     padding: 10,
     backgroundColor: "#fff",
@@ -255,18 +266,17 @@ const styles = StyleSheet.create({
   },
   baseText: {
     fontFamily: "NunitoSans_400Regular",
+    fontSize: widthPercentageToDP(3.5),
   },
   label: {
-    fontSize: 15,
     marginVertical: 15,
   },
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  fixedBtn: {
+    width: widthPercentageToDP(40),
   },
   btn: {
-    height: 40,
-    width: widthPercentageToDP(39),
+    padding: 10,
+    width: "100%",
     borderRadius: 10,
     borderWidth: 2,
     justifyContent: "center",

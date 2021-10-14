@@ -66,18 +66,26 @@ function scanBarcode({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.baseText, { fontSize: 20, marginBottom: 5 }]}>
-        Place the Barcode inside the area.
-      </Text>
-      <Text style={[styles.baseText, { marginBottom: 20 }]}>
-        Scanning will start automatically.
-      </Text>
+      <View
+        style={{
+          width: widthPercentageToDP(80),
+          marginBottom: 15,
+          alignItems: "center",
+        }}
+      >
+        <Text style={[styles.baseText, { fontSize: widthPercentageToDP(5) }]}>
+          Place the Barcode inside the area.
+        </Text>
+        <Text style={styles.baseText}>Scanning will start automatically.</Text>
+      </View>
       <View style={styles.barcodeBox}>
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : handleBarcodeScanned}
           style={{
-            width: widthPercentageToDP(80),
-            height: 400,
+            width: "100%",
+            height: "100%",
+            resizeMode: "cover",
+            borderRadius: 30,
           }}
         />
       </View>
@@ -95,12 +103,13 @@ const styles = StyleSheet.create({
   },
   baseText: {
     fontFamily: "NunitoSans_400Regular",
+    fontSize: widthPercentageToDP(3.5),
   },
   barcodeBox: {
     alignItems: "center",
     justifyContent: "center",
-    width: widthPercentageToDP(80),
-    height: heightPercentageToDP(40),
+    width: widthPercentageToDP(70),
+    aspectRatio: 1,
     overflow: "hidden",
     borderRadius: 30,
     backgroundColor: "#e5e5e5",

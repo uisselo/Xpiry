@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  Linking,
+} from "react-native";
 import UnorderedList from "react-native-unordered-list";
 import {
   widthPercentageToDP,
@@ -191,16 +198,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
   },
   title: {
-    fontSize: 25,
+    fontSize: widthPercentageToDP(6),
     fontFamily: "NunitoSans_600SemiBold",
     paddingVertical: 10,
   },
   paragraph: {
-    fontSize: 18,
+    fontSize: widthPercentageToDP(4.5),
     fontFamily: "NunitoSans_400Regular",
     paddingVertical: 5,
     textAlign: "justify",
-    lineHeight: 35,
+    lineHeight: 40,
   },
   boldText: {
     fontFamily: "NunitoSans_700Bold",
@@ -215,9 +222,11 @@ const styles = StyleSheet.create({
     width: 10,
     fontFamily: "NunitoSans_600SemiBold",
     paddingVertical: 5,
-    lineHeight: 30,
+    lineHeight: 35,
+    marginLeft: 10,
   },
   baseText: {
+    fontSize: widthPercentageToDP(3.75),
     fontFamily: "NunitoSans_400Regular",
   },
   photoCredit: {

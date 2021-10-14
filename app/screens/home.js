@@ -214,7 +214,6 @@ export default class homeScreen extends Component {
       );
     } else
       return (
-        
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <View style={styles.container}>
             <Modal // add item options modal
@@ -226,149 +225,194 @@ export default class homeScreen extends Component {
             >
               <View style={styles.modal}>
                 <View style={styles.row}>
-                  <TouchableOpacity
-                    style={[
-                      styles.btn,
-                      { borderColor: "#ea4c4c", backgroundColor: "#fff" },
-                    ]}
-                    onPress={() => {
-                      this.props.navigation.navigate("ScanBarcode");
-                      this.setState({ modalVisible: false });
-                    }}
-                  >
-                    <Text
+                  <View style={[styles.fixedBtn, { paddingRight: 5 }]}>
+                    <TouchableOpacity
                       style={[
-                        styles.baseText,
-                        {
-                          color: "#ea4c4c",
-                        },
+                        styles.btn,
+                        { borderColor: "#ea4c4c", backgroundColor: "#fff" },
                       ]}
+                      onPress={() => {
+                        this.props.navigation.navigate("ScanBarcode");
+                        this.setState({ modalVisible: false });
+                      }}
                     >
-                      Scan Barcode
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={[
-                      styles.btn,
-                      { borderColor: "#ea4c4c", backgroundColor: "#ea4c4c" },
-                    ]}
-                    onPress={() => {
-                      this.props.navigation.navigate("AddItem");
-                      this.setState({ modalVisible: false });
-                    }}
-                  >
-                    <Text
+                      <Text
+                        style={[
+                          styles.baseText,
+                          {
+                            color: "#ea4c4c",
+                          },
+                        ]}
+                      >
+                        Scan Barcode
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={[styles.fixedBtn, { paddingLeft: 5 }]}>
+                    <TouchableOpacity
                       style={[
-                        styles.baseText,
-                        {
-                          color: "#fff",
-                        },
+                        styles.btn,
+                        { borderColor: "#ea4c4c", backgroundColor: "#ea4c4c" },
                       ]}
+                      onPress={() => {
+                        this.props.navigation.navigate("AddItem");
+                        this.setState({ modalVisible: false });
+                      }}
                     >
-                      Add manually
-                    </Text>
-                  </TouchableOpacity>
+                      <Text
+                        style={[
+                          styles.baseText,
+                          {
+                            color: "#fff",
+                          },
+                        ]}
+                      >
+                        Add manually
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             </Modal>
             <View style={styles.header}>
-              <Text style={[styles.baseText, { fontSize: 20 }]}>Welcome!</Text>
-              <Text style={{ fontSize: 30, fontFamily: "NunitoSans_700Bold" }}>
+              <Text
+                style={[styles.baseText, { fontSize: widthPercentageToDP(5) }]}
+              >
+                Welcome!
+              </Text>
+              <Text
+                style={{
+                  fontSize: widthPercentageToDP(7),
+                  fontFamily: "NunitoSans_700Bold",
+                }}
+              >
                 {this.state.userProfile.userName}
               </Text>
             </View>
-            <TouchableOpacity // all items
-              style={[
-                styles.box,
-                {
-                  backgroundColor: "#4aa3ba",
-                },
-              ]}
-              onPress={() => this.props.navigation.navigate("All")}
-            >
-              <Text style={styles.text}>All Items</Text>
-              <Image
-                source={{ uri: "https://i.imgur.com/eHsbCtJ.png" }}
-                style={styles.logo}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity // expired items
-              style={[
-                styles.box,
-                {
-                  backgroundColor: "#a8896c",
-                },
-              ]}
-              onPress={() => this.props.navigation.navigate("Expired")}
-            >
-              <Text style={styles.text}>Expired Items</Text>
-              <Image
-                source={{ uri: "https://i.imgur.com/YjKWeo4.png" }}
-                style={styles.logo}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity // food category
-              style={[
-                styles.box,
-                {
-                  backgroundColor: "#ffd2a5",
-                },
-              ]}
-              onPress={() => this.props.navigation.navigate("Food")}
-            >
-              <Text style={styles.text}>Food</Text>
-              <Image
-                source={{ uri: "https://i.imgur.com/tCeuzKA.png" }}
-                style={styles.logo}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity // cosmetics category
-              style={[
-                styles.box,
-                {
-                  backgroundColor: "#ffb6b9",
-                },
-              ]}
-              onPress={() => this.props.navigation.navigate("Cosmetics")}
-            >
-              <Text style={styles.text}>Cosmetics</Text>
-              <Image
-                source={{ uri: "https://i.imgur.com/ogwnOqn.png" }}
-                style={styles.logo}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity // medicine category
-              style={[
-                styles.box,
-                {
-                  backgroundColor: "#61b292",
-                },
-              ]}
-              onPress={() => this.props.navigation.navigate("Medicine")}
-            >
-              <Text style={styles.text}>Medicine</Text>
-              <Image
-                source={{ uri: "https://i.imgur.com/3kq4QjT.png" }}
-                style={styles.logo}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity // add item
-              style={[
-                styles.box,
-                {
-                  backgroundColor: "#fff",
-                  borderColor: "#8AC6D1",
-                  borderWidth: 3,
-                },
-              ]}
-              onPress={() => this.setState({ modalVisible: true })}
-            >
-              <Text style={[styles.text, { color: "#6C6C6C" }]}>Add Item</Text>
-              <Image
-                source={{ uri: "https://i.imgur.com/dlU2ozJ.png" }}
-                style={styles.logo}
-              />
-            </TouchableOpacity>
+            <View style={styles.boxRow}>
+              <View style={[styles.fixedBox, { paddingRight: 5 }]}>
+                <TouchableOpacity // all items
+                  style={[
+                    styles.box,
+                    {
+                      backgroundColor: "#4aa3ba",
+                    },
+                  ]}
+                  onPress={() => this.props.navigation.navigate("All")}
+                >
+                  <Text style={styles.text}>All Items</Text>
+                  <View style={styles.fixedLogo}>
+                    <Image
+                      source={require("../assets/logos/grocery.png")}
+                      style={styles.logo}
+                    />
+                  </View>
+                </TouchableOpacity>
+              </View>
+              <View style={[styles.fixedBox, { paddingLeft: 5 }]}>
+                <TouchableOpacity // expired items
+                  style={[
+                    styles.box,
+                    {
+                      backgroundColor: "#C14545",
+                    },
+                  ]}
+                  onPress={() => this.props.navigation.navigate("Expired")}
+                >
+                  <Text style={styles.text}>Expired Items</Text>
+                  <View style={styles.fixedLogo}>
+                    <Image
+                      source={require("../assets/logos/expired.png")}
+                      style={styles.logo}
+                    />
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={styles.boxRow}>
+              <View style={[styles.fixedBox, { paddingRight: 5 }]}>
+                <TouchableOpacity // food category
+                  style={[
+                    styles.box,
+                    {
+                      backgroundColor: "#ffd2a5",
+                    },
+                  ]}
+                  onPress={() => this.props.navigation.navigate("Food")}
+                >
+                  <Text style={styles.text}>Food</Text>
+                  <View style={styles.fixedLogo}>
+                    <Image
+                      source={require("../assets/logos/fast-food.png")}
+                      style={styles.logo}
+                    />
+                  </View>
+                </TouchableOpacity>
+              </View>
+              <View style={[styles.fixedBox, { paddingLeft: 5 }]}>
+                <TouchableOpacity // cosmetics category
+                  style={[
+                    styles.box,
+                    {
+                      backgroundColor: "#ffb6b9",
+                    },
+                  ]}
+                  onPress={() => this.props.navigation.navigate("Cosmetics")}
+                >
+                  <Text style={styles.text}>Cosmetics</Text>
+                  <View style={styles.fixedLogo}>
+                    <Image
+                      source={require("../assets/logos/cosmetic.png")}
+                      style={styles.logo}
+                    />
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={styles.boxRow}>
+              <View style={[styles.fixedBox, { paddingRight: 5 }]}>
+                <TouchableOpacity // medicine category
+                  style={[
+                    styles.box,
+                    {
+                      backgroundColor: "#61b292",
+                    },
+                  ]}
+                  onPress={() => this.props.navigation.navigate("Medicine")}
+                >
+                  <Text style={styles.text}>Medicine</Text>
+                  <View style={styles.fixedLogo}>
+                    <Image
+                      source={require("../assets/logos/capsules.png")}
+                      style={styles.logo}
+                    />
+                  </View>
+                </TouchableOpacity>
+              </View>
+              <View style={[styles.fixedBox, { paddingLeft: 5 }]}>
+                <TouchableOpacity // add item
+                  style={[
+                    styles.box,
+                    {
+                      backgroundColor: "#fff",
+                      borderColor: "#F29C1E",
+                      borderWidth: 3,
+                    },
+                  ]}
+                  onPress={() => this.setState({ modalVisible: true })}
+                >
+                  <Text style={[styles.text, { color: "#6C6C6C" }]}>
+                    Add Item
+                  </Text>
+                  <View style={styles.fixedLogo}>
+                    <Image
+                      source={require("../assets/logos/add-to-basket.png")}
+                      style={styles.logo}
+                    />
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
         </ScrollView>
       );
@@ -379,46 +423,58 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    justifyContent: "center",
-    flexDirection: "row",
-    flexWrap: "wrap",
+    alignItems: "center",
     paddingVertical: 50,
   },
-  box: {
-    width: widthPercentageToDP(40),
-    height: heightPercentageToDP(23),
-    margin: 5,
-    borderRadius: 10,
-    justifyContent: "center",
-  },
   baseText: {
-    fontFamily: "NunitoSans_600SemiBold",
+    fontFamily: "NunitoSans_400Regular",
+    fontSize: widthPercentageToDP(3.75),
   },
   text: {
     padding: 10,
     color: "#fff",
-    fontWeight: "bold",
     position: "absolute",
     top: 0,
-    fontSize: 17,
+    fontSize: widthPercentageToDP(4),
     fontFamily: "NunitoSans_600SemiBold",
   },
   header: {
     width: widthPercentageToDP(80),
     paddingBottom: 15,
   },
+  fixedBox: {
+    width: widthPercentageToDP(40),
+    aspectRatio: 1,
+    paddingVertical: 5,
+  },
+  box: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+    borderRadius: 10,
+    justifyContent: "center",
+  },
+  boxRow: {
+    width: widthPercentageToDP(80),
+    flexDirection: "row",
+  },
+  fixedLogo: {
+    width: widthPercentageToDP(15),
+    aspectRatio: 1,
+    alignSelf: "center",
+  },
   logo: {
-    width: 80,
-    height: 80,
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
     alignSelf: "center",
   },
   modal: {
     width: widthPercentageToDP(80),
-    height: 100,
     justifyContent: "center",
     alignSelf: "center",
     borderRadius: 10,
-    padding: 20,
+    paddingVertical: 30,
     backgroundColor: "#fff",
     shadowColor: "#000",
     shadowOffset: {
@@ -450,10 +506,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
   },
+  fixedBtn: {
+    width: widthPercentageToDP(35),
+  },
   btn: {
-    height: 40,
-    width: widthPercentageToDP(34),
-    marginHorizontal: 5,
+    padding: 10,
+    width: "100%",
     borderRadius: 10,
     borderWidth: 2,
     justifyContent: "center",

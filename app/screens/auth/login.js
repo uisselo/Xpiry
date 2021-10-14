@@ -61,9 +61,8 @@ function login() {
           <View style={{ width: widthPercentageToDP(80), marginBottom: 20 }}>
             <Text
               style={{
-                fontSize: 30,
-                // fontFamily: "NunitoSans_700Bold",
-                marginBottom: 5,
+                fontSize: widthPercentageToDP(7),
+                fontFamily: "NunitoSans_700Bold",
               }}
             >
               Welcome
@@ -122,7 +121,7 @@ function login() {
           style={{ flex: 1 }}
         >
           <TextInput
-            style={styles.input}
+            style={[styles.baseText, styles.input]}
             placeholder="Confirmation Code"
             onChangeText={setCode}
             keyboardType="number-pad"
@@ -140,9 +139,12 @@ function login() {
               onPress={confirmCode}
             >
               <Text
-                style={{
-                  color: "#fff",
-                }}
+                style={[
+                  styles.baseText,
+                  {
+                    color: "#fff",
+                  },
+                ]}
               >
                 Confirm
               </Text>
@@ -162,12 +164,11 @@ const styles = StyleSheet.create({
     paddingVertical: 50,
   },
   baseText: {
-    // fontFamily: "NunitoSans_400Regular",
-    fontSize: 15,
+    fontFamily: "NunitoSans_400Regular",
+    fontSize: widthPercentageToDP(3.75),
   },
   input: {
     flexDirection: "row",
-    height: 40,
     width: widthPercentageToDP(80),
     borderRadius: 10,
     padding: 10,
@@ -191,8 +192,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   btn: {
-    height: 40,
-    width: widthPercentageToDP(80),
+    padding: 10,
+    width: "100%",
     borderRadius: 10,
     borderWidth: 2,
     justifyContent: "center",

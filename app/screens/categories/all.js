@@ -115,26 +115,26 @@ export default class all extends Component {
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   {item.category === "Food" ? (
-                    <Image
-                      source={{
-                        uri: "https://cdn-icons-png.flaticon.com/512/1046/1046857.png",
-                      }}
-                      style={{ width: 30, height: 30 }}
-                    />
+                    <View style={styles.fixedLogo}>
+                      <Image
+                        source={require("../../assets/logos/fast-food.png")}
+                        style={styles.logo}
+                      />
+                    </View>
                   ) : item.category === "Cosmetics" ? (
-                    <Image
-                      source={{
-                        uri: "https://cdn-icons-png.flaticon.com/512/2413/2413171.png",
-                      }}
-                      style={{ width: 30, height: 30 }}
-                    />
+                    <View style={styles.fixedLogo}>
+                      <Image
+                        source={require("../../assets/logos/cosmetic.png")}
+                        style={styles.logo}
+                      />
+                    </View>
                   ) : (
-                    <Image
-                      source={{
-                        uri: "https://cdn-icons-png.flaticon.com/512/656/656019.png",
-                      }}
-                      style={{ width: 30, height: 30 }}
-                    />
+                    <View style={styles.fixedLogo}>
+                      <Image
+                        source={require("../../assets/logos/capsules.png")}
+                        style={styles.logo}
+                      />
+                    </View>
                   )}
                   <View style={{ marginLeft: 20 }}>
                     <Text style={styles.baseText}>{item.name}</Text>
@@ -155,7 +155,12 @@ export default class all extends Component {
                   paddingTop: 10,
                 }}
               >
-                <Text style={[styles.baseText, { fontSize: 20 }]}>
+                <Text
+                  style={[
+                    styles.baseText,
+                    { fontSize: widthPercentageToDP(5) },
+                  ]}
+                >
                   No Items Found
                 </Text>
               </View>
@@ -181,18 +186,18 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   title: {
-    fontSize: 30,
+    fontSize: widthPercentageToDP(7),
     fontFamily: "NunitoSans_700Bold",
   },
   baseText: {
-    fontFamily: "NunitoSans_600SemiBold",
+    fontSize: widthPercentageToDP(3.75),
+    fontFamily: "NunitoSans_400Regular",
   },
   searchBar: {
     width: widthPercentageToDP(80),
     marginVertical: 10,
     alignSelf: "center",
     alignItems: "center",
-    height: 40,
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -214,7 +219,6 @@ const styles = StyleSheet.create({
   },
   item: {
     width: widthPercentageToDP(80),
-    height: 70,
     borderRadius: 10,
     padding: 20,
     marginVertical: 5,
@@ -230,6 +234,17 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     shadowOpacity: 0.05,
     elevation: 2,
+  },
+  fixedLogo: {
+    width: widthPercentageToDP(8),
+    aspectRatio: 1,
+    alignSelf: "center",
+  },
+  logo: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+    alignSelf: "center",
   },
   expiryDate: {
     color: "#ea4c4c",
