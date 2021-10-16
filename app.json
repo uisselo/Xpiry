@@ -25,6 +25,7 @@
         "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#ea4c4c"
       },
+      "googleServicesFile": "./google-services.json",
       "package": "com.capstone.xpiry",
       "versionCode": 1
     },

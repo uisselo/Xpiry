@@ -13,6 +13,7 @@ import {
   heightPercentageToDP,
 } from "react-native-responsive-screen";
 import Icon from "react-native-vector-icons/Feather";
+import moment from "moment";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { db } from "../../db/config";
@@ -137,9 +138,33 @@ export default class all extends Component {
                     </View>
                   )}
                   <View style={{ marginLeft: 20 }}>
-                    <Text style={styles.baseText}>{item.name}</Text>
-                    <Text style={[styles.baseText, styles.expiryDate]}>
+                    <Text
+                      style={[
+                        styles.baseText,
+                        {
+                          fontFamily: "Nunito-SemiBold",
+                          fontSize: widthPercentageToDP(4),
+                        },
+                      ]}
+                    >
+                      {item.name}
+                    </Text>
+                    <Text style={[styles.baseText, styles.smallText]}>
                       Expires on {item.expiryDate}
+                    </Text>
+                    <Text
+                      style={[
+                        styles.baseText,
+                        styles.smallText,
+                        { color: "#ea4c4c" },
+                      ]}
+                    >
+                      {moment(Date.now()).to(
+                        item.expiryDate,
+                        "DD-MMM-YYYY",
+                        "D"
+                      )}{" "}
+                      Left
                     </Text>
                   </View>
                 </View>
@@ -187,11 +212,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: widthPercentageToDP(7),
-    fontFamily: "NunitoSans_700Bold",
+    fontFamily: "Nunito-Bold",
   },
   baseText: {
     fontSize: widthPercentageToDP(3.75),
-    fontFamily: "NunitoSans_400Regular",
+    fontFamily: "Nunito-Regular",
   },
   searchBar: {
     width: widthPercentageToDP(80),
@@ -246,7 +271,11 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     alignSelf: "center",
   },
-  expiryDate: {
-    color: "#ea4c4c",
+  smallText: {
+    color: "#555",
+    fontSize: widthPercentageToDP(2.75),
+    textTransform: "uppercase",
+    letterSpacing: 0.5,
+    paddingTop: 2,
   },
 });

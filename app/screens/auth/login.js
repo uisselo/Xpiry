@@ -62,7 +62,7 @@ function login() {
             <Text
               style={{
                 fontSize: widthPercentageToDP(7),
-                fontFamily: "NunitoSans_700Bold",
+                fontFamily: "Nunito-Bold",
               }}
             >
               Welcome
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     paddingVertical: 50,
   },
   baseText: {
-    fontFamily: "NunitoSans_400Regular",
+    fontFamily: "Nunito-Regular",
     fontSize: widthPercentageToDP(3.75),
   },
   input: {

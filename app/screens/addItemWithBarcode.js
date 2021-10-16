@@ -86,7 +86,7 @@ export default class addItem extends Component {
             <Text
               style={{
                 fontSize: widthPercentageToDP(7),
-                fontFamily: "NunitoSans_700Bold",
+                fontFamily: "Nunito-Bold",
               }}
             >
               Add new Item
@@ -106,14 +106,14 @@ export default class addItem extends Component {
                 style={{
                   inputAndroid: {
                     color: "black",
-                    fontFamily: "NunitoSans_400Regular",
-                    fontSize: widthPercentageToDP(3.5),
+                    fontFamily: "Nunito-Regular",
+                    fontSize: widthPercentageToDP(3.75),
                   },
                   inputIOS: {
-                    fontFamily: "NunitoSans_400Regular",
-                    fontSize: widthPercentageToDP(3.5),
+                    fontFamily: "Nunito-Regular",
+                    fontSize: widthPercentageToDP(3.75),
                   },
-                  fontSize: widthPercentageToDP(3.5),
+                  fontSize: widthPercentageToDP(3.75),
                 }}
                 useNativeAndroidPickerStyle={false}
                 value={this.state.itemCategory}
@@ -265,8 +265,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   baseText: {
-    fontFamily: "NunitoSans_400Regular",
-    fontSize: widthPercentageToDP(3.5),
+    fontFamily: "Nunito-Regular",
+    fontSize: widthPercentageToDP(3.75),
   },
   label: {
     marginVertical: 15,

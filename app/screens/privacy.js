@@ -519,27 +519,27 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: widthPercentageToDP(6),
-    fontFamily: "NunitoSans_700Bold",
+    fontFamily: "Nunito-Bold",
     marginVertical: 5,
   },
   subtitle: {
     fontSize: widthPercentageToDP(5),
-    fontFamily: "NunitoSans_600SemiBold",
+    fontFamily: "Nunito-SemiBold",
     marginVertical: 5,
   },
   paragraph: {
-    fontSize: widthPercentageToDP(4),
-    fontFamily: "NunitoSans_400Regular",
+    fontSize: widthPercentageToDP(3.75),
+    fontFamily: "Nunito-Regular",
     paddingVertical: 5,
     textAlign: "justify",
     lineHeight: 30,
   },
   boldText: {
-    fontFamily: "NunitoSans_700Bold",
+    fontFamily: "Nunito-Bold",
   },
   bullet: {
     width: 10,
-    fontFamily: "NunitoSans_600SemiBold",
+    fontFamily: "Nunito-SemiBold",
     paddingVertical: 5,
     lineHeight: 25,
     marginLeft: 10,

@@ -122,7 +122,7 @@ export default class item extends Component {
                 <Text
                   style={{
                     fontSize: widthPercentageToDP(7),
-                    fontFamily: "NunitoSans_600SemiBold",
+                    fontFamily: "Nunito-SemiBold",
                     marginBottom: 10,
                   }}
                 >
@@ -254,7 +254,7 @@ export default class item extends Component {
             <Text
               style={{
                 fontSize: widthPercentageToDP(7),
-                fontFamily: "NunitoSans_700Bold",
+                fontFamily: "Nunito-Bold",
               }}
             >
               Item Details
@@ -264,7 +264,7 @@ export default class item extends Component {
             <Text
               style={{
                 fontSize: widthPercentageToDP(5),
-                fontFamily: "NunitoSans_600SemiBold",
+                fontFamily: "Nunito-SemiBold",
                 width: widthPercentageToDP(40),
               }}
             >
@@ -358,7 +358,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   baseText: {
-    fontFamily: "NunitoSans_400Regular",
+    fontFamily: "Nunito-Regular",
     fontSize: widthPercentageToDP(3.75),
   },
   modal: {

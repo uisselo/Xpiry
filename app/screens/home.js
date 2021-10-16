@@ -283,7 +283,7 @@ export default class homeScreen extends Component {
               <Text
                 style={{
                   fontSize: widthPercentageToDP(7),
-                  fontFamily: "NunitoSans_700Bold",
+                  fontFamily: "Nunito-Bold",
                 }}
               >
                 {this.state.userProfile.userName}
@@ -427,7 +427,7 @@ const styles = StyleSheet.create({
     paddingVertical: 50,
   },
   baseText: {
-    fontFamily: "NunitoSans_400Regular",
+    fontFamily: "Nunito-Regular",
     fontSize: widthPercentageToDP(3.75),
   },
   text: {
@@ -436,7 +436,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     fontSize: widthPercentageToDP(4),
-    fontFamily: "NunitoSans_600SemiBold",
+    fontFamily: "Nunito-Regular",
   },
   header: {
     width: widthPercentageToDP(80),

@@ -113,12 +113,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: widthPercentageToDP(7),
-    fontFamily: "NunitoSans_700Bold",
+    fontFamily: "Nunito-Bold",
     marginBottom: 20,
     alignSelf: "center",
   },
   baseText: {
-    fontFamily: "NunitoSans_400Regular",
+    fontFamily: "Nunito-Regular",
   },
   link: {
     paddingLeft: 10,

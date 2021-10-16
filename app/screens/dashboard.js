@@ -13,12 +13,10 @@ import {
   widthPercentageToDP,
   heightPercentageToDP,
 } from "react-native-responsive-screen";
-import { TabView, SceneMap } from "react-native-tab-view";
 import moment from "moment";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { db } from "../db/config";
-import { ScrollView } from "react-native-gesture-handler";
 db();
 
 export default class dashboard extends Component {
@@ -152,11 +150,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: widthPercentageToDP(7),
-    fontFamily: "NunitoSans_700Bold",
+    fontFamily: "Nunito-Bold",
   },
   baseText: {
     fontSize: widthPercentageToDP(3.75),
-    fontFamily: "NunitoSans_600SemiBold",
+    fontFamily: "Nunito-SemiBold",
   },
   dataContainer: {
     width: widthPercentageToDP(80),

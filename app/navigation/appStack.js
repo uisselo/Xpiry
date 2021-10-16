@@ -78,7 +78,7 @@ export default () => {
         tabBarInactiveTintColor: "#808080",
         tabBarLabelStyle: {
           fontSize: 12,
-          fontFamily: "NunitoSans_600SemiBold",
+          fontFamily: "Nunito-SemiBold",
         },
       }}
     >

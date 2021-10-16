@@ -40,12 +40,12 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: widthPercentageToDP(7),
-    fontFamily: "NunitoSans_700Bold",
+    fontFamily: "Nunito-Bold",
     marginBottom: 15,
   },
   baseText: {
     fontSize: widthPercentageToDP(4.5),
-    fontFamily: "NunitoSans_400Regular",
+    fontFamily: "Nunito-Regular",
     lineHeight: 30,
     textAlign: "justify"
   },

@@ -206,12 +206,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: widthPercentageToDP(6),
-    fontFamily: "NunitoSans_600SemiBold",
+    fontFamily: "Nunito-SemiBold",
     paddingVertical: 10,
   },
   paragraph: {
     fontSize: widthPercentageToDP(4.5),
-    fontFamily: "NunitoSans_400Regular",
+    fontFamily: "Nunito-Regular",
     paddingVertical: 5,
     textAlign: "justify",
     lineHeight: 40,
@@ -224,14 +224,14 @@ const styles = StyleSheet.create({
   },
   bullet: {
     width: 10,
-    fontFamily: "NunitoSans_600SemiBold",
+    fontFamily: "Nunito-SemiBold",
     paddingVertical: 5,
     lineHeight: 35,
     marginLeft: 10
   },
   baseText: {
     fontSize: widthPercentageToDP(3.75),
-    fontFamily: "NunitoSans_400Regular",
+    fontFamily: "Nunito-Regular",
   },
   photoCredit: {
     position: "absolute",

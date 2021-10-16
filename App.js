@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import Login from "./app/screens/auth/login";
 import AppStack from "./app/navigation/appStack";
 import {
   useFonts,
-  NunitoSans_400Regular,
-  NunitoSans_600SemiBold,
-  NunitoSans_700Bold,
-} from "@expo-google-fonts/nunito-sans";
+  Nunito_400Regular,
+  Nunito_600SemiBold,
+  Nunito_700Bold,
+} from "@expo-google-fonts/nunito";
 import AppLoading from "expo-app-loading";
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -17,9 +16,9 @@ db();
 
 export default () => {
   let [fontsLoaded] = useFonts({
-    NunitoSans_400Regular,
-    NunitoSans_600SemiBold,
-    NunitoSans_700Bold,
+    "Nunito-Regular": Nunito_400Regular,
+    "Nunito-SemiBold": Nunito_600SemiBold,
+    "Nunito-Bold": Nunito_700Bold,
   });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "486450913481",
+    "firebase_url": "https://capstone-cdaa4-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "capstone-cdaa4",
+    "storage_bucket": "capstone-cdaa4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:486450913481:android:cf834058ded18650d32d18",
+        "android_client_info": {
+          "package_name": "com.capstone.xpiry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "486450913481-lrtj8tkiol2altbabeqng4fg260r6r9c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbQ-hPdEouSVB0-i_xyZtY1LIVMSmPUZ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "486450913481-lrtj8tkiol2altbabeqng4fg260r6r9c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

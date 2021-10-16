@@ -112,14 +112,14 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: widthPercentageToDP(7),
-    fontFamily: "NunitoSans_700Bold",
+    fontFamily: "Nunito-Bold",
   },
   title: {
-    fontFamily: "NunitoSans_600SemiBold",
+    fontFamily: "Nunito-SemiBold",
   },
   baseText: {
     fontSize: widthPercentageToDP(3.75),
-    fontFamily: "NunitoSans_400Regular",
+    fontFamily: "Nunito-Regular",
   },
   bgTitle: {
     position: "absolute",

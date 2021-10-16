@@ -138,8 +138,18 @@ export default class expired extends Component {
                     </View>
                   )}
                   <View style={{ marginLeft: 20 }}>
-                    <Text style={styles.baseText}>{item.name}</Text>
-                    <Text style={[styles.baseText, styles.status]}>
+                    <Text
+                      style={[
+                        styles.baseText,
+                        {
+                          fontFamily: "Nunito-SemiBold",
+                          fontSize: widthPercentageToDP(4),
+                        },
+                      ]}
+                    >
+                      {item.name}
+                    </Text>
+                    <Text style={[styles.baseText, styles.smallText]}>
                       Expired for{" "}
                       {moment(item.expiryDate, "DD-MMM-YYYY").fromNow(true)}
                     </Text>
@@ -189,11 +199,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: widthPercentageToDP(7),
-    fontFamily: "NunitoSans_700Bold",
+    fontFamily: "Nunito-Bold",
   },
   baseText: {
     fontSize: widthPercentageToDP(3.75),
-    fontFamily: "NunitoSans_400Regular",
+    fontFamily: "Nunito-Regular",
   },
   searchBar: {
     width: widthPercentageToDP(80),
@@ -248,7 +258,11 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     alignSelf: "center",
   },
-  status: {
-    color: "#ea4c4c",
+  smallText: {
+    color: "#555",
+    fontSize: widthPercentageToDP(2.75),
+    textTransform: "uppercase",
+    letterSpacing: 0.5,
+    paddingTop: 2,
   },
 });

@@ -12,6 +12,7 @@ import {
   heightPercentageToDP,
 } from "react-native-responsive-screen";
 import Icon from "react-native-vector-icons/Feather";
+import moment from "moment";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { db } from "../../db/config";
@@ -115,9 +116,29 @@ export default class food extends Component {
                   this.props.navigation.navigate("ItemDetails", { item: item })
                 }
               >
-                <Text style={styles.baseText}>{item.name}</Text>
-                <Text style={[styles.baseText, styles.expiryDate]}>
-                  Expiration on {item.expiryDate}
+                <Text
+                  style={[
+                    styles.baseText,
+                    {
+                      fontFamily: "Nunito-SemiBold",
+                      fontSize: widthPercentageToDP(4),
+                    },
+                  ]}
+                >
+                  {item.name}
+                </Text>
+                <Text style={[styles.baseText, styles.smallText]}>
+                  Expires on {item.expiryDate}
+                </Text>
+                <Text
+                  style={[
+                    styles.baseText,
+                    styles.smallText,
+                    { color: "#ea4c4c" },
+                  ]}
+                >
+                  {moment(Date.now()).to(item.expiryDate, "DD-MMM-YYYY", "D")}{" "}
+                  Left
                 </Text>
               </TouchableOpacity>
             );
@@ -163,11 +184,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: widthPercentageToDP(7),
-    fontFamily: "NunitoSans_700Bold",
+    fontFamily: "Nunito-Bold",
   },
   baseText: {
     fontSize: widthPercentageToDP(3.75),
-    fontFamily: "NunitoSans_400Regular",
+    fontFamily: "Nunito-Regular",
   },
   searchBar: {
     width: widthPercentageToDP(80),
@@ -211,7 +232,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     elevation: 2,
   },
-  expiryDate: {
-    color: "#ea4c4c",
+  smallText: {
+    color: "#555",
+    fontSize: widthPercentageToDP(2.75),
+    textTransform: "uppercase",
+    letterSpacing: 0.5,
+    paddingTop: 2,
   },
 });

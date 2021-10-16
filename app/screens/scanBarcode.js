@@ -19,13 +19,19 @@ function scanBarcode({ navigation }) {
 
   useEffect(() => {
     askForCameraPermission();
+    return () => {
+      resetScanner();
+    }
   }, []);
 
   const handleBarcodeScanned = ({ type, data }) => {
     setScanned(true);
-    setText(data);
     console.log("Type: " + type + "\nData: " + data);
     navigation.navigate("ScannedBarcode", { data: data });
+  };
+
+  const resetScanner = () => {
+    setScanned(false);
   };
 
   if (hasPermission === null) {
@@ -102,7 +108,7 @@ const styles = StyleSheet.create({
     paddingVertical: 50,
   },
   baseText: {
-    fontFamily: "NunitoSans_400Regular",
+    fontFamily: "Nunito-Regular",
     fontSize: widthPercentageToDP(3.5),
   },
   barcodeBox: {
@@ -115,7 +121,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#e5e5e5",
   },
   btn: {
-    height: 40,
+    // height: 40,
+    padding: 20,
     borderRadius: 10,
     borderWidth: 2,
     justifyContent: "center",
