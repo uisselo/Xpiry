@@ -20,6 +20,7 @@ export default () => {
     "Nunito-SemiBold": Nunito_600SemiBold,
     "Nunito-Bold": Nunito_700Bold,
   });
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     const authListener = firebase.auth().onAuthStateChanged((user) => {
@@ -27,6 +28,7 @@ export default () => {
     });
     return authListener;
   });
+  
   if (!fontsLoaded) {
     return <AppLoading />;
   } else
