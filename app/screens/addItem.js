@@ -57,24 +57,40 @@ export default class addItem extends Component {
       quantity: itemQty,
       fromUser: db.doc("Users/" + firebase.auth().currentUser.uid),
     };
+    const validator = (item) => {
+      for (var key in item) {
+        if (item[key] !== null && item[key] !== "") return true;
+      }
+      return false;
+    };
     if (this._isMounted) {
-      db.collection("Items")
-        .doc(id)
-        .set(item)
-        .then(() => {
-          Alert.alert("Success", "Item has been added to database.", [
+      validator(item) == true
+        ? Alert.alert("Failed", "Please fill all input fields.", [
             {
               text: "OK",
               onPress: () => {
                 console.log("Alert closed.");
-                this.props.navigation.navigate("All");
               },
             },
-          ]);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+          ])
+        : db
+            .collection("Items")
+            .doc(id)
+            .set(item)
+            .then(() => {
+              Alert.alert("Success", "Item has been added to database.", [
+                {
+                  text: "OK",
+                  onPress: () => {
+                    console.log("Alert closed.");
+                    this.props.navigation.navigate("All");
+                  },
+                },
+              ]);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
     }
   }
 

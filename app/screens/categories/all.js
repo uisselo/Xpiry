@@ -104,7 +104,9 @@ export default class all extends Component {
         </View>
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={this.state.itemList}
+          data={this.state.itemList.sort(
+            (a, b) => new Date(a.expiryDate) - new Date(b.expiryDate)
+          )}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => {
             return (

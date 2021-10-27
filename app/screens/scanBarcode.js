@@ -20,18 +20,14 @@ function scanBarcode({ navigation }) {
   useEffect(() => {
     askForCameraPermission();
     return () => {
-      resetScanner();
-    }
+      setScanned(false);
+    };
   }, []);
 
   const handleBarcodeScanned = ({ type, data }) => {
     setScanned(true);
     console.log("Type: " + type + "\nData: " + data);
     navigation.navigate("ScannedBarcode", { data: data });
-  };
-
-  const resetScanner = () => {
-    setScanned(false);
   };
 
   if (hasPermission === null) {

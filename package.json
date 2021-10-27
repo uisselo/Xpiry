@@ -70,7 +70,8 @@
     "react-native-web": "~0.13.12",
     "react-native-webview": "^11.13.0",
     "react-navigation-stack": "^2.10.4",
-    "simple-carousel-react-native": "^1.0.2"
+    "simple-carousel-react-native": "^1.0.2",
+    "expo-task-manager": "~9.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

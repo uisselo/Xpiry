@@ -9,6 +9,7 @@ import {
   ScrollView,
   Platform,
   KeyboardAvoidingView,
+  Alert,
 } from "react-native";
 import {
   widthPercentageToDP,
@@ -17,6 +18,7 @@ import {
 import Modal from "react-native-modal";
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
+import * as TaskManager from "expo-task-manager";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
@@ -27,10 +29,35 @@ db();
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: false,
+    shouldPlaySound: true,
     shouldSetBadge: false,
   }),
 });
+
+Notifications.scheduleNotificationAsync({
+  content: {
+    title: "Items that will expire this week!",
+    body: "Consume these items now.",
+  },
+  trigger: {
+    seconds: 10,
+    // repeats: true,
+    // weekday: 1, // Sunday
+    // hour: 8,
+    // minute: 0,
+  },
+});
+
+const BACKGROUND_NOTIFICATION_TASK = "BACKGROUND-NOTIFICATION-TASK";
+
+TaskManager.defineTask(
+  BACKGROUND_NOTIFICATION_TASK,
+  ({ data, error, executionInfo }) => {
+    console.log("Received a notification in the background!");
+  }
+);
+
+Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK);
 
 export default class homeScreen extends Component {
   constructor(props) {
@@ -49,38 +76,47 @@ export default class homeScreen extends Component {
 
   registerNewUser() {
     const user = firebase.auth().currentUser;
-    user
-      .updateProfile({
-        displayName: this.state.userName,
-      })
-      .then(() => {
-        console.log("Update Successful.");
-        firebase
-          .firestore()
-          .collection("Users")
-          .doc(user.uid)
-          .set(
-            {
-              userId: user.uid,
-              userName: user.displayName,
-              mobileNum: user.phoneNumber,
+    this.state.userName == null || this.state.userName == ""
+      ? Alert.alert("Failed", "Please enter your name.", [
+          {
+            text: "OK",
+            onPress: () => {
+              console.log("Alert closed.");
             },
-            { merge: true }
-          )
+          },
+        ])
+      : user
+          .updateProfile({
+            displayName: this.state.userName,
+          })
           .then(() => {
-            console.log("User added to DB.");
-            const userData = {
-              userId: user.uid,
-              userName: user.displayName,
-              mobileNum: user.phoneNumber,
-            };
-            if (this._isMounted) {
-              this.setState({ userProfile: userData });
-            }
+            console.log("Update Successful.");
+            firebase
+              .firestore()
+              .collection("Users")
+              .doc(user.uid)
+              .set(
+                {
+                  userId: user.uid,
+                  userName: user.displayName,
+                  mobileNum: user.phoneNumber,
+                },
+                { merge: true }
+              )
+              .then(() => {
+                console.log("User added to DB.");
+                const userData = {
+                  userId: user.uid,
+                  userName: user.displayName,
+                  mobileNum: user.phoneNumber,
+                };
+                if (this._isMounted) {
+                  this.setState({ userProfile: userData });
+                }
+              })
+              .catch((err) => console.log(err));
           })
           .catch((err) => console.log(err));
-      })
-      .catch((err) => console.log(err));
   }
 
   registerForPushNotificationsAsync = async () => {
@@ -123,6 +159,7 @@ export default class homeScreen extends Component {
 
   async componentDidMount() {
     this._isMounted = true;
+
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const userData = {
@@ -135,17 +172,21 @@ export default class homeScreen extends Component {
         }
       }
     });
+
     await this.registerForPushNotificationsAsync().then((token) =>
       this.setState({ expoPushToken: token })
     );
+
     this.notificationListener.current =
       Notifications.addNotificationReceivedListener((notification) =>
         this.setState({ notification: notification })
       );
+
     this.responseListener.current =
-      Notifications.addNotificationResponseReceivedListener((response) =>
-        console.log(response)
-      );
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        console.log(response);
+        this.props.navigation.navigate("All");
+      });
 
     return () => {
       Notifications.removeNotificationSubscription(

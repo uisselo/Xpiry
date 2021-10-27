@@ -1,14 +1,5 @@
 import React, { Component } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  FlatList,
-  Image,
-  useWindowDimensions,
-  Animated,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import {
   widthPercentageToDP,
   heightPercentageToDP,
@@ -127,7 +118,7 @@ export default class dashboard extends Component {
               }
             </Text>
             <Text style={[styles.baseText, styles.dataLabel]}>
-              Items that will Expire in a Week
+              Items that will Expire this Week
             </Text>
           </TouchableOpacity>
         </View>
@@ -177,7 +168,7 @@ const styles = StyleSheet.create({
   dataNum: {
     fontSize: widthPercentageToDP(7),
     alignSelf: "flex-end",
-    paddingBottom: 20
+    paddingBottom: 20,
   },
   dataLabel: {
     fontSize: widthPercentageToDP(5),

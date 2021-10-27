@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Keyboard,
+  Alert,
 } from "react-native";
 import {
   widthPercentageToDP,
@@ -27,9 +28,18 @@ function login() {
 
   const sendVerification = () => {
     const phoneProvider = new firebase.auth.PhoneAuthProvider();
-    phoneProvider
-      .verifyPhoneNumber("+63" + phoneNumber, recaptchaVerifier.current)
-      .then(setVerificationId);
+    phoneNumber == null || phoneNumber == ""
+      ? Alert.alert("Failed", "Please enter a valid phone number.", [
+          {
+            text: "OK",
+            onPress: () => {
+              console.log("Alert closed.");
+            },
+          },
+        ])
+      : phoneProvider
+          .verifyPhoneNumber("+63" + phoneNumber, recaptchaVerifier.current)
+          .then(setVerificationId);
   };
 
   const confirmCode = () => {
