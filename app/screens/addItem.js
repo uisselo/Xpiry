@@ -51,8 +51,7 @@ export default class addItem extends Component {
     if (
       itemName == null || itemName == "" && 
       itemCategory == null || itemCategory == "" &&
-      itemQty == 0 &&
-      itemBarcode == null || itemBarcode == ""
+      itemQty == 0
     ) {
       Alert.alert("Failed", "Please fill all input fields.", [
         {

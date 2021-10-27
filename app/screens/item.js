@@ -291,7 +291,9 @@ export default class item extends Component {
             <Text
               style={[styles.baseText, { fontSize: widthPercentageToDP(5) }]}
             >
-              {this.state.itemBarcode}
+              {!this.state.itemBarcode
+                ? "This item has no barcode"
+                : this.state.itemBarcode}
             </Text>
             <Text style={[styles.baseText, { color: "#ea4c4c" }]}>
               Barcode Number

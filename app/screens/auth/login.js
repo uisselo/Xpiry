@@ -26,20 +26,30 @@ function login() {
   const [verificationId, setVerificationId] = useState();
   const [code, setCode] = useState();
 
+  const validatePhoneNumber = (val) => {
+    const valid = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    if (val.value.match(valid)) {
+      return true;
+    }
+    return false;
+  };
+
   const sendVerification = () => {
     const phoneProvider = new firebase.auth.PhoneAuthProvider();
-    phoneNumber == null || phoneNumber == ""
-      ? Alert.alert("Failed", "Please enter a valid phone number.", [
+    phoneProvider
+      .verifyPhoneNumber("+63" + phoneNumber, recaptchaVerifier.current)
+      .then(setVerificationId)
+      .catch((err) => {
+        console.log(err);
+        Alert.alert("Failed", "Please enter a valid phone number.", [
           {
             text: "OK",
             onPress: () => {
               console.log("Alert closed.");
             },
           },
-        ])
-      : phoneProvider
-          .verifyPhoneNumber("+63" + phoneNumber, recaptchaVerifier.current)
-          .then(setVerificationId);
+        ]);
+      });
   };
 
   const confirmCode = () => {
@@ -53,7 +63,17 @@ function login() {
       .then(() => {
         console.log("User successfully logged in.");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        Alert.alert("Failed to Login", "Invalid verification code.", [
+          {
+            text: "OK",
+            onPress: () => {
+              console.log("Alert closed.");
+            },
+          },
+        ]);
+      });
   };
 
   if (!verificationId) {

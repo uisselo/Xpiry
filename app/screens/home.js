@@ -40,11 +40,10 @@ Notifications.scheduleNotificationAsync({
     body: "Consume these items now.",
   },
   trigger: {
-    seconds: 10,
-    // repeats: true,
-    // weekday: 1, // Sunday
-    // hour: 8,
-    // minute: 0,
+    repeats: true,
+    weekday: 1, // Sunday
+    hour: 8,
+    minute: 0,
   },
 });
 
