@@ -36,8 +36,8 @@ Notifications.setNotificationHandler({
 
 Notifications.scheduleNotificationAsync({
   content: {
-    title: "Items that will expire this week!",
-    body: "Consume these items now.",
+    title: "Check the items that will expire this week!",
+    body: "Make sure to consume these items now.",
   },
   trigger: {
     repeats: true,
