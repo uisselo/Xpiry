@@ -48,49 +48,49 @@ export default class addItem extends Component {
       this.state;
     const db = firebase.firestore();
     const id = db.collection("Items").doc().id;
-    const item = {
-      itemId: id,
-      itemName: itemName,
-      itemCategory: itemCategory,
-      expiryDate: itemExpirationDate,
-      barcodeNumber: itemBarcode,
-      quantity: itemQty,
-      fromUser: db.doc("Users/" + firebase.auth().currentUser.uid),
-    };
-    const validator = (item) => {
-      for (var key in item) {
-        if (item[key] !== null && item[key] !== "") return true;
-      }
-      return false;
-    };
-    if (this._isMounted) {
-      validator(item) == true
-        ? Alert.alert("Failed", "Please fill all input fields.", [
-            {
-              text: "OK",
-              onPress: () => {
-                console.log("Alert closed.");
-              },
-            },
-          ])
-        : db
-            .collection("Items")
-            .doc(id)
-            .set(item)
-            .then(() => {
-              Alert.alert("Success", "Item has been added to database.", [
-                {
-                  text: "OK",
-                  onPress: () => {
-                    console.log("Alert closed.");
-                    this.props.navigation.navigate("All");
-                  },
+    if (
+      itemName == null || itemName == "" &&
+      itemCategory == null || itemCategory == "" &&
+      itemQty == 0 &&
+      itemBarcode == null || itemBarcode == ""
+    ) {
+      Alert.alert("Failed", "Please fill all input fields.", [
+        {
+          text: "OK",
+          onPress: () => {
+            console.log("Alert closed.");
+          },
+        },
+      ]);
+    } else {
+      if (this._isMounted) {
+        const item = {
+          itemId: id,
+          itemName: itemName,
+          itemCategory: itemCategory,
+          expiryDate: itemExpirationDate,
+          barcodeNumber: itemBarcode,
+          quantity: itemQty,
+          fromUser: db.doc("Users/" + firebase.auth().currentUser.uid),
+        };
+        db.collection("Items")
+          .doc(id)
+          .set(item)
+          .then(() => {
+            Alert.alert("Success", "Item has been added to database.", [
+              {
+                text: "OK",
+                onPress: () => {
+                  console.log("Alert closed.");
+                  this.props.navigation.navigate("All");
                 },
-              ]);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+              },
+            ]);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     }
   }
 
