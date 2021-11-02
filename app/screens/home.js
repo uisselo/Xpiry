@@ -36,14 +36,15 @@ Notifications.setNotificationHandler({
 
 Notifications.scheduleNotificationAsync({
   content: {
-    title: "Check the items that will expire this week!",
-    body: "Make sure to consume these items now.",
+    title: "Welcome to Xpiry!",
+    body: "Have fun exploring the app!",
   },
   trigger: {
-    repeats: true,
-    weekday: 1, // Sunday
-    hour: 8,
-    minute: 0,
+    seconds: 10,
+    // repeats: true,
+    // weekday: 1, // Sunday
+    // hour: 8,
+    // minute: 0,
   },
 });
 
