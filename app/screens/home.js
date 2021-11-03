@@ -40,7 +40,7 @@ Notifications.scheduleNotificationAsync({
     body: "Have fun exploring the app!",
   },
   trigger: {
-    seconds: 10,
+    seconds: 30,
   },
 });
 
@@ -57,16 +57,16 @@ Notifications.scheduleNotificationAsync({
   },
 });
 
-// const BACKGROUND_NOTIFICATION_TASK = "BACKGROUND-NOTIFICATION-TASK";
+const BACKGROUND_NOTIFICATION_TASK = "BACKGROUND-NOTIFICATION-TASK";
 
-// TaskManager.defineTask(
-//   BACKGROUND_NOTIFICATION_TASK,
-//   ({ data, error, executionInfo }) => {
-//     console.log("Received a notification in the background!");
-//   }
-// );
+TaskManager.defineTask(
+  BACKGROUND_NOTIFICATION_TASK,
+  ({ data, error, executionInfo }) => {
+    console.log("Received a notification in the background!");
+  }
+);
 
-// Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK);
+Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK);
 
 export default class homeScreen extends Component {
   constructor(props) {
@@ -194,7 +194,7 @@ export default class homeScreen extends Component {
     this.responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
         console.log(response);
-        this.props.navigation.navigate("All");
+        this.props.navigation.navigate("Dashboard");
       });
 
     return () => {
