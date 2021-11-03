@@ -41,23 +41,32 @@ Notifications.scheduleNotificationAsync({
   },
   trigger: {
     seconds: 10,
-    // repeats: true,
-    // weekday: 1, // Sunday
-    // hour: 8,
-    // minute: 0,
   },
 });
 
-const BACKGROUND_NOTIFICATION_TASK = "BACKGROUND-NOTIFICATION-TASK";
+Notifications.scheduleNotificationAsync({
+  content: {
+    title: "These items will expire soon",
+    body: "Check items that will expire this week!",
+  },
+  trigger: {
+    repeats: true,
+    weekday: 1, // Sunday
+    hour: 8,
+    minute: 0,
+  },
+});
 
-TaskManager.defineTask(
-  BACKGROUND_NOTIFICATION_TASK,
-  ({ data, error, executionInfo }) => {
-    console.log("Received a notification in the background!");
-  }
-);
+// const BACKGROUND_NOTIFICATION_TASK = "BACKGROUND-NOTIFICATION-TASK";
 
-Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK);
+// TaskManager.defineTask(
+//   BACKGROUND_NOTIFICATION_TASK,
+//   ({ data, error, executionInfo }) => {
+//     console.log("Received a notification in the background!");
+//   }
+// );
+
+// Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK);
 
 export default class homeScreen extends Component {
   constructor(props) {
