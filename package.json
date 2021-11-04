@@ -12,6 +12,7 @@
     "@expo-google-fonts/dosis": "^0.2.0",
     "@expo-google-fonts/hind-siliguri": "^0.2.0",
     "@expo-google-fonts/inter": "^0.2.0",
+    "@expo-google-fonts/montserrat": "^0.2.0",
     "@expo-google-fonts/nunito": "^0.2.0",
     "@expo-google-fonts/nunito-sans": "^0.2.0",
     "@expo-google-fonts/overpass": "^0.2.0",
@@ -37,6 +38,7 @@
     "expo-notifications": "~0.12.3",
     "expo-permissions": "~12.1.1",
     "expo-status-bar": "~1.0.4",
+    "expo-task-manager": "~9.2.2",
     "firebase": "^8.2.3",
     "moment": "^2.29.1",
     "querybase": "^0.6.0",
@@ -47,6 +49,7 @@
     "react-native-date-picker": "^3.4.0",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~1.10.2",
+    "react-native-linear-gradient": "^2.5.6",
     "react-native-modal": "^13.0.0",
     "react-native-modal-datetime-picker": "^11.0.0",
     "react-native-modal-translucent": "^5.0.0",
@@ -71,7 +74,7 @@
     "react-native-webview": "^11.13.0",
     "react-navigation-stack": "^2.10.4",
     "simple-carousel-react-native": "^1.0.2",
-    "expo-task-manager": "~9.2.2"
+    "expo-linear-gradient": "~9.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

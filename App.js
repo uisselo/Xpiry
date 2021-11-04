@@ -5,9 +5,15 @@ import AppStack from "./app/navigation/appStack";
 import {
   useFonts,
   Nunito_400Regular,
+  Nunito_600SemiBold_Italic,
   Nunito_600SemiBold,
   Nunito_700Bold,
 } from "@expo-google-fonts/nunito";
+import {
+  Montserrat_400Regular,
+  Montserrat_600SemiBold,
+  Montserrat_700Bold,
+} from "@expo-google-fonts/montserrat";
 import AppLoading from "expo-app-loading";
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -17,8 +23,12 @@ db();
 export default () => {
   let [fontsLoaded] = useFonts({
     "Nunito-Regular": Nunito_400Regular,
+    "Nunito-SemiBoldItalic": Nunito_600SemiBold_Italic,
     "Nunito-SemiBold": Nunito_600SemiBold,
     "Nunito-Bold": Nunito_700Bold,
+    "Montserrat-Regular": Montserrat_400Regular,
+    "Montserrat-SemiBold": Montserrat_600SemiBold,
+    "Montserrat-Bold": Montserrat_700Bold,
   });
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,7 +38,7 @@ export default () => {
     });
     return authListener;
   });
-  
+
   if (!fontsLoaded) {
     return <AppLoading />;
   } else
