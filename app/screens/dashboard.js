@@ -737,17 +737,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     elevation: 2,
   },
-  fixedLogo: {
-    width: widthPercentageToDP(8),
-    aspectRatio: 1,
-    alignSelf: "center",
-  },
-  logo: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
-    alignSelf: "center",
-  },
   smallText: {
     color: "#555",
     fontSize: widthPercentageToDP(2.75),
@@ -782,7 +771,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 5,
   },
   dataTime: {
-    fontSize: widthPercentageToDP(4.5),
+    fontSize: widthPercentageToDP(3.75),
     fontFamily: "Nunito-Bold",
     textTransform: "uppercase",
     color: "#fff",
