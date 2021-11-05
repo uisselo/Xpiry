@@ -788,7 +788,7 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   dataNum: {
-    fontSize: widthPercentageToDP(18),
+    fontSize: widthPercentageToDP(15),
     fontFamily: "Montserrat-Bold",
     color: "#fff",
   },
