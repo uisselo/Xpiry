@@ -1,11 +1,12 @@
 import { BarCodeScanner } from "expo-barcode-scanner";
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import {
   widthPercentageToDP,
   heightPercentageToDP,
 } from "react-native-responsive-screen";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import BarcodeMask from "react-native-barcode-mask";
 
 function scanBarcode({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -67,38 +68,18 @@ function scanBarcode({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          width: widthPercentageToDP(80),
-          marginBottom: 15,
-          alignItems: "center",
-        }}
-      >
-        <Text style={[styles.baseText, { fontSize: widthPercentageToDP(5) }]}>
-          Place the Barcode inside the area.
-        </Text>
-        <Text style={styles.baseText}>Scanning will start automatically.</Text>
-      </View>
-      <View style={styles.barcodeBox}>
-        <BarCodeScanner
-          onBarCodeScanned={scanned ? undefined : handleBarcodeScanned}
-          style={{
-            width: "100%",
-            height: "100%",
-            resizeMode: "cover",
-            borderRadius: 30,
-          }}
-        />
-      </View>
-    </View>
+    <BarCodeScanner
+      onBarCodeScanned={scanned ? undefined : handleBarcodeScanned}
+      style={[StyleSheet.absoluteFill, styles.container]}
+    >
+      <BarcodeMask width={widthPercentageToDP(70)} showAnimatedLine={false} />
+    </BarCodeScanner>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 50,
@@ -107,17 +88,15 @@ const styles = StyleSheet.create({
     fontFamily: "Nunito-Regular",
     fontSize: widthPercentageToDP(3.5),
   },
-  barcodeBox: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: widthPercentageToDP(70),
-    aspectRatio: 1,
-    overflow: "hidden",
-    borderRadius: 30,
-    backgroundColor: "#e5e5e5",
+  description: {
+    alignSelf: "center",
+    textAlign: "center",
+    width: widthPercentageToDP(80),
+    color: "white",
+    fontFamily: "Nunito-SemiBold",
+    fontSize: widthPercentageToDP(5),
   },
   btn: {
-    // height: 40,
     padding: 20,
     borderRadius: 10,
     borderWidth: 2,

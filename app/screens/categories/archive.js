@@ -90,7 +90,7 @@ export default class all extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>All Items</Text>
+          <Text style={styles.title}>Archive</Text>
         </View>
         <View style={styles.searchBar}>
           <TextInput

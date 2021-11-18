@@ -15,6 +15,8 @@ import expired from "../screens/categories/expired";
 import food from "../screens/categories/food";
 import cosmetics from "../screens/categories/cosmetics";
 import medicine from "../screens/categories/medicine";
+import others from "../screens/categories/others";
+import archive from "../screens/categories/archive";
 import addItem from "../screens/addItem";
 import scanBarcode from "../screens/scanBarcode";
 import scannedBarcode from "../screens/addItemWithBarcode";
@@ -34,6 +36,8 @@ const HomeStackScreen = () => {
       <HomeStack.Screen name="Food" component={food} />
       <HomeStack.Screen name="Cosmetics" component={cosmetics} />
       <HomeStack.Screen name="Medicine" component={medicine} />
+      <HomeStack.Screen name="Others" component={others} />
+      <HomeStack.Screen name="Archive" component={archive} />
       <HomeStack.Screen name="AddItem" component={addItem} />
       <HomeStack.Screen name="ScanBarcode" component={scanBarcode} />
       <HomeStack.Screen name="ScannedBarcode" component={scannedBarcode} />

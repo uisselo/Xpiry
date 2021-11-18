@@ -6,7 +6,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
-  Image,
 } from "react-native";
 import {
   widthPercentageToDP,
@@ -19,7 +18,7 @@ import "firebase/firestore";
 import { db } from "../../db/config";
 db();
 
-export default class all extends Component {
+export default class others extends Component {
   constructor(props) {
     super(props);
     this.state = { itemList: [], inMemoryItems: [] };
@@ -39,8 +38,11 @@ export default class all extends Component {
     this._isMounted = true;
     const db = firebase.firestore();
     const userRef = db.collection("Users").doc(firebase.auth().currentUser.uid);
-    const allItems = db.collection("Items").where("fromUser", "==", userRef);
-    allItems.onSnapshot((docs) => {
+    const others = db
+      .collection("Items")
+      .where("fromUser", "==", userRef)
+      .where("itemCategory", "==", "Other");
+    others.onSnapshot((docs) => {
       const items = [];
       docs.forEach((doc) => {
         const data = doc.data();
@@ -90,7 +92,7 @@ export default class all extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>All Items</Text>
+          <Text style={styles.title}>Others</Text>
         </View>
         <View style={styles.searchBar}>
           <TextInput
@@ -99,14 +101,12 @@ export default class all extends Component {
             style={styles.baseText}
           />
           <View style={styles.searchIcon}>
-            <Icon name="search" size={20} color="#c7c7cd" />
+            <Icon name="search" size={widthPercentageToDP(5)} color="#c7c7cd" />
           </View>
         </View>
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={this.state.itemList.sort(
-            (a, b) => new Date(a.expiryDate) - new Date(b.expiryDate)
-          )}
+          data={this.state.itemList}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => {
             return (
@@ -116,67 +116,30 @@ export default class all extends Component {
                   this.props.navigation.navigate("ItemDetails", { item: item })
                 }
               >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  {item.category === "Food" ? (
-                    <View style={styles.fixedLogo}>
-                      <Image
-                        source={require("../../assets/logos/fast-food.png")}
-                        style={styles.logo}
-                      />
-                    </View>
-                  ) : item.category === "Cosmetics" ? (
-                    <View style={styles.fixedLogo}>
-                      <Image
-                        source={require("../../assets/logos/cosmetic.png")}
-                        style={styles.logo}
-                      />
-                    </View>
-                  ) : item.category === "Medicine" ? (
-                    <View style={styles.fixedLogo}>
-                      <Image
-                        source={require("../../assets/logos/capsules.png")}
-                        style={styles.logo}
-                      />
-                    </View>
-                  ) : (
-                    <View style={styles.fixedLogo}>
-                      <Image
-                        source={require("../../assets/logos/expand.png")}
-                        style={styles.logo}
-                      />
-                    </View>
-                  )}
-                  <View style={{ marginLeft: 20 }}>
-                    <Text
-                      style={[
-                        styles.baseText,
-                        {
-                          fontFamily: "Nunito-SemiBold",
-                          fontSize: widthPercentageToDP(4),
-                        },
-                      ]}
-                    >
-                      {item.name}
-                    </Text>
-                    <Text style={[styles.baseText, styles.smallText]}>
-                      Expires on {item.expiryDate}
-                    </Text>
-                    <Text
-                      style={[
-                        styles.baseText,
-                        styles.smallText,
-                        { color: "#ea4c4c" },
-                      ]}
-                    >
-                      {moment(Date.now()).to(
-                        item.expiryDate,
-                        "DD-MMM-YYYY",
-                        "D"
-                      )}{" "}
-                      Left
-                    </Text>
-                  </View>
-                </View>
+                <Text
+                  style={[
+                    styles.baseText,
+                    {
+                      fontFamily: "Nunito-SemiBold",
+                      fontSize: widthPercentageToDP(4),
+                    },
+                  ]}
+                >
+                  {item.name}
+                </Text>
+                <Text style={[styles.baseText, styles.smallText]}>
+                  Expires on {item.expiryDate}
+                </Text>
+                <Text
+                  style={[
+                    styles.baseText,
+                    styles.smallText,
+                    { color: "#ea4c4c" },
+                  ]}
+                >
+                  {moment(Date.now()).to(item.expiryDate, "DD-MMM-YYYY", "D")}{" "}
+                  Left
+                </Text>
               </TouchableOpacity>
             );
           }}
@@ -268,17 +231,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     shadowOpacity: 0.05,
     elevation: 2,
-  },
-  fixedLogo: {
-    width: widthPercentageToDP(8),
-    aspectRatio: 1,
-    alignSelf: "center",
-  },
-  logo: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
-    alignSelf: "center",
   },
   smallText: {
     color: "#555",

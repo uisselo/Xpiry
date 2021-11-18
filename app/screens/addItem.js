@@ -49,9 +49,9 @@ export default class addItem extends Component {
     const db = firebase.firestore();
     const id = db.collection("Items").doc().id;
     if (
-      itemName == null || itemName == "" && 
-      itemCategory == null || itemCategory == "" &&
-      itemQty == 0
+      itemName == null ||
+      (itemName == "" && itemCategory == null) ||
+      (itemCategory == "" && itemQty == 0)
     ) {
       Alert.alert("Failed", "Please fill all input fields.", [
         {
@@ -139,6 +139,7 @@ export default class addItem extends Component {
                   { label: "Food", value: "Food" },
                   { label: "Cosmetics", value: "Cosmetics" },
                   { label: "Medicine", value: "Medicine" },
+                  { label: "Other", value: "Other" },
                 ]}
               />
             </View>

@@ -340,118 +340,93 @@ export default class homeScreen extends Component {
               </Text>
             </View>
             <View style={styles.boxRow}>
-              <View style={[styles.fixedBox, { paddingRight: 5 }]}>
-                <TouchableOpacity // all items
-                  style={[
-                    styles.box,
-                    {
-                      backgroundColor: "#4aa3ba",
-                    },
-                  ]}
-                  onPress={() => this.props.navigation.navigate("All")}
-                >
-                  <Text style={styles.text}>All Items</Text>
-                  <View style={styles.fixedLogo}>
-                    <Image
-                      source={require("../assets/logos/grocery.png")}
-                      style={styles.logo}
-                    />
+              {[
+                {
+                  bg: "#4aa3ba",
+                  label: "All Items",
+                  link: "All",
+                  logo: require("../assets/logos/grocery.png"),
+                  text: "#fff",
+                },
+                {
+                  bg: "#c14545",
+                  label: "Expired Items",
+                  link: "Expired",
+                  logo: require("../assets/logos/expired.png"),
+                  text: "#fff",
+                },
+                {
+                  bg: "#ffd2a5",
+                  label: "Food",
+                  link: "Food",
+                  logo: require("../assets/logos/fast-food.png"),
+                  text: "#fff",
+                },
+                {
+                  bg: "#ffb6b9",
+                  label: "Cosmetics",
+                  link: "Cosmetics",
+                  logo: require("../assets/logos/cosmetic.png"),
+                  text: "#fff",
+                },
+                {
+                  bg: "#61b292",
+                  label: "Medicine",
+                  link: "Medicine",
+                  logo: require("../assets/logos/capsules.png"),
+                  text: "#fff",
+                },
+                {
+                  bg: "#404969",
+                  label: "Others",
+                  link: "Others",
+                  logo: require("../assets/logos/expand.png"),
+                  text: "#fff",
+                },
+                {
+                  bg: "#ff7f5b",
+                  label: "Archive",
+                  link: "Archive",
+                  logo: require("../assets/logos/folders.png"),
+                  text: "#fff",
+                },
+              ].map((category) => {
+                return (
+                  <View style={styles.fixedBox} key={category.label}>
+                    <TouchableOpacity
+                      style={[
+                        styles.box,
+                        {
+                          backgroundColor: category.bg,
+                        },
+                      ]}
+                      onPress={() =>
+                        this.props.navigation.navigate(category.link)
+                      }
+                    >
+                      <Text style={[styles.text, { color: category.text }]}>
+                        {category.label}
+                      </Text>
+                      <View style={styles.fixedLogo}>
+                        <Image source={category.logo} style={styles.logo} />
+                      </View>
+                    </TouchableOpacity>
                   </View>
-                </TouchableOpacity>
-              </View>
-              <View style={[styles.fixedBox, { paddingLeft: 5 }]}>
-                <TouchableOpacity // expired items
-                  style={[
-                    styles.box,
-                    {
-                      backgroundColor: "#C14545",
-                    },
-                  ]}
-                  onPress={() => this.props.navigation.navigate("Expired")}
-                >
-                  <Text style={styles.text}>Expired Items</Text>
-                  <View style={styles.fixedLogo}>
-                    <Image
-                      source={require("../assets/logos/expired.png")}
-                      style={styles.logo}
-                    />
-                  </View>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View style={styles.boxRow}>
-              <View style={[styles.fixedBox, { paddingRight: 5 }]}>
-                <TouchableOpacity // food category
-                  style={[
-                    styles.box,
-                    {
-                      backgroundColor: "#ffd2a5",
-                    },
-                  ]}
-                  onPress={() => this.props.navigation.navigate("Food")}
-                >
-                  <Text style={styles.text}>Food</Text>
-                  <View style={styles.fixedLogo}>
-                    <Image
-                      source={require("../assets/logos/fast-food.png")}
-                      style={styles.logo}
-                    />
-                  </View>
-                </TouchableOpacity>
-              </View>
-              <View style={[styles.fixedBox, { paddingLeft: 5 }]}>
-                <TouchableOpacity // cosmetics category
-                  style={[
-                    styles.box,
-                    {
-                      backgroundColor: "#ffb6b9",
-                    },
-                  ]}
-                  onPress={() => this.props.navigation.navigate("Cosmetics")}
-                >
-                  <Text style={styles.text}>Cosmetics</Text>
-                  <View style={styles.fixedLogo}>
-                    <Image
-                      source={require("../assets/logos/cosmetic.png")}
-                      style={styles.logo}
-                    />
-                  </View>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View style={styles.boxRow}>
-              <View style={[styles.fixedBox, { paddingRight: 5 }]}>
-                <TouchableOpacity // medicine category
-                  style={[
-                    styles.box,
-                    {
-                      backgroundColor: "#61b292",
-                    },
-                  ]}
-                  onPress={() => this.props.navigation.navigate("Medicine")}
-                >
-                  <Text style={styles.text}>Medicine</Text>
-                  <View style={styles.fixedLogo}>
-                    <Image
-                      source={require("../assets/logos/capsules.png")}
-                      style={styles.logo}
-                    />
-                  </View>
-                </TouchableOpacity>
-              </View>
-              <View style={[styles.fixedBox, { paddingLeft: 5 }]}>
+                );
+              })}
+              <View style={styles.fixedBox}>
                 <TouchableOpacity // add item
                   style={[
                     styles.box,
                     {
                       backgroundColor: "#fff",
-                      borderColor: "#F29C1E",
+                      borderColor: "#f29c1e",
                       borderWidth: 3,
                     },
                   ]}
                   onPress={() => this.setState({ modalVisible: true })}
                 >
-                  <Text style={[styles.text, { color: "#6C6C6C" }]}>
+                  <Text style={[styles.text, { color: "#6c6c6c" }]}>
                     Add Item
                   </Text>
                   <View style={styles.fixedLogo}>
@@ -482,7 +457,6 @@ const styles = StyleSheet.create({
   },
   text: {
     padding: 10,
-    color: "#fff",
     position: "absolute",
     top: 0,
     fontSize: widthPercentageToDP(4),
@@ -496,6 +470,7 @@ const styles = StyleSheet.create({
     width: widthPercentageToDP(40),
     aspectRatio: 1,
     paddingVertical: 5,
+    paddingHorizontal: 5,
   },
   box: {
     width: "100%",
@@ -507,6 +482,7 @@ const styles = StyleSheet.create({
   boxRow: {
     width: widthPercentageToDP(80),
     flexDirection: "row",
+    flexWrap: "wrap",
   },
   fixedLogo: {
     width: widthPercentageToDP(15),
