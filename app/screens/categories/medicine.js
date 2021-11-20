@@ -41,7 +41,8 @@ export default class medicine extends Component {
     const medicine = db
       .collection("Items")
       .where("fromUser", "==", userRef)
-      .where("itemCategory", "==", "Medicine");
+      .where("itemCategory", "==", "Medicine")
+      .where("isArchived", "==", false);
     medicine.onSnapshot((docs) => {
       const items = [];
       docs.forEach((doc) => {

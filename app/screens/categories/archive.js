@@ -39,7 +39,10 @@ export default class all extends Component {
     this._isMounted = true;
     const db = firebase.firestore();
     const userRef = db.collection("Users").doc(firebase.auth().currentUser.uid);
-    const allItems = db.collection("Items").where("fromUser", "==", userRef);
+    const allItems = db
+      .collection("Items")
+      .where("fromUser", "==", userRef)
+      .where("isArchived", "==", true);
     allItems.onSnapshot((docs) => {
       const items = [];
       docs.forEach((doc) => {
@@ -65,16 +68,14 @@ export default class all extends Component {
           monthNames[fbd.getMonth()] +
           " " +
           fbd.getFullYear();
-        if (Date.now() / 1000 <= doc.data().expiryDate.seconds) {
-          items.push({
-            id: doc.id,
-            name: data.itemName,
-            category: data.itemCategory,
-            expiryDate: ed,
-            barcode: data.barcodeNumber,
-            quantity: data.quantity,
-          });
-        }
+        items.push({
+          id: doc.id,
+          name: data.itemName,
+          category: data.itemCategory,
+          expiryDate: ed,
+          barcode: data.barcodeNumber,
+          quantity: data.quantity,
+        });
       });
       if (this._isMounted) {
         this.setState({ itemList: items, inMemoryItems: items });
@@ -113,7 +114,7 @@ export default class all extends Component {
               <TouchableOpacity
                 style={styles.item}
                 onPress={() =>
-                  this.props.navigation.navigate("ItemDetails", { item: item })
+                  this.props.navigation.navigate("ItemArchived", { item: item })
                 }
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -158,23 +159,42 @@ export default class all extends Component {
                     >
                       {item.name}
                     </Text>
-                    <Text style={[styles.baseText, styles.smallText]}>
-                      Expires on {item.expiryDate}
-                    </Text>
-                    <Text
-                      style={[
-                        styles.baseText,
-                        styles.smallText,
-                        { color: "#ea4c4c" },
-                      ]}
-                    >
-                      {moment(Date.now()).to(
-                        item.expiryDate,
-                        "DD-MMM-YYYY",
+                    {moment(item.expiryDate, "DD-MMM-YYYY").isAfter(
+                      Date.now(),
+                      "D"
+                    ) ? (
+                      <>
+                        <Text style={[styles.baseText, styles.smallText]}>
+                          Expires on {item.expiryDate}
+                        </Text>
+                        <Text
+                          style={[
+                            styles.baseText,
+                            styles.smallText,
+                            { color: "#ea4c4c" },
+                          ]}
+                        >
+                          {moment(Date.now()).to(
+                            item.expiryDate,
+                            "DD-MMM-YYYY",
+                            "D"
+                          )}{" "}
+                          Left
+                        </Text>
+                      </>
+                    ) : moment(item.expiryDate, "DD-MMM-YYYY").isSame(
+                        Date.now(),
                         "D"
-                      )}{" "}
-                      Left
-                    </Text>
+                      ) ? (
+                      <Text style={[styles.baseText, styles.smallText]}>
+                        Expired Today
+                      </Text>
+                    ) : (
+                      <Text style={[styles.baseText, styles.smallText]}>
+                        Expired for{" "}
+                        {moment(item.expiryDate, "DD-MMM-YYYY").fromNow(true)}
+                      </Text>
+                    )}
                   </View>
                 </View>
               </TouchableOpacity>

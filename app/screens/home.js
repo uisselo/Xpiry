@@ -46,14 +46,13 @@ Notifications.scheduleNotificationAsync({
 
 Notifications.scheduleNotificationAsync({
   content: {
-    title: "These items will expire soon",
-    body: "Check items that will expire this week!",
+    title: "Expired Today",
+    body: "Check items that expired today!",
   },
   trigger: {
+    hour: 19,
+    minute: 45,
     repeats: true,
-    weekday: 1, // Sunday
-    hour: 8,
-    minute: 0,
   },
 });
 

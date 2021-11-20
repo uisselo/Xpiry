@@ -72,6 +72,7 @@ export default class dashboard extends Component {
             expiryDate: ed,
             barcode: data.barcodeNumber,
             quantity: data.quantity,
+            isArchived: data.isArchived,
           });
         } else if (Date.now() / 1000 >= doc.data().expiryDate.seconds) {
           expiredItems.push({
@@ -81,6 +82,7 @@ export default class dashboard extends Component {
             expiryDate: ed,
             barcode: data.barcodeNumber,
             quantity: data.quantity,
+            isArchived: data.isArchived,
           });
         }
       });
@@ -184,11 +186,29 @@ export default class dashboard extends Component {
                               {item.name}
                             </Text>
                             <Text style={[styles.baseText, styles.smallText]}>
-                              Expired for{" "}
-                              {moment(item.expiryDate, "DD-MMM-YYYY").fromNow(
-                                true
-                              )}
+                              Expired Today
                             </Text>
+                            {item.isArchived == true ? (
+                              <Text
+                                style={[
+                                  styles.baseText,
+                                  styles.smallText,
+                                  { color: "#ea4c4c" },
+                                ]}
+                              >
+                                Archived
+                              </Text>
+                            ) : (
+                              <Text
+                                style={[
+                                  styles.baseText,
+                                  styles.smallText,
+                                  { color: "#ea4c4c" },
+                                ]}
+                              >
+                                Unarchived
+                              </Text>
+                            )}
                           </View>
                         </View>
                       </TouchableOpacity>
@@ -300,12 +320,42 @@ export default class dashboard extends Component {
                             >
                               {item.name}
                             </Text>
-                            <Text style={[styles.baseText, styles.smallText]}>
-                              Expired for{" "}
-                              {moment(item.expiryDate, "DD-MMM-YYYY").fromNow(
-                                true
-                              )}
-                            </Text>
+                            {moment(item.expiryDate, "DD-MMM-YYYY").isSame(
+                              Date.now(),
+                              "D"
+                            ) ? (
+                              <Text style={[styles.baseText, styles.smallText]}>
+                                Expired Today
+                              </Text>
+                            ) : (
+                              <Text style={[styles.baseText, styles.smallText]}>
+                                Expired for{" "}
+                                {moment(item.expiryDate, "DD-MMM-YYYY").fromNow(
+                                  true
+                                )}
+                              </Text>
+                            )}
+                            {item.isArchived == true ? (
+                              <Text
+                                style={[
+                                  styles.baseText,
+                                  styles.smallText,
+                                  { color: "#ea4c4c" },
+                                ]}
+                              >
+                                Archived
+                              </Text>
+                            ) : (
+                              <Text
+                                style={[
+                                  styles.baseText,
+                                  styles.smallText,
+                                  { color: "#ea4c4c" },
+                                ]}
+                              >
+                                Unarchived
+                              </Text>
+                            )}
                           </View>
                         </View>
                       </TouchableOpacity>
@@ -417,12 +467,42 @@ export default class dashboard extends Component {
                             >
                               {item.name}
                             </Text>
-                            <Text style={[styles.baseText, styles.smallText]}>
-                              Expired for{" "}
-                              {moment(item.expiryDate, "DD-MMM-YYYY").fromNow(
-                                true
-                              )}
-                            </Text>
+                            {moment(item.expiryDate, "DD-MMM-YYYY").isSame(
+                              Date.now(),
+                              "D"
+                            ) ? (
+                              <Text style={[styles.baseText, styles.smallText]}>
+                                Expired Today
+                              </Text>
+                            ) : (
+                              <Text style={[styles.baseText, styles.smallText]}>
+                                Expired for{" "}
+                                {moment(item.expiryDate, "DD-MMM-YYYY").fromNow(
+                                  true
+                                )}
+                              </Text>
+                            )}
+                            {item.isArchived == true ? (
+                              <Text
+                                style={[
+                                  styles.baseText,
+                                  styles.smallText,
+                                  { color: "#ea4c4c" },
+                                ]}
+                              >
+                                Archived
+                              </Text>
+                            ) : (
+                              <Text
+                                style={[
+                                  styles.baseText,
+                                  styles.smallText,
+                                  { color: "#ea4c4c" },
+                                ]}
+                              >
+                                Unarchived
+                              </Text>
+                            )}
                           </View>
                         </View>
                       </TouchableOpacity>
@@ -551,6 +631,27 @@ export default class dashboard extends Component {
                               )}{" "}
                               Left
                             </Text>
+                            {item.isArchived == true ? (
+                              <Text
+                                style={[
+                                  styles.baseText,
+                                  styles.smallText,
+                                  { color: "#ea4c4c" },
+                                ]}
+                              >
+                                Archived
+                              </Text>
+                            ) : (
+                              <Text
+                                style={[
+                                  styles.baseText,
+                                  styles.smallText,
+                                  { color: "#ea4c4c" },
+                                ]}
+                              >
+                                Unarchived
+                              </Text>
+                            )}
                           </View>
                         </View>
                       </TouchableOpacity>
@@ -666,7 +767,7 @@ export default class dashboard extends Component {
                       this.state.items.filter((item) =>
                         moment(item.expiryDate, "DD-MMM-YYYY").isSame(
                           Date.now(),
-                          "w"
+                          "W"
                         )
                       ).length
                     }

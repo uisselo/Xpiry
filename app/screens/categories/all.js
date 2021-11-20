@@ -39,7 +39,10 @@ export default class all extends Component {
     this._isMounted = true;
     const db = firebase.firestore();
     const userRef = db.collection("Users").doc(firebase.auth().currentUser.uid);
-    const allItems = db.collection("Items").where("fromUser", "==", userRef);
+    const allItems = db
+      .collection("Items")
+      .where("fromUser", "==", userRef)
+      .where("isArchived", "==", false);
     allItems.onSnapshot((docs) => {
       const items = [];
       docs.forEach((doc) => {

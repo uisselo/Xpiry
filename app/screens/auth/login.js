@@ -95,7 +95,7 @@ function login() {
                 fontFamily: "Nunito-Bold",
               }}
             >
-              Welcome
+              Welcome to Xpiry
             </Text>
             <Text style={styles.baseText}>
               Enter your phone number to proceed.

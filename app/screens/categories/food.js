@@ -41,7 +41,8 @@ export default class food extends Component {
     const food = db
       .collection("Items")
       .where("fromUser", "==", userRef)
-      .where("itemCategory", "==", "Food");
+      .where("itemCategory", "==", "Food")
+      .where("isArchived", "==", false);
     food.onSnapshot((docs) => {
       const items = [];
       docs.forEach((doc) => {

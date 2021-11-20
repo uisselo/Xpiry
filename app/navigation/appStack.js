@@ -24,6 +24,7 @@ import page1 from "../screens/journal pages/page1";
 import page2 from "../screens/journal pages/page2";
 import page3 from "../screens/journal pages/page3";
 import item from "../screens/item";
+import itemArchived from "../screens/itemArchived";
 
 // home screen
 const HomeStack = createStackNavigator();
@@ -42,6 +43,7 @@ const HomeStackScreen = () => {
       <HomeStack.Screen name="ScanBarcode" component={scanBarcode} />
       <HomeStack.Screen name="ScannedBarcode" component={scannedBarcode} />
       <HomeStack.Screen name="ItemDetails" component={item} />
+      <HomeStack.Screen name="ItemArchived" component={itemArchived} />
     </HomeStack.Navigator>
   );
 };

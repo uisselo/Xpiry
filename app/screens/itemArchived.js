@@ -44,32 +44,22 @@ export default class item extends Component {
     this._isMounted = false;
   }
 
-  onSave() {
-    const { itemName, itemExpirationDate, itemQty, itemBarcode } = this.state;
+  onUnarchive() {
     if (this._isMounted) {
       firebase
         .firestore()
         .collection("Items")
         .doc(this.props.route.params.item.id)
-        .update({
-          itemName: itemName,
-          expiryDate: itemExpirationDate,
-          quantity: itemQty,
-          barcodeNumber: itemBarcode,
-        })
+        .update({ isArchived: false })
         .then(() => {
-          this.setState({
-            itemName: itemName,
-            itemQty: itemQty,
-            itemBarcode: itemBarcode,
-          });
-          console.log("Item successfully updated!");
-          Alert.alert("Success", "Item successfully updated.", [
+          console.log("Item successfully unacrhived!");
+          Alert.alert("Success", "Item successfully unarchived.", [
             {
               text: "OK",
               onPress: () => {
                 console.log("Alert closed.");
                 this.setState({ modalVisible: false });
+                this.props.navigation.navigate("All");
               },
             },
           ]);
@@ -80,16 +70,39 @@ export default class item extends Component {
     }
   }
 
-  onArchive() {
+  onConfirmDelete() {
+    Alert.alert(
+      "Confirm Delete",
+      "Are you sure you want to delete this item? This action cannot be undone.",
+      [
+        {
+          text: "Cancel",
+          onPress: () => {
+            console.log("Alert closed.");
+          },
+          style: "cancel",
+        },
+        {
+          text: "Delete",
+          onPress: () => {
+            this.onDelete();
+            this.props.navigation.goBack();
+          },
+        },
+      ]
+    );
+  }
+
+  onDelete() {
     if (this._isMounted) {
       firebase
         .firestore()
         .collection("Items")
         .doc(this.props.route.params.item.id)
-        .update({ isArchived: true })
+        .delete()
         .then(() => {
-          console.log("Item successfully archived!");
-          Alert.alert("Success", "Item successfully archived.", [
+          console.log("Item successfully deleted!");
+          Alert.alert("Success", "Item successfully deleted.", [
             {
               text: "OK",
               onPress: () => {
@@ -110,146 +123,6 @@ export default class item extends Component {
     return (
       <View style={styles.container}>
         <View style={{ width: widthPercentageToDP(80) }}>
-          <Modal // update item modal
-            hasBackdrop={true}
-            backdropColor="#000"
-            onBackdropPress={() => this.setState({ modalVisible: false })}
-            isVisible={this.state.modalVisible}
-            statusBarTranslucent
-          >
-            <View style={styles.modal}>
-              <View style={{ width: widthPercentageToDP(70) }}>
-                <Text
-                  style={{
-                    fontSize: widthPercentageToDP(7),
-                    fontFamily: "Nunito-SemiBold",
-                    marginBottom: 10,
-                  }}
-                >
-                  Update Item
-                </Text>
-                <Text style={[styles.baseText, { marginVertical: 5 }]}>
-                  Item Name
-                </Text>
-                <TextInput
-                  style={[styles.baseText, styles.input]}
-                  value={this.state.itemName}
-                  onChangeText={(itemName) => this.setState({ itemName })}
-                  placeholder={item.name}
-                />
-                <Text style={[styles.baseText, { marginVertical: 5 }]}>
-                  Expiration Date
-                </Text>
-                <TouchableOpacity
-                  style={styles.input}
-                  onPress={() => this.setState({ datePickerVisible: true })}
-                >
-                  <Text
-                    editable={false}
-                    value={this.state.itemExpirationDate.toLocaleDateString()}
-                    placeholder={item.expiryDate}
-                    style={styles.baseText}
-                  >
-                    {this.state.itemExpirationDate.toLocaleDateString()}
-                  </Text>
-                </TouchableOpacity>
-                <DatePicker
-                  isVisible={this.state.datePickerVisible}
-                  mode="date"
-                  date={new Date(item.expiryDate)}
-                  onConfirm={(date) => {
-                    console.log("Date picked:", date);
-                    this.setState({
-                      datePickerVisible: false,
-                      itemExpirationDate: date,
-                    });
-                  }}
-                  onCancel={() => this.setState({ datePickerVisible: false })}
-                />
-                <Text style={[styles.baseText, { marginVertical: 5 }]}>
-                  Quantity
-                </Text>
-                <NumericInput
-                  value={this.state.itemQty}
-                  onChange={(itemQty) => this.setState({ itemQty })}
-                  onLimitReached={(isMax, msg) => console.log(isMax, msg)}
-                  minValue={0}
-                  totalWidth={widthPercentageToDP(50)}
-                  totalHeight={40}
-                  iconSize={25}
-                  step={1}
-                  valueType="real"
-                  rounded
-                  textColor="#000"
-                  borderColor="#fff"
-                  containerStyle={styles.input}
-                  inputStyle={[
-                    styles.baseText,
-                    {
-                      backgroundColor: "#fff",
-                    },
-                  ]}
-                  iconStyle={{
-                    color: "#fff",
-                  }}
-                  rightButtonBackgroundColor="#ea4c4c"
-                  leftButtonBackgroundColor="#ea4c4c"
-                />
-                <Text style={[styles.baseText, { marginVertical: 5 }]}>
-                  Barcode Number
-                </Text>
-                <TextInput
-                  style={[styles.baseText, styles.input]}
-                  value={this.state.itemBarcode}
-                  onChangeText={(itemBarcode) => this.setState({ itemBarcode })}
-                  placeholder={item.barcode}
-                />
-                <View style={{ flexDirection: "row", marginTop: 10 }}>
-                  <View style={[styles.fixedBtnModal, { paddingRight: 5 }]}>
-                    <TouchableOpacity
-                      style={[
-                        styles.btnModal,
-                        { borderColor: "#ea4c4c", backgroundColor: "#fff" },
-                      ]}
-                      onPress={() => this.setState({ modalVisible: false })}
-                    >
-                      <Text
-                        style={[
-                          styles.baseText,
-                          {
-                            color: "#ea4c4c",
-                          },
-                        ]}
-                      >
-                        Cancel
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                  <View style={[styles.fixedBtnModal, { paddingLeft: 5 }]}>
-                    <TouchableOpacity
-                      style={[
-                        styles.btnModal,
-                        { borderColor: "#ea4c4c", backgroundColor: "#ea4c4c" },
-                      ]}
-                      onPress={() => this.onSave()}
-                    >
-                      <Text
-                        style={[
-                          styles.baseText,
-                          {
-                            color: "#fff",
-                          },
-                        ]}
-                      >
-                        Save Changes
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </Modal>
-
           <View style={styles.header}>
             <Text
               style={{
@@ -306,7 +179,7 @@ export default class item extends Component {
                   styles.btn,
                   { borderColor: "#ea4c4c", backgroundColor: "#fff" },
                 ]}
-                onPress={() => this.setState({ modalVisible: true })}
+                onPress={() => this.onUnarchive()}
               >
                 <Text
                   style={[
@@ -316,7 +189,7 @@ export default class item extends Component {
                     },
                   ]}
                 >
-                  Edit
+                  Unarchive
                 </Text>
               </TouchableOpacity>
             </View>
@@ -326,7 +199,7 @@ export default class item extends Component {
                   styles.btn,
                   { borderColor: "#ea4c4c", backgroundColor: "#ea4c4c" },
                 ]}
-                onPress={() => this.onArchive()}
+                onPress={() => this.onConfirmDelete()}
               >
                 <Text
                   style={[
@@ -336,7 +209,7 @@ export default class item extends Component {
                     },
                   ]}
                 >
-                  Archive
+                  Delete
                 </Text>
               </TouchableOpacity>
             </View>

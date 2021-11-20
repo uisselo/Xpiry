@@ -71,6 +71,7 @@ export default class addItem extends Component {
           barcodeNumber: itemBarcode,
           quantity: itemQty,
           fromUser: db.doc("Users/" + firebase.auth().currentUser.uid),
+          isArchived: false,
         };
         db.collection("Items")
           .doc(id)

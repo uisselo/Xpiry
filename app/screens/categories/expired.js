@@ -39,7 +39,10 @@ export default class expired extends Component {
     this._isMounted = true;
     const db = firebase.firestore();
     const userRef = db.collection("Users").doc(firebase.auth().currentUser.uid);
-    const expired = db.collection("Items").where("fromUser", "==", userRef);
+    const expired = db
+      .collection("Items")
+      .where("fromUser", "==", userRef)
+      .where("isArchived", "==", false);
     expired.onSnapshot((docs) => {
       const items = [];
       docs.forEach((doc) => {
@@ -149,10 +152,19 @@ export default class expired extends Component {
                     >
                       {item.name}
                     </Text>
-                    <Text style={[styles.baseText, styles.smallText]}>
-                      Expired for{" "}
-                      {moment(item.expiryDate, "DD-MMM-YYYY").fromNow(true)}
-                    </Text>
+                    {moment(item.expiryDate, "DD-MMM-YYYY").isSame(
+                      Date.now(),
+                      "D"
+                    ) ? (
+                      <Text style={[styles.baseText, styles.smallText]}>
+                        Expired Today
+                      </Text>
+                    ) : (
+                      <Text style={[styles.baseText, styles.smallText]}>
+                        Expired for{" "}
+                        {moment(item.expiryDate, "DD-MMM-YYYY").fromNow(true)}
+                      </Text>
+                    )}
                   </View>
                 </View>
               </TouchableOpacity>

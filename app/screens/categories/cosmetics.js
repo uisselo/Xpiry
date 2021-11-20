@@ -41,7 +41,8 @@ export default class cosmetics extends Component {
     const cosmetics = db
       .collection("Items")
       .where("fromUser", "==", userRef)
-      .where("itemCategory", "==", "Cosmetics");
+      .where("itemCategory", "==", "Cosmetics")
+      .where("isArchived", "==", false);
     cosmetics.onSnapshot((docs) => {
       const items = [];
       docs.forEach((doc) => {

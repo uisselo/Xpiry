@@ -41,7 +41,8 @@ export default class others extends Component {
     const others = db
       .collection("Items")
       .where("fromUser", "==", userRef)
-      .where("itemCategory", "==", "Other");
+      .where("itemCategory", "==", "Other")
+      .where("isArchived", "==", false);
     others.onSnapshot((docs) => {
       const items = [];
       docs.forEach((doc) => {
