@@ -76,6 +76,7 @@ export default class expired extends Component {
             expiryDate: ed,
             barcode: data.barcodeNumber,
             quantity: data.quantity,
+            consumedQuantity: data.consumedQty,
           });
         }
       });
@@ -132,10 +133,17 @@ export default class expired extends Component {
                         style={styles.logo}
                       />
                     </View>
-                  ) : (
+                  ) : item.category === "Medicine" ? (
                     <View style={styles.fixedLogo}>
                       <Image
                         source={require("../../assets/logos/capsules.png")}
+                        style={styles.logo}
+                      />
+                    </View>
+                  ) : (
+                    <View style={styles.fixedLogo}>
+                      <Image
+                        source={require("../../assets/logos/expand.png")}
                         style={styles.logo}
                       />
                     </View>

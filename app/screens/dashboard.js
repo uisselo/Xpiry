@@ -73,6 +73,7 @@ export default class dashboard extends Component {
             barcode: data.barcodeNumber,
             quantity: data.quantity,
             isArchived: data.isArchived,
+            consumedQuantity: data.consumedQty,
           });
         } else if (Date.now() / 1000 >= doc.data().expiryDate.seconds) {
           expiredItems.push({
@@ -83,6 +84,7 @@ export default class dashboard extends Component {
             barcode: data.barcodeNumber,
             quantity: data.quantity,
             isArchived: data.isArchived,
+            consumedQuantity: data.consumedQty,
           });
         }
       });
@@ -102,521 +104,100 @@ export default class dashboard extends Component {
         <View style={styles.header}>
           <Text style={styles.title}>Dashboard</Text>
         </View>
-        <View style={styles.dataContainer}>
-          <Modal // expired items today modal
-            hasBackdrop={true}
-            backdropColor="#000"
-            onBackdropPress={() => this.setState({ EITModalVisible: false })}
-            isVisible={this.state.EITModalVisible}
-            statusBarTranslucent
-          >
-            <View style={styles.modal}>
-              <View style={{ width: widthPercentageToDP(70) }}>
-                <View
+        <Modal // expired items today modal
+          hasBackdrop={true}
+          backdropColor="#000"
+          onBackdropPress={() => this.setState({ EITModalVisible: false })}
+          isVisible={this.state.EITModalVisible}
+          statusBarTranslucent
+        >
+          <View style={styles.modal}>
+            <View style={{ width: widthPercentageToDP(70) }}>
+              <View
+                style={{
+                  width: widthPercentageToDP(68),
+                  alignSelf: "center",
+                  marginBottom: 5,
+                }}
+              >
+                <Text
                   style={{
-                    width: widthPercentageToDP(68),
-                    alignSelf: "center",
-                    marginBottom: 5,
+                    fontSize: widthPercentageToDP(5),
+                    fontFamily: "Nunito-Bold",
                   }}
                 >
-                  <Text
-                    style={{
-                      fontSize: widthPercentageToDP(5),
-                      fontFamily: "Nunito-Bold",
-                    }}
-                  >
-                    Expired Items Today
-                  </Text>
-                </View>
-                <FlatList
-                  showsVerticalScrollIndicator={false}
-                  data={this.state.expiredItems.filter((item) =>
-                    moment(item.expiryDate, "DD-MMM-YYYY").isSame(
-                      Date.now(),
-                      "D"
-                    )
-                  )}
-                  keyExtractor={(item) => item.id}
-                  renderItem={({ item }) => {
-                    return (
-                      <TouchableOpacity
-                        style={styles.item}
-                        onPress={() => {
-                          this.props.navigation.navigate("ItemDetails", {
-                            item: item,
-                          });
-                          this.setState({ EITModalVisible: false });
-                        }}
-                      >
-                        <View
-                          style={{ flexDirection: "row", alignItems: "center" }}
-                        >
-                          {item.category === "Food" ? (
-                            <View style={styles.fixedLogo}>
-                              <Image
-                                source={require("../assets/logos/fast-food.png")}
-                                style={styles.logo}
-                              />
-                            </View>
-                          ) : item.category === "Cosmetics" ? (
-                            <View style={styles.fixedLogo}>
-                              <Image
-                                source={require("../assets/logos/cosmetic.png")}
-                                style={styles.logo}
-                              />
-                            </View>
-                          ) : (
-                            <View style={styles.fixedLogo}>
-                              <Image
-                                source={require("../assets/logos/capsules.png")}
-                                style={styles.logo}
-                              />
-                            </View>
-                          )}
-                          <View style={{ marginLeft: 20 }}>
-                            <Text
-                              style={[
-                                styles.baseText,
-                                {
-                                  fontFamily: "Nunito-SemiBold",
-                                  fontSize: widthPercentageToDP(4),
-                                },
-                              ]}
-                            >
-                              {item.name}
-                            </Text>
-                            <Text style={[styles.baseText, styles.smallText]}>
-                              Expired Today
-                            </Text>
-                            {item.isArchived == true ? (
-                              <Text
-                                style={[
-                                  styles.baseText,
-                                  styles.smallText,
-                                  { color: "#ea4c4c" },
-                                ]}
-                              >
-                                Archived
-                              </Text>
-                            ) : (
-                              <Text
-                                style={[
-                                  styles.baseText,
-                                  styles.smallText,
-                                  { color: "#ea4c4c" },
-                                ]}
-                              >
-                                Unarchived
-                              </Text>
-                            )}
-                          </View>
-                        </View>
-                      </TouchableOpacity>
-                    );
-                  }}
-                  ListEmptyComponent={() => {
-                    return (
-                      <View
-                        style={{
-                          alignSelf: "center",
-                          width: widthPercentageToDP(68),
-                          paddingTop: 10,
-                        }}
-                      >
-                        <Text
-                          style={[
-                            styles.baseText,
-                            { fontSize: widthPercentageToDP(5) },
-                          ]}
-                        >
-                          No Items Found
-                        </Text>
-                      </View>
-                    );
-                  }}
-                />
+                  Expired Items Today
+                </Text>
               </View>
-            </View>
-          </Modal>
-          <Modal // expired items this week modal
-            hasBackdrop={true}
-            backdropColor="#000"
-            onBackdropPress={() => this.setState({ EIWModalVisible: false })}
-            isVisible={this.state.EIWModalVisible}
-            statusBarTranslucent
-          >
-            <View style={styles.modal}>
-              <View style={{ width: widthPercentageToDP(70) }}>
-                <View
-                  style={{
-                    width: widthPercentageToDP(68),
-                    alignSelf: "center",
-                    marginBottom: 5,
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: widthPercentageToDP(5),
-                      fontFamily: "Nunito-Bold",
-                    }}
-                  >
-                    Expired Items this Week
-                  </Text>
-                </View>
-                <FlatList
-                  showsVerticalScrollIndicator={false}
-                  data={this.state.expiredItems.filter((item) =>
-                    moment(item.expiryDate, "DD-MMM-YYYY").isSame(
-                      Date.now(),
-                      "W"
-                    )
-                  )}
-                  keyExtractor={(item) => item.id}
-                  renderItem={({ item }) => {
-                    return (
-                      <TouchableOpacity
-                        style={styles.item}
-                        onPress={() => {
-                          this.props.navigation.navigate("ItemDetails", {
-                            item: item,
-                          });
-                          this.setState({ EIWModalVisible: false });
-                        }}
-                      >
-                        <View
-                          style={{ flexDirection: "row", alignItems: "center" }}
-                        >
-                          {item.category === "Food" ? (
-                            <View style={styles.fixedLogo}>
-                              <Image
-                                source={require("../assets/logos/fast-food.png")}
-                                style={styles.logo}
-                              />
-                            </View>
-                          ) : item.category === "Cosmetics" ? (
-                            <View style={styles.fixedLogo}>
-                              <Image
-                                source={require("../assets/logos/cosmetic.png")}
-                                style={styles.logo}
-                              />
-                            </View>
-                          ) : (
-                            <View style={styles.fixedLogo}>
-                              <Image
-                                source={require("../assets/logos/capsules.png")}
-                                style={styles.logo}
-                              />
-                            </View>
-                          )}
-                          <View style={{ marginLeft: 20 }}>
-                            <Text
-                              style={[
-                                styles.baseText,
-                                {
-                                  fontFamily: "Nunito-SemiBold",
-                                  fontSize: widthPercentageToDP(4),
-                                },
-                              ]}
-                            >
-                              {item.name}
-                            </Text>
-                            {moment(item.expiryDate, "DD-MMM-YYYY").isSame(
-                              Date.now(),
-                              "D"
-                            ) ? (
-                              <Text style={[styles.baseText, styles.smallText]}>
-                                Expired Today
-                              </Text>
-                            ) : (
-                              <Text style={[styles.baseText, styles.smallText]}>
-                                Expired for{" "}
-                                {moment(item.expiryDate, "DD-MMM-YYYY").fromNow(
-                                  true
-                                )}
-                              </Text>
-                            )}
-                            {item.isArchived == true ? (
-                              <Text
-                                style={[
-                                  styles.baseText,
-                                  styles.smallText,
-                                  { color: "#ea4c4c" },
-                                ]}
-                              >
-                                Archived
-                              </Text>
-                            ) : (
-                              <Text
-                                style={[
-                                  styles.baseText,
-                                  styles.smallText,
-                                  { color: "#ea4c4c" },
-                                ]}
-                              >
-                                Unarchived
-                              </Text>
-                            )}
-                          </View>
-                        </View>
-                      </TouchableOpacity>
-                    );
-                  }}
-                  ListEmptyComponent={() => {
-                    return (
+              <FlatList
+                showsVerticalScrollIndicator={false}
+                data={this.state.expiredItems.filter((item) =>
+                  moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "D")
+                )}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => {
+                  return (
+                    <TouchableOpacity
+                      style={styles.item}
+                      onPress={() => {
+                        item.isArchived == true
+                          ? this.props.navigation.navigate("ItemArchived", {
+                              item: item,
+                            })
+                          : this.props.navigation.navigate("ItemDetails", {
+                              item: item,
+                            });
+                        this.setState({ EITModalVisible: false });
+                      }}
+                    >
                       <View
-                        style={{
-                          alignSelf: "center",
-                          width: widthPercentageToDP(68),
-                          paddingTop: 10,
-                        }}
+                        style={{ flexDirection: "row", alignItems: "center" }}
                       >
-                        <Text
-                          style={[
-                            styles.baseText,
-                            { fontSize: widthPercentageToDP(5) },
-                          ]}
-                        >
-                          No Items Found
-                        </Text>
-                      </View>
-                    );
-                  }}
-                />
-              </View>
-            </View>
-          </Modal>
-          <Modal // expired items this month modal
-            hasBackdrop={true}
-            backdropColor="#000"
-            onBackdropPress={() => this.setState({ EIMModalVisible: false })}
-            isVisible={this.state.EIMModalVisible}
-            statusBarTranslucent
-          >
-            <View style={styles.modal}>
-              <View style={{ width: widthPercentageToDP(70) }}>
-                <View
-                  style={{
-                    width: widthPercentageToDP(68),
-                    alignSelf: "center",
-                    marginBottom: 5,
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: widthPercentageToDP(5),
-                      fontFamily: "Nunito-Bold",
-                    }}
-                  >
-                    Expired Items this Month
-                  </Text>
-                </View>
-                <FlatList
-                  showsVerticalScrollIndicator={false}
-                  data={this.state.expiredItems.filter((item) =>
-                    moment(item.expiryDate, "DD-MMM-YYYY").isSame(
-                      Date.now(),
-                      "M"
-                    )
-                  )}
-                  keyExtractor={(item) => item.id}
-                  renderItem={({ item }) => {
-                    return (
-                      <TouchableOpacity
-                        style={styles.item}
-                        onPress={() => {
-                          this.props.navigation.navigate("ItemDetails", {
-                            item: item,
-                          });
-                          this.setState({ EIMModalVisible: false });
-                        }}
-                      >
-                        <View
-                          style={{ flexDirection: "row", alignItems: "center" }}
-                        >
-                          {item.category === "Food" ? (
-                            <View style={styles.fixedLogo}>
-                              <Image
-                                source={require("../assets/logos/fast-food.png")}
-                                style={styles.logo}
-                              />
-                            </View>
-                          ) : item.category === "Cosmetics" ? (
-                            <View style={styles.fixedLogo}>
-                              <Image
-                                source={require("../assets/logos/cosmetic.png")}
-                                style={styles.logo}
-                              />
-                            </View>
-                          ) : (
-                            <View style={styles.fixedLogo}>
-                              <Image
-                                source={require("../assets/logos/capsules.png")}
-                                style={styles.logo}
-                              />
-                            </View>
-                          )}
-                          <View style={{ marginLeft: 20 }}>
-                            <Text
-                              style={[
-                                styles.baseText,
-                                {
-                                  fontFamily: "Nunito-SemiBold",
-                                  fontSize: widthPercentageToDP(4),
-                                },
-                              ]}
-                            >
-                              {item.name}
-                            </Text>
-                            {moment(item.expiryDate, "DD-MMM-YYYY").isSame(
-                              Date.now(),
-                              "D"
-                            ) ? (
-                              <Text style={[styles.baseText, styles.smallText]}>
-                                Expired Today
-                              </Text>
-                            ) : (
-                              <Text style={[styles.baseText, styles.smallText]}>
-                                Expired for{" "}
-                                {moment(item.expiryDate, "DD-MMM-YYYY").fromNow(
-                                  true
-                                )}
-                              </Text>
-                            )}
-                            {item.isArchived == true ? (
-                              <Text
-                                style={[
-                                  styles.baseText,
-                                  styles.smallText,
-                                  { color: "#ea4c4c" },
-                                ]}
-                              >
-                                Archived
-                              </Text>
-                            ) : (
-                              <Text
-                                style={[
-                                  styles.baseText,
-                                  styles.smallText,
-                                  { color: "#ea4c4c" },
-                                ]}
-                              >
-                                Unarchived
-                              </Text>
-                            )}
+                        {item.category === "Food" ? (
+                          <View style={styles.fixedLogo}>
+                            <Image
+                              source={require("../assets/logos/fast-food.png")}
+                              style={styles.logo}
+                            />
                           </View>
-                        </View>
-                      </TouchableOpacity>
-                    );
-                  }}
-                  ListEmptyComponent={() => {
-                    return (
-                      <View
-                        style={{
-                          alignSelf: "center",
-                          width: widthPercentageToDP(68),
-                          paddingTop: 10,
-                        }}
-                      >
-                        <Text
-                          style={[
-                            styles.baseText,
-                            { fontSize: widthPercentageToDP(5) },
-                          ]}
-                        >
-                          No Items Found
-                        </Text>
-                      </View>
-                    );
-                  }}
-                />
-              </View>
-            </View>
-          </Modal>
-          <Modal // items that will expire this week modal
-            hasBackdrop={true}
-            backdropColor="#000"
-            onBackdropPress={() => this.setState({ IWEWModalVisible: false })}
-            isVisible={this.state.IWEWModalVisible}
-            statusBarTranslucent
-          >
-            <View style={styles.modal}>
-              <View style={{ width: widthPercentageToDP(70) }}>
-                <View
-                  style={{
-                    width: widthPercentageToDP(68),
-                    alignSelf: "center",
-                    marginBottom: 5,
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: widthPercentageToDP(5),
-                      fontFamily: "Nunito-Bold",
-                    }}
-                  >
-                    Expiring Items this Week
-                  </Text>
-                </View>
-                <FlatList
-                  showsVerticalScrollIndicator={false}
-                  data={this.state.items.filter((item) =>
-                    moment(item.expiryDate, "DD-MMM-YYYY").isSame(
-                      Date.now(),
-                      "W"
-                    )
-                  )}
-                  keyExtractor={(item) => item.id}
-                  renderItem={({ item }) => {
-                    return (
-                      <TouchableOpacity
-                        style={styles.item}
-                        onPress={() => {
-                          this.props.navigation.navigate("ItemDetails", {
-                            item: item,
-                          });
-                          this.setState({ IWEWModalVisible: false });
-                        }}
-                      >
-                        <View
-                          style={{ flexDirection: "row", alignItems: "center" }}
-                        >
-                          {item.category === "Food" ? (
-                            <View style={styles.fixedLogo}>
-                              <Image
-                                source={require("../assets/logos/fast-food.png")}
-                                style={styles.logo}
-                              />
-                            </View>
-                          ) : item.category === "Cosmetics" ? (
-                            <View style={styles.fixedLogo}>
-                              <Image
-                                source={require("../assets/logos/cosmetic.png")}
-                                style={styles.logo}
-                              />
-                            </View>
-                          ) : (
-                            <View style={styles.fixedLogo}>
-                              <Image
-                                source={require("../assets/logos/capsules.png")}
-                                style={styles.logo}
-                              />
-                            </View>
-                          )}
-                          <View style={{ marginLeft: 20 }}>
-                            <Text
-                              style={[
-                                styles.baseText,
-                                {
-                                  fontFamily: "Nunito-SemiBold",
-                                  fontSize: widthPercentageToDP(4),
-                                },
-                              ]}
-                            >
-                              {item.name}
-                            </Text>
-                            <Text style={[styles.baseText, styles.smallText]}>
-                              Expires on {item.expiryDate}
-                            </Text>
+                        ) : item.category === "Cosmetics" ? (
+                          <View style={styles.fixedLogo}>
+                            <Image
+                              source={require("../assets/logos/cosmetic.png")}
+                              style={styles.logo}
+                            />
+                          </View>
+                        ) : item.category === "Medicine" ? (
+                          <View style={styles.fixedLogo}>
+                            <Image
+                              source={require("../assets/logos/capsules.png")}
+                              style={styles.logo}
+                            />
+                          </View>
+                        ) : (
+                          <View style={styles.fixedLogo}>
+                            <Image
+                              source={require("../assets/logos/expand.png")}
+                              style={styles.logo}
+                            />
+                          </View>
+                        )}
+                        <View style={{ marginLeft: 20 }}>
+                          <Text
+                            style={[
+                              styles.baseText,
+                              {
+                                fontFamily: "Nunito-SemiBold",
+                                fontSize: widthPercentageToDP(4),
+                              },
+                            ]}
+                          >
+                            {item.name}
+                          </Text>
+                          <Text style={[styles.baseText, styles.smallText]}>
+                            Expired Today
+                          </Text>
+                          {item.isArchived == true ? (
                             <Text
                               style={[
                                 styles.baseText,
@@ -624,159 +205,572 @@ export default class dashboard extends Component {
                                 { color: "#ea4c4c" },
                               ]}
                             >
-                              {moment(Date.now()).to(
-                                item.expiryDate,
-                                "DD-MMM-YYYY",
-                                "D"
-                              )}{" "}
-                              Left
+                              Archived
                             </Text>
-                            {item.isArchived == true ? (
-                              <Text
-                                style={[
-                                  styles.baseText,
-                                  styles.smallText,
-                                  { color: "#ea4c4c" },
-                                ]}
-                              >
-                                Archived
-                              </Text>
-                            ) : (
-                              <Text
-                                style={[
-                                  styles.baseText,
-                                  styles.smallText,
-                                  { color: "#ea4c4c" },
-                                ]}
-                              >
-                                Unarchived
-                              </Text>
-                            )}
-                          </View>
+                          ) : (
+                            <Text
+                              style={[
+                                styles.baseText,
+                                styles.smallText,
+                                { color: "#ea4c4c" },
+                              ]}
+                            >
+                              Unarchived
+                            </Text>
+                          )}
                         </View>
-                      </TouchableOpacity>
-                    );
-                  }}
-                  ListEmptyComponent={() => {
-                    return (
-                      <View
-                        style={{
-                          alignSelf: "center",
-                          width: widthPercentageToDP(68),
-                          paddingTop: 10,
-                        }}
-                      >
-                        <Text
-                          style={[
-                            styles.baseText,
-                            { fontSize: widthPercentageToDP(5) },
-                          ]}
-                        >
-                          No Items Found
-                        </Text>
                       </View>
-                    );
+                    </TouchableOpacity>
+                  );
+                }}
+                ListEmptyComponent={() => {
+                  return (
+                    <View
+                      style={{
+                        alignSelf: "center",
+                        width: widthPercentageToDP(68),
+                        paddingTop: 10,
+                      }}
+                    >
+                      <Text
+                        style={[
+                          styles.baseText,
+                          { fontSize: widthPercentageToDP(5) },
+                        ]}
+                      >
+                        No Items Found
+                      </Text>
+                    </View>
+                  );
+                }}
+              />
+            </View>
+          </View>
+        </Modal>
+        <Modal // expired items this week modal
+          hasBackdrop={true}
+          backdropColor="#000"
+          onBackdropPress={() => this.setState({ EIWModalVisible: false })}
+          isVisible={this.state.EIWModalVisible}
+          statusBarTranslucent
+        >
+          <View style={styles.modal}>
+            <View style={{ width: widthPercentageToDP(70) }}>
+              <View
+                style={{
+                  width: widthPercentageToDP(68),
+                  alignSelf: "center",
+                  marginBottom: 5,
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: widthPercentageToDP(5),
+                    fontFamily: "Nunito-Bold",
                   }}
-                />
+                >
+                  Expired Items this Week
+                </Text>
               </View>
-            </View>
-          </Modal>
-          <View style={styles.boxRow}>
-            <View style={[styles.fixedBox, { paddingRight: 5 }]}>
-              <TouchableOpacity
-                onPress={() => this.setState({ EITModalVisible: true })}
-              >
-                <LinearGradient // expired items today
-                  colors={["#eee600", "#ffd300", "#ffb347"]}
-                  style={styles.box}
-                >
-                  <Text style={styles.dataTime}>Today</Text>
-                  <Text style={[styles.baseText, styles.dataNum]}>
-                    {
-                      this.state.expiredItems.filter((item) =>
-                        moment(item.expiryDate, "DD-MMM-YYYY").isSame(
-                          Date.now(),
-                          "D"
-                        )
-                      ).length
-                    }
-                  </Text>
-                  <Text style={styles.dataLabel}>Expired Items</Text>
-                </LinearGradient>
-              </TouchableOpacity>
-            </View>
-            <View style={[styles.fixedBox, { paddingLeft: 5 }]}>
-              <TouchableOpacity
-                onPress={() => this.setState({ EIWModalVisible: true })}
-              >
-                <LinearGradient // expired items this week
-                  colors={["#ff8a8a", "#ff6961", "#d9381e"]}
-                  style={styles.box}
-                >
-                  <Text style={styles.dataTime}>This Week</Text>
-                  <Text style={[styles.baseText, styles.dataNum]}>
-                    {
-                      this.state.expiredItems.filter((item) =>
-                        moment(item.expiryDate, "DD-MMM-YYYY").isSame(
-                          Date.now(),
-                          "w"
-                        )
-                      ).length
-                    }
-                  </Text>
-                  <Text style={styles.dataLabel}>Expired Items</Text>
-                </LinearGradient>
-              </TouchableOpacity>
+              <FlatList
+                showsVerticalScrollIndicator={false}
+                data={this.state.expiredItems.filter((item) =>
+                  moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "W")
+                )}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => {
+                  return (
+                    <TouchableOpacity
+                      style={styles.item}
+                      onPress={() => {
+                        item.isArchived == true
+                          ? this.props.navigation.navigate("ItemArchived", {
+                              item: item,
+                            })
+                          : this.props.navigation.navigate("ItemDetails", {
+                              item: item,
+                            });
+                        this.setState({ EIWModalVisible: false });
+                      }}
+                    >
+                      <View
+                        style={{ flexDirection: "row", alignItems: "center" }}
+                      >
+                        {item.category === "Food" ? (
+                          <View style={styles.fixedLogo}>
+                            <Image
+                              source={require("../assets/logos/fast-food.png")}
+                              style={styles.logo}
+                            />
+                          </View>
+                        ) : item.category === "Cosmetics" ? (
+                          <View style={styles.fixedLogo}>
+                            <Image
+                              source={require("../assets/logos/cosmetic.png")}
+                              style={styles.logo}
+                            />
+                          </View>
+                        ) : item.category === "Medicine" ? (
+                          <View style={styles.fixedLogo}>
+                            <Image
+                              source={require("../assets/logos/capsules.png")}
+                              style={styles.logo}
+                            />
+                          </View>
+                        ) : (
+                          <View style={styles.fixedLogo}>
+                            <Image
+                              source={require("../assets/logos/expand.png")}
+                              style={styles.logo}
+                            />
+                          </View>
+                        )}
+                        <View style={{ marginLeft: 20 }}>
+                          <Text
+                            style={[
+                              styles.baseText,
+                              {
+                                fontFamily: "Nunito-SemiBold",
+                                fontSize: widthPercentageToDP(4),
+                              },
+                            ]}
+                          >
+                            {item.name}
+                          </Text>
+                          {moment(item.expiryDate, "DD-MMM-YYYY").isSame(
+                            Date.now(),
+                            "D"
+                          ) ? (
+                            <Text style={[styles.baseText, styles.smallText]}>
+                              Expired Today
+                            </Text>
+                          ) : (
+                            <Text style={[styles.baseText, styles.smallText]}>
+                              Expired for{" "}
+                              {moment(item.expiryDate, "DD-MMM-YYYY").fromNow(
+                                true
+                              )}
+                            </Text>
+                          )}
+                          {item.isArchived == true ? (
+                            <Text
+                              style={[
+                                styles.baseText,
+                                styles.smallText,
+                                { color: "#ea4c4c" },
+                              ]}
+                            >
+                              Archived
+                            </Text>
+                          ) : (
+                            <Text
+                              style={[
+                                styles.baseText,
+                                styles.smallText,
+                                { color: "#ea4c4c" },
+                              ]}
+                            >
+                              Unarchived
+                            </Text>
+                          )}
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  );
+                }}
+                ListEmptyComponent={() => {
+                  return (
+                    <View
+                      style={{
+                        alignSelf: "center",
+                        width: widthPercentageToDP(68),
+                        paddingTop: 10,
+                      }}
+                    >
+                      <Text
+                        style={[
+                          styles.baseText,
+                          { fontSize: widthPercentageToDP(5) },
+                        ]}
+                      >
+                        No Items Found
+                      </Text>
+                    </View>
+                  );
+                }}
+              />
             </View>
           </View>
-          <View style={styles.boxRow}>
-            <View style={[styles.fixedBox, { paddingRight: 5 }]}>
-              <TouchableOpacity
-                onPress={() => this.setState({ EIMModalVisible: true })}
+        </Modal>
+        <Modal // expired items this month modal
+          hasBackdrop={true}
+          backdropColor="#000"
+          onBackdropPress={() => this.setState({ EIMModalVisible: false })}
+          isVisible={this.state.EIMModalVisible}
+          statusBarTranslucent
+        >
+          <View style={styles.modal}>
+            <View style={{ width: widthPercentageToDP(70) }}>
+              <View
+                style={{
+                  width: widthPercentageToDP(68),
+                  alignSelf: "center",
+                  marginBottom: 5,
+                }}
               >
-                <LinearGradient // expired items this month
-                  colors={["#a4de02", "#76ba1b", "#4c9a2a"]}
-                  style={styles.box}
+                <Text
+                  style={{
+                    fontSize: widthPercentageToDP(5),
+                    fontFamily: "Nunito-Bold",
+                  }}
                 >
-                  <Text style={styles.dataTime}>This Month</Text>
-                  <Text style={[styles.baseText, styles.dataNum]}>
-                    {
-                      this.state.expiredItems.filter((item) =>
-                        moment(item.expiryDate, "DD-MMM-YYYY").isSame(
-                          Date.now(),
-                          "M"
-                        )
-                      ).length
-                    }
-                  </Text>
-                  <Text style={styles.dataLabel}>Expired Items</Text>
-                </LinearGradient>
-              </TouchableOpacity>
-            </View>
-            <View style={[styles.fixedBox, { paddingLeft: 5 }]}>
-              <TouchableOpacity
-                onPress={() => this.setState({ IWEWModalVisible: true })}
-              >
-                <LinearGradient // items that will expire this week
-                  colors={["#58cced", "#3895d3", "#1261a0"]}
-                  style={styles.box}
-                >
-                  <Text style={styles.dataTime}>This Week</Text>
-                  <Text style={[styles.baseText, styles.dataNum]}>
-                    {
-                      this.state.items.filter((item) =>
-                        moment(item.expiryDate, "DD-MMM-YYYY").isSame(
-                          Date.now(),
-                          "W"
-                        )
-                      ).length
-                    }
-                  </Text>
-                  <Text style={styles.dataLabel}>Expiring Items</Text>
-                </LinearGradient>
-              </TouchableOpacity>
+                  Expired Items this Month
+                </Text>
+              </View>
+              <FlatList
+                showsVerticalScrollIndicator={false}
+                data={this.state.expiredItems.filter((item) =>
+                  moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "M")
+                )}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => {
+                  return (
+                    <TouchableOpacity
+                      style={styles.item}
+                      onPress={() => {
+                        item.isArchived == true
+                          ? this.props.navigation.navigate("ItemArchived", {
+                              item: item,
+                            })
+                          : this.props.navigation.navigate("ItemDetails", {
+                              item: item,
+                            });
+                        this.setState({ EIMModalVisible: false });
+                      }}
+                    >
+                      <View
+                        style={{ flexDirection: "row", alignItems: "center" }}
+                      >
+                        {item.category === "Food" ? (
+                          <View style={styles.fixedLogo}>
+                            <Image
+                              source={require("../assets/logos/fast-food.png")}
+                              style={styles.logo}
+                            />
+                          </View>
+                        ) : item.category === "Cosmetics" ? (
+                          <View style={styles.fixedLogo}>
+                            <Image
+                              source={require("../assets/logos/cosmetic.png")}
+                              style={styles.logo}
+                            />
+                          </View>
+                        ) : item.category === "Medicine" ? (
+                          <View style={styles.fixedLogo}>
+                            <Image
+                              source={require("../assets/logos/capsules.png")}
+                              style={styles.logo}
+                            />
+                          </View>
+                        ) : (
+                          <View style={styles.fixedLogo}>
+                            <Image
+                              source={require("../assets/logos/expand.png")}
+                              style={styles.logo}
+                            />
+                          </View>
+                        )}
+                        <View style={{ marginLeft: 20 }}>
+                          <Text
+                            style={[
+                              styles.baseText,
+                              {
+                                fontFamily: "Nunito-SemiBold",
+                                fontSize: widthPercentageToDP(4),
+                              },
+                            ]}
+                          >
+                            {item.name}
+                          </Text>
+                          {moment(item.expiryDate, "DD-MMM-YYYY").isSame(
+                            Date.now(),
+                            "D"
+                          ) ? (
+                            <Text style={[styles.baseText, styles.smallText]}>
+                              Expired Today
+                            </Text>
+                          ) : (
+                            <Text style={[styles.baseText, styles.smallText]}>
+                              Expired for{" "}
+                              {moment(item.expiryDate, "DD-MMM-YYYY").fromNow(
+                                true
+                              )}
+                            </Text>
+                          )}
+                          {item.isArchived == true ? (
+                            <Text
+                              style={[
+                                styles.baseText,
+                                styles.smallText,
+                                { color: "#ea4c4c" },
+                              ]}
+                            >
+                              Archived
+                            </Text>
+                          ) : (
+                            <Text
+                              style={[
+                                styles.baseText,
+                                styles.smallText,
+                                { color: "#ea4c4c" },
+                              ]}
+                            >
+                              Unarchived
+                            </Text>
+                          )}
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  );
+                }}
+                ListEmptyComponent={() => {
+                  return (
+                    <View
+                      style={{
+                        alignSelf: "center",
+                        width: widthPercentageToDP(68),
+                        paddingTop: 10,
+                      }}
+                    >
+                      <Text
+                        style={[
+                          styles.baseText,
+                          { fontSize: widthPercentageToDP(5) },
+                        ]}
+                      >
+                        No Items Found
+                      </Text>
+                    </View>
+                  );
+                }}
+              />
             </View>
           </View>
+        </Modal>
+        <Modal // items that will expire this week modal
+          hasBackdrop={true}
+          backdropColor="#000"
+          onBackdropPress={() => this.setState({ IWEWModalVisible: false })}
+          isVisible={this.state.IWEWModalVisible}
+          statusBarTranslucent
+        >
+          <View style={styles.modal}>
+            <View style={{ width: widthPercentageToDP(70) }}>
+              <View
+                style={{
+                  width: widthPercentageToDP(68),
+                  alignSelf: "center",
+                  marginBottom: 5,
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: widthPercentageToDP(5),
+                    fontFamily: "Nunito-Bold",
+                  }}
+                >
+                  Expiring Items this Week
+                </Text>
+              </View>
+              <FlatList
+                showsVerticalScrollIndicator={false}
+                data={this.state.items.filter((item) =>
+                  moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "W")
+                )}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => {
+                  return (
+                    <TouchableOpacity
+                      style={styles.item}
+                      onPress={() => {
+                        item.isArchived == true
+                          ? this.props.navigation.navigate("ItemArchived", {
+                              item: item,
+                            })
+                          : this.props.navigation.navigate("ItemDetails", {
+                              item: item,
+                            });
+                        this.setState({ IWEWModalVisible: false });
+                      }}
+                    >
+                      <View
+                        style={{ flexDirection: "row", alignItems: "center" }}
+                      >
+                        {item.category === "Food" ? (
+                          <View style={styles.fixedLogo}>
+                            <Image
+                              source={require("../assets/logos/fast-food.png")}
+                              style={styles.logo}
+                            />
+                          </View>
+                        ) : item.category === "Cosmetics" ? (
+                          <View style={styles.fixedLogo}>
+                            <Image
+                              source={require("../assets/logos/cosmetic.png")}
+                              style={styles.logo}
+                            />
+                          </View>
+                        ) : item.category === "Medicine" ? (
+                          <View style={styles.fixedLogo}>
+                            <Image
+                              source={require("../assets/logos/capsules.png")}
+                              style={styles.logo}
+                            />
+                          </View>
+                        ) : (
+                          <View style={styles.fixedLogo}>
+                            <Image
+                              source={require("../assets/logos/expand.png")}
+                              style={styles.logo}
+                            />
+                          </View>
+                        )}
+                        <View style={{ marginLeft: 20 }}>
+                          <Text
+                            style={[
+                              styles.baseText,
+                              {
+                                fontFamily: "Nunito-SemiBold",
+                                fontSize: widthPercentageToDP(4),
+                              },
+                            ]}
+                          >
+                            {item.name}
+                          </Text>
+                          <Text style={[styles.baseText, styles.smallText]}>
+                            Expires on {item.expiryDate}
+                          </Text>
+                          <Text
+                            style={[
+                              styles.baseText,
+                              styles.smallText,
+                              { color: "#ea4c4c" },
+                            ]}
+                          >
+                            {moment(Date.now()).to(
+                              item.expiryDate,
+                              "DD-MMM-YYYY",
+                              "D"
+                            )}{" "}
+                            Left
+                          </Text>
+                          {item.isArchived == true ? (
+                            <Text
+                              style={[
+                                styles.baseText,
+                                styles.smallText,
+                                { color: "#ea4c4c" },
+                              ]}
+                            >
+                              Archived
+                            </Text>
+                          ) : (
+                            <Text
+                              style={[
+                                styles.baseText,
+                                styles.smallText,
+                                { color: "#ea4c4c" },
+                              ]}
+                            >
+                              Unarchived
+                            </Text>
+                          )}
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  );
+                }}
+                ListEmptyComponent={() => {
+                  return (
+                    <View
+                      style={{
+                        alignSelf: "center",
+                        width: widthPercentageToDP(68),
+                        paddingTop: 10,
+                      }}
+                    >
+                      <Text
+                        style={[
+                          styles.baseText,
+                          { fontSize: widthPercentageToDP(5) },
+                        ]}
+                      >
+                        No Items Found
+                      </Text>
+                    </View>
+                  );
+                }}
+              />
+            </View>
+          </View>
+        </Modal>
+        <View style={styles.boxRow}>
+          {[
+            {
+              id: "data01",
+              link: { EITModalVisible: true },
+              colors: ["#eee600", "#ffd300", "#ffb347"],
+              time: "Today",
+              data: this.state.expiredItems.filter((item) =>
+                moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "D")
+              ).length,
+              label: "Expired Items",
+            },
+            {
+              id: "data02",
+              link: { EIWModalVisible: true },
+              colors: ["#ff8a8a", "#ff6961", "#d9381e"],
+              time: "This Week",
+              data: this.state.expiredItems.filter((item) =>
+                moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "W")
+              ).length,
+              label: "Expired Items",
+            },
+            {
+              id: "data03",
+              link: { EIMModalVisible: true },
+              colors: ["#a4de02", "#76ba1b", "#4c9a2a"],
+              time: "This Month",
+              data: this.state.expiredItems.filter((item) =>
+                moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "M")
+              ).length,
+              label: "Expired Items",
+            },
+            {
+              id: "data04",
+              link: { IWEWModalVisible: true },
+              colors: ["#58cced", "#3895d3", "#1261a0"],
+              time: "This Month",
+              data: this.state.items.filter((item) =>
+                moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "W")
+              ).length,
+              label: "Expired Items",
+            },
+          ].map((data) => {
+            return (
+              <View style={styles.fixedBox} key={data.id}>
+                <TouchableOpacity onPress={() => this.setState(data.link)}>
+                  <LinearGradient colors={data.colors} style={styles.box}>
+                    <Text style={styles.dataTime}>{data.time}</Text>
+                    <Text style={[styles.baseText, styles.dataNum]}>
+                      {data.data}
+                    </Text>
+                    <Text style={styles.dataLabel}>{data.label}</Text>
+                  </LinearGradient>
+                </TouchableOpacity>
+              </View>
+            );
+          })}
         </View>
       </View>
     );
@@ -860,6 +854,7 @@ const styles = StyleSheet.create({
     width: widthPercentageToDP(40),
     aspectRatio: 1,
     paddingVertical: 5,
+    paddingHorizontal: 5,
   },
   box: {
     width: "100%",
@@ -872,6 +867,7 @@ const styles = StyleSheet.create({
   boxRow: {
     width: widthPercentageToDP(80),
     flexDirection: "row",
+    flexWrap: "wrap",
   },
   bgTitle: {
     position: "absolute",

@@ -76,6 +76,7 @@ export default class cosmetics extends Component {
             expiryDate: ed,
             barcode: data.barcodeNumber,
             quantity: data.quantity,
+            consumedQuantity: data.consumedQty,
           });
         }
       });

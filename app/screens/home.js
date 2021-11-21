@@ -46,8 +46,8 @@ Notifications.scheduleNotificationAsync({
 
 Notifications.scheduleNotificationAsync({
   content: {
-    title: "Expired Today",
-    body: "Check items that expired today!",
+    title: "Expired Items Today",
+    body: "See items that expired today!",
   },
   trigger: {
     hour: 19,
@@ -341,6 +341,7 @@ export default class homeScreen extends Component {
             <View style={styles.boxRow}>
               {[
                 {
+                  id: "category01",
                   bg: "#4aa3ba",
                   label: "All Items",
                   link: "All",
@@ -348,6 +349,7 @@ export default class homeScreen extends Component {
                   text: "#fff",
                 },
                 {
+                  id: "category02",
                   bg: "#c14545",
                   label: "Expired Items",
                   link: "Expired",
@@ -355,6 +357,7 @@ export default class homeScreen extends Component {
                   text: "#fff",
                 },
                 {
+                  id: "category03",
                   bg: "#ffd2a5",
                   label: "Food",
                   link: "Food",
@@ -362,6 +365,7 @@ export default class homeScreen extends Component {
                   text: "#fff",
                 },
                 {
+                  id: "category04",
                   bg: "#ffb6b9",
                   label: "Cosmetics",
                   link: "Cosmetics",
@@ -369,6 +373,7 @@ export default class homeScreen extends Component {
                   text: "#fff",
                 },
                 {
+                  id: "category05",
                   bg: "#61b292",
                   label: "Medicine",
                   link: "Medicine",
@@ -376,6 +381,7 @@ export default class homeScreen extends Component {
                   text: "#fff",
                 },
                 {
+                  id: "category06",
                   bg: "#404969",
                   label: "Others",
                   link: "Others",
@@ -383,6 +389,7 @@ export default class homeScreen extends Component {
                   text: "#fff",
                 },
                 {
+                  id: "category07",
                   bg: "#ff7f5b",
                   label: "Archive",
                   link: "Archive",
@@ -391,7 +398,7 @@ export default class homeScreen extends Component {
                 },
               ].map((category) => {
                 return (
-                  <View style={styles.fixedBox} key={category.label}>
+                  <View style={styles.fixedBox} key={category.id}>
                     <TouchableOpacity
                       style={[
                         styles.box,
@@ -468,8 +475,7 @@ const styles = StyleSheet.create({
   fixedBox: {
     width: widthPercentageToDP(40),
     aspectRatio: 1,
-    paddingVertical: 5,
-    paddingHorizontal: 5,
+    padding: 5,
   },
   box: {
     width: "100%",
@@ -535,7 +541,7 @@ const styles = StyleSheet.create({
     width: widthPercentageToDP(35),
   },
   btn: {
-    padding: 10,
+    padding: 8,
     width: "100%",
     borderRadius: 10,
     borderWidth: 2,

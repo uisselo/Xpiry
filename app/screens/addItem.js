@@ -51,16 +51,21 @@ export default class addItem extends Component {
     if (
       itemName == null ||
       (itemName == "" && itemCategory == null) ||
-      (itemCategory == "" && itemQty == 0)
+      itemCategory == "" ||
+      itemQty == 0
     ) {
-      Alert.alert("Failed", "Please fill all input fields.", [
-        {
-          text: "OK",
-          onPress: () => {
-            console.log("Alert closed.");
+      Alert.alert(
+        "Failed",
+        "Please fill all input fields. Quantity cannot be zero (0).",
+        [
+          {
+            text: "OK",
+            onPress: () => {
+              console.log("Alert closed.");
+            },
           },
-        },
-      ]);
+        ]
+      );
     } else {
       if (this._isMounted) {
         const item = {
@@ -70,6 +75,7 @@ export default class addItem extends Component {
           expiryDate: itemExpirationDate,
           barcodeNumber: itemBarcode,
           quantity: itemQty,
+          consumedQty: 0,
           fromUser: db.doc("Users/" + firebase.auth().currentUser.uid),
           isArchived: false,
         };
@@ -291,7 +297,7 @@ const styles = StyleSheet.create({
     width: widthPercentageToDP(40),
   },
   btn: {
-    padding: 10,
+    padding: 8,
     width: "100%",
     borderRadius: 10,
     borderWidth: 2,

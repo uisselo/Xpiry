@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     fontSize: widthPercentageToDP(5),
   },
   btn: {
-    padding: 20,
+    padding: 8,
     borderRadius: 10,
     borderWidth: 2,
     justifyContent: "center",

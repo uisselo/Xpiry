@@ -16,11 +16,15 @@ export default class about extends Component {
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
           <View style={{ width: widthPercentageToDP(80) }}>
-            <Text style={styles.header}>About</Text>
+            <Text style={styles.header}>About Xpiry</Text>
             <Text style={styles.baseText}>
-              Xpiry is an expiration date tracker application for food and drug
-              products. The application also has informative articles concerning
-              expired products and its effects to people when consumed.
+              Xpiry is an expiration date tracker application for a variety of
+              products. Additional features of the application include an
+              inventory management system for your products, and informative
+              articles concerning expired products and its effects to people
+              when consumed. {"\n\n"}
+              This application was created for a capstone project of Information
+              Technology students from University of Santo Tomas.
             </Text>
           </View>
         </View>
@@ -44,9 +48,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   baseText: {
-    fontSize: widthPercentageToDP(4.5),
+    fontSize: widthPercentageToDP(4),
     fontFamily: "Nunito-Regular",
     lineHeight: 30,
-    textAlign: "justify"
+    textAlign: "justify",
   },
 });

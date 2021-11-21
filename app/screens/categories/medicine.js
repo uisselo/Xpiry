@@ -76,6 +76,7 @@ export default class medicine extends Component {
             expiryDate: ed,
             barcode: data.barcodeNumber,
             quantity: data.quantity,
+            consumedQuantity: data.consumedQty,
           });
         }
       });

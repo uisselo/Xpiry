@@ -47,11 +47,7 @@ export default class settings extends Component {
             onPress={() => this.props.navigation.navigate("About")}
           >
             <View style={styles.row}>
-              <Icon
-                name="help-circle"
-                size={widthPercentageToDP(5)}
-                color="#000"
-              />
+              <Icon name="info" size={widthPercentageToDP(5)} color="#000" />
               <Text style={[styles.baseText, styles.linkLabel]}>About</Text>
               <View style={styles.icon}>
                 <Icon

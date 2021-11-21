@@ -12,10 +12,13 @@ import {
   widthPercentageToDP,
   heightPercentageToDP,
 } from "react-native-responsive-screen";
+import SelectCategory from "react-native-picker-select";
+import { ProgressBar } from "react-native-paper";
 import Modal from "react-native-modal";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import DatePicker from "react-native-modal-datetime-picker";
 import NumericInput from "react-native-numeric-input";
+import moment from "moment";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { db } from "../db/config";
@@ -27,11 +30,14 @@ export default class item extends Component {
     const { item } = this.props.route.params;
     this.state = {
       itemName: item.name,
+      itemCategory: item.category,
       itemExpirationDate: new Date(item.expiryDate),
       itemQty: item.quantity,
+      itemConsumedQty: item.consumedQuantity,
       itemBarcode: item.barcode,
       datePickerVisible: false,
-      modalVisible: false,
+      editModalVisible: false,
+      consumeModalVisible: false,
     };
     _isMounted = false;
   }
@@ -44,39 +50,75 @@ export default class item extends Component {
     this._isMounted = false;
   }
 
-  onSave() {
-    const { itemName, itemExpirationDate, itemQty, itemBarcode } = this.state;
+  onConsume() {
     if (this._isMounted) {
       firebase
         .firestore()
         .collection("Items")
         .doc(this.props.route.params.item.id)
         .update({
-          itemName: itemName,
-          expiryDate: itemExpirationDate,
-          quantity: itemQty,
-          barcodeNumber: itemBarcode,
+          consumedQty: this.state.itemConsumedQty,
         })
         .then(() => {
           this.setState({
-            itemName: itemName,
-            itemQty: itemQty,
-            itemBarcode: itemBarcode,
+            itemConsumedQty: this.state.itemConsumedQty,
           });
+          this.setState({ consumeModalVisible: false });
           console.log("Item successfully updated!");
-          Alert.alert("Success", "Item successfully updated.", [
-            {
-              text: "OK",
-              onPress: () => {
-                console.log("Alert closed.");
-                this.setState({ modalVisible: false });
-              },
-            },
-          ]);
         })
         .catch((err) => {
           console.log(err);
         });
+    }
+  }
+
+  onSave() {
+    const { itemName, itemCategory, itemExpirationDate, itemQty, itemBarcode } =
+      this.state;
+    if (itemQty == 0) {
+      Alert.alert("Failed", "Quantity cannot be zero (0).", [
+        {
+          text: "OK",
+          onPress: () => {
+            console.log("Alert closed.");
+          },
+        },
+      ]);
+    } else {
+      if (this._isMounted) {
+        firebase
+          .firestore()
+          .collection("Items")
+          .doc(this.props.route.params.item.id)
+          .update({
+            itemName: itemName,
+            itemCategory: itemCategory,
+            expiryDate: itemExpirationDate,
+            quantity: itemQty,
+            barcodeNumber: itemBarcode,
+          })
+          .then(() => {
+            this.setState({
+              itemName: itemName,
+              itemCategory: itemCategory,
+              itemQty: itemQty,
+              itemBarcode: itemBarcode,
+            });
+            console.log("Item successfully updated!");
+            Alert.alert("Success", "Item successfully updated.", [
+              {
+                text: "OK",
+                onPress: () => {
+                  console.log("Alert closed.");
+                  this.setState({ editModalVisible: false });
+                },
+              },
+            ]);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     }
   }
 
@@ -113,8 +155,8 @@ export default class item extends Component {
           <Modal // update item modal
             hasBackdrop={true}
             backdropColor="#000"
-            onBackdropPress={() => this.setState({ modalVisible: false })}
-            isVisible={this.state.modalVisible}
+            onBackdropPress={() => this.setState({ editModalVisible: false })}
+            isVisible={this.state.editModalVisible}
             statusBarTranslucent
           >
             <View style={styles.modal}>
@@ -137,6 +179,36 @@ export default class item extends Component {
                   onChangeText={(itemName) => this.setState({ itemName })}
                   placeholder={item.name}
                 />
+                <Text style={[styles.baseText, { marginVertical: 5 }]}>
+                  Item Category
+                </Text>
+                <View style={styles.input}>
+                  <SelectCategory
+                    style={{
+                      inputAndroid: {
+                        color: "black",
+                        fontFamily: "Nunito-Regular",
+                        fontSize: widthPercentageToDP(3.75),
+                      },
+                      inputIOS: {
+                        fontFamily: "Nunito-Regular",
+                        fontSize: widthPercentageToDP(3.75),
+                      },
+                    }}
+                    useNativeAndroidPickerStyle={false}
+                    value={this.state.itemCategory}
+                    onValueChange={(itemCategory) =>
+                      this.setState({ itemCategory })
+                    }
+                    placeholder={{ label: "Choose Category", value: null }}
+                    items={[
+                      { label: "Food", value: "Food" },
+                      { label: "Cosmetics", value: "Cosmetics" },
+                      { label: "Medicine", value: "Medicine" },
+                      { label: "Other", value: "Other" },
+                    ]}
+                  />
+                </View>
                 <Text style={[styles.baseText, { marginVertical: 5 }]}>
                   Expiration Date
                 </Text>
@@ -211,7 +283,7 @@ export default class item extends Component {
                         styles.btnModal,
                         { borderColor: "#ea4c4c", backgroundColor: "#fff" },
                       ]}
-                      onPress={() => this.setState({ modalVisible: false })}
+                      onPress={() => this.setState({ editModalVisible: false })}
                     >
                       <Text
                         style={[
@@ -249,6 +321,72 @@ export default class item extends Component {
               </View>
             </View>
           </Modal>
+          <Modal // condume modal
+            hasBackdrop={true}
+            backdropColor="#000"
+            onBackdropPress={() =>
+              this.setState({ consumeModalVisible: false })
+            }
+            isVisible={this.state.consumeModalVisible}
+            statusBarTranslucent
+          >
+            <View style={[styles.modal, { width: widthPercentageToDP(60) }]}>
+              <View style={{ width: widthPercentageToDP(50) }}>
+                <NumericInput
+                  value={this.state.itemConsumedQty}
+                  onChange={(itemConsumedQty) =>
+                    this.setState({ itemConsumedQty })
+                  }
+                  onLimitReached={(isMax, msg) => console.log(isMax, msg)}
+                  minValue={0}
+                  maxValue={this.state.itemQty}
+                  totalWidth={widthPercentageToDP(50)}
+                  totalHeight={40}
+                  iconSize={25}
+                  step={1}
+                  valueType="real"
+                  rounded
+                  textColor="#000"
+                  borderColor="#fff"
+                  containerStyle={styles.input}
+                  inputStyle={[
+                    styles.baseText,
+                    {
+                      backgroundColor: "#fff",
+                      alignSelf: "center",
+                    },
+                  ]}
+                  iconStyle={{
+                    color: "#fff",
+                  }}
+                  rightButtonBackgroundColor="#ea4c4c"
+                  leftButtonBackgroundColor="#ea4c4c"
+                />
+                <TouchableOpacity
+                  style={[
+                    styles.btn,
+                    {
+                      borderColor: "#ea4c4c",
+                      backgroundColor: "#ea4c4c",
+                      marginTop: 10,
+                    },
+                  ]}
+                  onPress={() => this.onConsume()}
+                >
+                  <Text
+                    style={[
+                      styles.baseText,
+                      {
+                        color: "#fff",
+                      },
+                    ]}
+                  >
+                    Finish
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
 
           <View style={styles.header}>
             <Text
@@ -271,21 +409,42 @@ export default class item extends Component {
               {this.state.itemName}
             </Text>
             <Text style={[styles.baseText, styles.qty]}>
-              {this.state.itemQty}
-              {item.quantity === 0
-                ? ""
-                : item.quantity > 1
-                ? " Items"
-                : " Item"}
+              {this.state.itemQty - this.state.itemConsumedQty}
+              {this.state.itemQty - this.state.itemConsumedQty === 0
+                ? null
+                : this.state.itemQty - this.state.itemConsumedQty > 1
+                ? " Items Left"
+                : " Item Left"}
             </Text>
             <Text
               style={[styles.baseText, { fontSize: widthPercentageToDP(5) }]}
             >
-              {item.category}
+              {this.state.itemCategory}
             </Text>
-            <Text style={[styles.baseText, { color: "#ea4c4c" }]}>
-              Expires on {item.expiryDate}
-            </Text>
+            {moment(item.expiryDate, "DD-MMM-YYYY").isSameOrBefore(
+              Date.now(),
+              "D"
+            ) ? (
+              <Text style={[styles.baseText, { color: "#ea4c4c" }]}>
+                Expired on {item.expiryDate}{" "}
+                {moment(item.expiryDate, "DD-MMM-YYYY").isSame(
+                  Date.now(),
+                  "D"
+                ) ? (
+                  <Text style={[styles.baseText, styles.smallText]}>
+                    (Today)
+                  </Text>
+                ) : (
+                  <Text style={[styles.baseText, styles.smallText]}>
+                    ({moment(item.expiryDate, "DD-MMM-YYYY").fromNow()})
+                  </Text>
+                )}
+              </Text>
+            ) : (
+              <Text style={[styles.baseText, { color: "#ea4c4c" }]}>
+                Expires on {item.expiryDate}
+              </Text>
+            )}
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback style={styles.box}>
             <Text
@@ -299,6 +458,63 @@ export default class item extends Component {
               Barcode Number
             </Text>
           </TouchableWithoutFeedback>
+          <TouchableOpacity style={styles.box}>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text
+                style={[
+                  styles.baseText,
+                  { fontSize: widthPercentageToDP(5), alignSelf: "center" },
+                ]}
+              >
+                Items
+              </Text>
+              <Text
+                style={[
+                  styles.baseText,
+                  styles.smallText,
+                  { alignSelf: "center" },
+                ]}
+              >
+                {this.state.itemConsumedQty} of {this.state.itemQty} Consumed
+              </Text>
+            </View>
+            <ProgressBar
+              progress={this.state.itemConsumedQty / this.state.itemQty}
+              color={"#ea4c4c"}
+              style={{ marginVertical: 20 }}
+            />
+            <TouchableOpacity
+              style={[
+                styles.btn,
+                { borderColor: "#ea4c4c", backgroundColor: "#ea4c4c" },
+              ]}
+              onPress={() => this.setState({ consumeModalVisible: true })}
+            >
+              <Text
+                style={[
+                  styles.baseText,
+                  {
+                    color: "#fff",
+                  },
+                ]}
+              >
+                Consume
+              </Text>
+            </TouchableOpacity>
+            {moment(item.expiryDate, "DD-MMM-YYYY").isSameOrBefore(
+              Date.now(),
+              "D"
+            ) ? (
+              <Text
+                style={[styles.baseText, styles.smallText, { marginTop: 10 }]}
+              >
+                Attention! This product has reached its expiration date. Further
+                consumption is not recommended.
+              </Text>
+            ) : null}
+          </TouchableOpacity>
           <View style={{ flexDirection: "row", marginTop: 10 }}>
             <View style={[styles.fixedBtn, { paddingRight: 5 }]}>
               <TouchableOpacity
@@ -306,7 +522,7 @@ export default class item extends Component {
                   styles.btn,
                   { borderColor: "#ea4c4c", backgroundColor: "#fff" },
                 ]}
-                onPress={() => this.setState({ modalVisible: true })}
+                onPress={() => this.setState({ editModalVisible: true })}
               >
                 <Text
                   style={[
@@ -409,6 +625,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: "hidden",
   },
+  progress: {
+    position: "absolute",
+    top: 25,
+    right: 20,
+  },
+  smallText: {
+    color: "#555",
+    fontSize: widthPercentageToDP(2.75),
+    textTransform: "uppercase",
+    letterSpacing: 0.5,
+    paddingTop: 2,
+  },
   input: {
     borderRadius: 10,
     padding: 10,
@@ -428,7 +656,7 @@ const styles = StyleSheet.create({
     width: widthPercentageToDP(40),
   },
   btn: {
-    padding: 10,
+    padding: 8,
     width: "100%",
     borderRadius: 10,
     borderWidth: 2,
@@ -439,7 +667,7 @@ const styles = StyleSheet.create({
     width: widthPercentageToDP(35),
   },
   btnModal: {
-    padding: 10,
+    padding: 8,
     width: "100%",
     borderRadius: 10,
     borderWidth: 2,

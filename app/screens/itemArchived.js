@@ -12,10 +12,11 @@ import {
   widthPercentageToDP,
   heightPercentageToDP,
 } from "react-native-responsive-screen";
+import { ProgressBar } from "react-native-paper";
 import Modal from "react-native-modal";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import DatePicker from "react-native-modal-datetime-picker";
 import NumericInput from "react-native-numeric-input";
+import moment from "moment";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { db } from "../db/config";
@@ -29,8 +30,8 @@ export default class item extends Component {
       itemName: item.name,
       itemExpirationDate: new Date(item.expiryDate),
       itemQty: item.quantity,
+      itemConsumedQty: item.consumedQuantity,
       itemBarcode: item.barcode,
-      datePickerVisible: false,
       modalVisible: false,
     };
     _isMounted = false;
@@ -88,6 +89,7 @@ export default class item extends Component {
             this.onDelete();
             this.props.navigation.goBack();
           },
+          style: "destructive",
         },
       ]
     );
@@ -144,21 +146,42 @@ export default class item extends Component {
               {this.state.itemName}
             </Text>
             <Text style={[styles.baseText, styles.qty]}>
-              {this.state.itemQty}
-              {item.quantity === 0
-                ? ""
-                : item.quantity > 1
-                ? " Items"
-                : " Item"}
+              {this.state.itemQty - this.state.itemConsumedQty}
+              {this.state.itemQty - this.state.itemConsumedQty === 0
+                ? null
+                : this.state.itemQty - this.state.itemConsumedQty > 1
+                ? " Items Left"
+                : " Item Left"}
             </Text>
             <Text
               style={[styles.baseText, { fontSize: widthPercentageToDP(5) }]}
             >
               {item.category}
             </Text>
-            <Text style={[styles.baseText, { color: "#ea4c4c" }]}>
-              Expires on {item.expiryDate}
-            </Text>
+            {moment(item.expiryDate, "DD-MMM-YYYY").isSameOrBefore(
+              Date.now(),
+              "D"
+            ) ? (
+              <Text style={[styles.baseText, { color: "#ea4c4c" }]}>
+                Expired on {item.expiryDate}{" "}
+                {moment(item.expiryDate, "DD-MMM-YYYY").isSame(
+                  Date.now(),
+                  "D"
+                ) ? (
+                  <Text style={[styles.baseText, styles.smallText]}>
+                    (Today)
+                  </Text>
+                ) : (
+                  <Text style={[styles.baseText, styles.smallText]}>
+                    ({moment(item.expiryDate, "DD-MMM-YYYY").fromNow(true)} Ago)
+                  </Text>
+                )}
+              </Text>
+            ) : (
+              <Text style={[styles.baseText, { color: "#ea4c4c" }]}>
+                Expires on {item.expiryDate}
+              </Text>
+            )}
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback style={styles.box}>
             <Text
@@ -171,6 +194,34 @@ export default class item extends Component {
             <Text style={[styles.baseText, { color: "#ea4c4c" }]}>
               Barcode Number
             </Text>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback style={styles.box}>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text
+                style={[
+                  styles.baseText,
+                  { fontSize: widthPercentageToDP(5), alignSelf: "center" },
+                ]}
+              >
+                Items
+              </Text>
+              <Text
+                style={[
+                  styles.baseText,
+                  styles.smallText,
+                  { alignSelf: "center" },
+                ]}
+              >
+                {this.state.itemConsumedQty} of {this.state.itemQty} Consumed
+              </Text>
+            </View>
+            <ProgressBar
+              progress={this.state.itemConsumedQty / this.state.itemQty}
+              color={"#ea4c4c"}
+              style={{ marginTop: 20 }}
+            />
           </TouchableWithoutFeedback>
           <View style={{ flexDirection: "row", marginTop: 10 }}>
             <View style={[styles.fixedBtn, { paddingRight: 5 }]}>
@@ -281,6 +332,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 10,
     overflow: "hidden",
+  },
+  smallText: {
+    color: "#555",
+    fontSize: widthPercentageToDP(2.75),
+    textTransform: "uppercase",
+    letterSpacing: 0.5,
+    paddingTop: 2,
   },
   input: {
     borderRadius: 10,

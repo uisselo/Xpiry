@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   btn: {
-    padding: 10,
+    padding: 8,
     width: "100%",
     borderRadius: 10,
     borderWidth: 2,
