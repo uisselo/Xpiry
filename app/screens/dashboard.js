@@ -750,11 +750,11 @@ export default class dashboard extends Component {
               id: "data04",
               link: { IWEWModalVisible: true },
               colors: ["#58cced", "#3895d3", "#1261a0"],
-              time: "This Month",
+              time: "This Week",
               data: this.state.items.filter((item) =>
                 moment(item.expiryDate, "DD-MMM-YYYY").isSame(Date.now(), "W")
               ).length,
-              label: "Expired Items",
+              label: "Expiring Items",
             },
           ].map((data) => {
             return (
@@ -879,7 +879,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 5,
   },
   dataTime: {
-    fontSize: widthPercentageToDP(3.75),
+    fontSize: widthPercentageToDP(3.5),
     fontFamily: "Nunito-Bold",
     textTransform: "uppercase",
     color: "#fff",
